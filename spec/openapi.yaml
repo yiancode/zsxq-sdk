@@ -1,0 +1,566 @@
+openapi: 3.0.3
+info:
+  title: 知识星球 SDK API
+  version: 1.0.0
+  description: |
+    知识星球非官方 SDK API 规范
+
+    ## 认证
+    所有请求需要以下 Header：
+    - `authorization`: 用户 Token
+    - `x-timestamp`: Unix 时间戳
+    - `x-signature`: 请求签名 (HMAC-SHA1)
+    - `x-version`: App 版本号
+
+servers:
+  - url: https://api.zsxq.com
+    description: 知识星球 API 服务器
+
+tags:
+  - name: Users
+    description: 用户相关 API
+  - name: Groups
+    description: 星球相关 API
+  - name: Topics
+    description: 话题相关 API
+  - name: Checkins
+    description: 打卡相关 API
+  - name: Dashboard
+    description: 数据面板 API
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      in: header
+      name: authorization
+      description: 用户认证 Token
+    signatureAuth:
+      type: apiKey
+      in: header
+      name: x-signature
+      description: 请求签名
+
+  schemas:
+    # 基础响应
+    BaseResponse:
+      type: object
+      properties:
+        succeeded:
+          type: boolean
+        code:
+          type: integer
+        error:
+          type: string
+
+    # 用户模型
+    User:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          description: 用户 ID
+        name:
+          type: string
+          description: 用户昵称
+        avatar_url:
+          type: string
+          description: 头像 URL
+        location:
+          type: string
+          description: 所在地
+        introduction:
+          type: string
+          description: 个人介绍
+      required:
+        - user_id
+        - name
+        - avatar_url
+
+    # 星球模型
+    Group:
+      type: object
+      properties:
+        group_id:
+          type: integer
+          description: 星球 ID
+        name:
+          type: string
+          description: 星球名称
+        description:
+          type: string
+          description: 星球描述
+        background_url:
+          type: string
+          description: 背景图 URL
+        type:
+          type: string
+          enum: [free, pay]
+          description: 星球类型
+        member_count:
+          type: integer
+          description: 成员数量
+        owner:
+          $ref: '#/components/schemas/User'
+        create_time:
+          type: string
+          format: date-time
+      required:
+        - group_id
+        - name
+        - type
+
+    # 话题模型
+    Topic:
+      type: object
+      properties:
+        topic_id:
+          type: integer
+          description: 话题 ID
+        topic_uid:
+          type: string
+          description: 话题唯一标识
+        group:
+          $ref: '#/components/schemas/Group'
+        type:
+          type: string
+          enum: [talk, task, q&a, solution]
+          description: 话题类型
+        create_time:
+          type: string
+          format: date-time
+        talk:
+          $ref: '#/components/schemas/TalkContent'
+        likes_count:
+          type: integer
+        comments_count:
+          type: integer
+        digested:
+          type: boolean
+          description: 是否精华
+        sticky:
+          type: boolean
+          description: 是否置顶
+      required:
+        - topic_id
+        - type
+        - create_time
+
+    TalkContent:
+      type: object
+      properties:
+        owner:
+          $ref: '#/components/schemas/User'
+        text:
+          type: string
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+
+    Image:
+      type: object
+      properties:
+        image_id:
+          type: integer
+        original:
+          type: object
+          properties:
+            url:
+              type: string
+            width:
+              type: integer
+            height:
+              type: integer
+
+    # 打卡模型
+    Checkin:
+      type: object
+      properties:
+        checkin_id:
+          type: integer
+          description: 打卡项目 ID
+        name:
+          type: string
+          description: 打卡名称
+        description:
+          type: string
+        cover_url:
+          type: string
+        status:
+          type: string
+          enum: [ongoing, closed, over]
+        begin_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+      required:
+        - checkin_id
+        - name
+        - status
+
+    # 分页响应
+    PaginatedTopics:
+      type: object
+      properties:
+        topics:
+          type: array
+          items:
+            $ref: '#/components/schemas/Topic'
+
+    PaginatedGroups:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
+
+  parameters:
+    groupId:
+      name: group_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: 星球 ID
+
+    topicId:
+      name: topic_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: 话题 ID
+
+    userId:
+      name: user_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: 用户 ID
+
+    checkinId:
+      name: checkin_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: 打卡项目 ID
+
+    count:
+      name: count
+      in: query
+      schema:
+        type: integer
+        default: 20
+      description: 返回数量
+
+    scope:
+      name: scope
+      in: query
+      schema:
+        type: string
+        enum: [all, digests, by_owner]
+      description: 查询范围
+
+security:
+  - bearerAuth: []
+    signatureAuth: []
+
+paths:
+  # ========== Users ==========
+  /v3/users/self:
+    get:
+      tags: [Users]
+      operationId: getUserSelf
+      summary: 获取当前用户信息
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      resp_data:
+                        $ref: '#/components/schemas/User'
+
+  /v3/users/{user_id}:
+    get:
+      tags: [Users]
+      operationId: getUser
+      summary: 获取指定用户信息
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      resp_data:
+                        $ref: '#/components/schemas/User'
+
+  /v3/users/{user_id}/statistics:
+    get:
+      tags: [Users]
+      operationId: getUserStatistics
+      summary: 获取用户统计数据
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      responses:
+        '200':
+          description: 成功
+
+  # ========== Groups ==========
+  /v2/groups:
+    get:
+      tags: [Groups]
+      operationId: listGroups
+      summary: 获取我的星球列表
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      resp_data:
+                        $ref: '#/components/schemas/PaginatedGroups'
+
+  /v2/groups/{group_id}:
+    get:
+      tags: [Groups]
+      operationId: getGroup
+      summary: 获取星球详情
+      parameters:
+        - $ref: '#/components/parameters/groupId'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      resp_data:
+                        type: object
+                        properties:
+                          group:
+                            $ref: '#/components/schemas/Group'
+
+  /v2/groups/{group_id}/hashtags:
+    get:
+      tags: [Groups]
+      operationId: getGroupHashtags
+      summary: 获取星球标签
+      parameters:
+        - $ref: '#/components/parameters/groupId'
+      responses:
+        '200':
+          description: 成功
+
+  /v2/groups/{group_id}/statistics:
+    get:
+      tags: [Groups]
+      operationId: getGroupStatistics
+      summary: 获取星球统计
+      parameters:
+        - $ref: '#/components/parameters/groupId'
+      responses:
+        '200':
+          description: 成功
+
+  /v2/groups/{group_id}/members/{member_id}:
+    get:
+      tags: [Groups]
+      operationId: getGroupMember
+      summary: 获取成员信息
+      parameters:
+        - $ref: '#/components/parameters/groupId'
+        - name: member_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 成功
+
+  # ========== Topics ==========
+  /v2/groups/{group_id}/topics:
+    get:
+      tags: [Topics]
+      operationId: listTopics
+      summary: 获取话题列表
+      parameters:
+        - $ref: '#/components/parameters/groupId'
+        - $ref: '#/components/parameters/count'
+        - $ref: '#/components/parameters/scope'
+        - name: direction
+          in: query
+          schema:
+            type: string
+            enum: [forward, backward]
+        - name: begin_time
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: end_time
+          in: query
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      resp_data:
+                        $ref: '#/components/schemas/PaginatedTopics'
+
+  /v2/topics/{topic_id}:
+    get:
+      tags: [Topics]
+      operationId: getTopic
+      summary: 获取话题详情
+      parameters:
+        - $ref: '#/components/parameters/topicId'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      resp_data:
+                        type: object
+                        properties:
+                          topic:
+                            $ref: '#/components/schemas/Topic'
+
+  /v2/topics/{topic_id}/comments:
+    get:
+      tags: [Topics]
+      operationId: getTopicComments
+      summary: 获取话题评论
+      parameters:
+        - $ref: '#/components/parameters/topicId'
+        - $ref: '#/components/parameters/count'
+        - name: sort
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+      responses:
+        '200':
+          description: 成功
+
+  # ========== Checkins ==========
+  /v2/groups/{group_id}/checkins:
+    get:
+      tags: [Checkins]
+      operationId: listCheckins
+      summary: 获取打卡项目列表
+      parameters:
+        - $ref: '#/components/parameters/groupId'
+        - name: scope
+          in: query
+          schema:
+            type: string
+            enum: [ongoing, closed, over]
+      responses:
+        '200':
+          description: 成功
+
+  /v2/groups/{group_id}/checkins/{checkin_id}:
+    get:
+      tags: [Checkins]
+      operationId: getCheckin
+      summary: 获取打卡项目详情
+      parameters:
+        - $ref: '#/components/parameters/groupId'
+        - $ref: '#/components/parameters/checkinId'
+      responses:
+        '200':
+          description: 成功
+
+  /v2/groups/{group_id}/checkins/{checkin_id}/statistics:
+    get:
+      tags: [Checkins]
+      operationId: getCheckinStatistics
+      summary: 获取打卡统计
+      parameters:
+        - $ref: '#/components/parameters/groupId'
+        - $ref: '#/components/parameters/checkinId'
+      responses:
+        '200':
+          description: 成功
+
+  /v2/groups/{group_id}/checkins/{checkin_id}/ranking_list:
+    get:
+      tags: [Checkins]
+      operationId: getCheckinRankingList
+      summary: 获取打卡排行榜
+      parameters:
+        - $ref: '#/components/parameters/groupId'
+        - $ref: '#/components/parameters/checkinId'
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [continuous, accumulated]
+        - name: index
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 成功
+
+  # ========== Dashboard ==========
+  /v2/dashboard/groups/{group_id}/overview:
+    get:
+      tags: [Dashboard]
+      operationId: getDashboardOverview
+      summary: 获取星球概览
+      parameters:
+        - $ref: '#/components/parameters/groupId'
+      responses:
+        '200':
+          description: 成功
+
+  /v2/dashboard/groups/{group_id}/incomes/overview:
+    get:
+      tags: [Dashboard]
+      operationId: getDashboardIncomes
+      summary: 获取收入概览
+      parameters:
+        - $ref: '#/components/parameters/groupId'
+      responses:
+        '200':
+          description: 成功

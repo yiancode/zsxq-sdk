@@ -4,138 +4,126 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 项目简介
 
-zsxq-sdk - 知识星球 TypeScript SDK，提供类型安全的 API 封装。
+zsxq-sdk - 知识星球多语言 SDK Monorepo，提供类型安全的 API 封装。
 
-## 项目定位
+## 项目结构
 
-这是一个 **SDK 项目**，不是 REST API 服务。核心目标是：
-- 封装知识星球原生 API
-- 提供类型安全的 TypeScript 接口
-- 支持 NestJS 依赖注入（可选）
+```
+zsxq-sdk/
+├── spec/                        # API 规范（SSOT）
+│   ├── openapi.yaml             # OpenAPI 3.0 规范
+│   ├── errors/error-codes.yaml  # 错误码定义
+│   └── sdk-design/              # SDK 设计规范
+├── packages/
+│   ├── typescript/              # TypeScript SDK
+│   │   ├── src/
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   └── java/                    # Java SDK
+│       ├── src/main/java/
+│       └── pom.xml
+└── docs/                        # 通用文档
+```
 
 ## 常用命令
 
+### TypeScript SDK
+
 ```bash
-# 开发
-npm run start:dev         # 开发模式（热重载）
+cd packages/typescript
+npm install               # 安装依赖
 npm run build             # 构建
-
-# 代码质量
-npm run lint              # ESLint 检查
-npm run format            # Prettier 格式化
-
-# 测试
-npm run test              # 单元测试
-npm run test:watch        # 监听模式
-npm run test:cov          # 覆盖率报告
+npm run test              # 测试
+npm run lint              # 代码检查
 ```
 
-## SDK 架构
+### Java SDK
+
+```bash
+cd packages/java
+mvn compile               # 编译
+mvn test                  # 测试
+mvn package               # 打包
+mvn install               # 安装到本地仓库
+```
+
+## SDK 统一架构
+
+所有语言 SDK 遵循相同设计：
 
 ```
 ZsxqClient (门面)
-├── GroupsRequest      → /v2/groups/*
-├── TopicsRequest      → /v2/topics/*
-├── UsersRequest       → /v3/users/*
-├── CheckinsRequest    → /v2/groups/*/checkins/*
-└── HttpClient         → 底层 HTTP 请求
+├── groups      → 星球管理 (/v2/groups/*)
+├── topics      → 话题管理 (/v2/topics/*)
+├── users       → 用户管理 (/v3/users/*)
+├── checkins    → 打卡管理 (/v2/groups/*/checkins/*)
+└── dashboard   → 数据面板 (/v2/dashboard/*)
 ```
 
 ### 核心组件
 
 - **ZsxqClient** - SDK 门面类，聚合所有 Request 模块
 - **ZsxqClientBuilder** - Builder 模式构建客户端
-- **HttpClient** - 底层 HTTP 客户端（重试、错误处理）
+- **HttpClient** - 底层 HTTP 客户端（重试、签名）
 - **Request 模块** - 各功能域的 API 封装
-- **NestJS 模块** - 可选的依赖注入支持
 
 ### 异常层次
 
 ```
 ZsxqException (基类)
-├── NetworkException        # 网络错误
-├── AuthException          # 认证错误
+├── AuthException           # 认证错误 (1xxxx)
 │   ├── TokenInvalidException
 │   └── TokenExpiredException
-├── RateLimitException     # 频率限制
-├── PermissionException    # 权限不足
-└── ResourceNotFoundException  # 资源不存在
+├── PermissionException     # 权限错误 (2xxxx)
+├── ResourceNotFoundException  # 资源不存在 (3xxxx)
+├── RateLimitException      # 限流 (4xxxx)
+└── NetworkException        # 网络错误 (7xxxx)
 ```
 
-## 文档结构
+## SSOT 原则
 
-```
-docs/
-├── README.md              # 文档首页
-├── design/                # 设计文档 (SSOT)
-│   ├── api-mapping.md     # SDK → API 映射（权威来源）
-│   ├── architecture.md    # SDK 架构设计
-│   └── error-codes.md     # 错误码定义（权威来源）
-├── api/                   # API 参考文档
-│   ├── client.md          # 客户端 API
-│   ├── group.md           # 星球 API
-│   ├── topic.md           # 话题 API
-│   ├── user.md            # 用户 API
-│   └── checkin.md         # 打卡 API
-├── guides/                # 使用指南
-│   ├── quick-start.md     # 快速开始
-│   ├── authentication.md  # 认证指南
-│   ├── error-handling.md  # 错误处理
-│   └── nestjs-integration.md # NestJS 集成
-├── reference/             # 参考文档
-│   └── native-api.md      # 原生 API 参考（118 个端点）
-└── archive/               # 归档文档
-    └── v0.1/              # 旧版文档
-```
-
-### SSOT 原则
-
-- **API 映射**: 只在 `design/api-mapping.md` 定义
-- **错误码**: 只在 `design/error-codes.md` 定义
-- 其他文档通过链接引用，不复制内容
+- **API 规范**: `spec/openapi.yaml`
+- **错误码**: `spec/errors/error-codes.yaml`
+- **SDK 设计**: `spec/sdk-design/`
+- 各语言 SDK 实现必须遵循规范
 
 ## 开发规范
 
 ### 代码风格
 
+**TypeScript**:
 ```typescript
-// 使用 Builder 模式
 const client = new ZsxqClientBuilder()
   .setToken(token)
   .setTimeout(10000)
   .build();
 
-// 类型安全的 API 调用
-const groups: Group[] = await client.groups.list();
-const topic: Topic = await client.topics.get(topicId);
+const groups = await client.groups.list();
 ```
 
-### 错误处理
+**Java**:
+```java
+ZsxqClient client = new ZsxqClientBuilder()
+    .token(token)
+    .timeout(10000)
+    .build();
 
-```typescript
-try {
-  const data = await client.groups.list();
-} catch (error) {
-  if (error instanceof TokenExpiredException) {
-    // 处理 Token 过期
-  } else if (error instanceof ZsxqException) {
-    // 处理其他 SDK 错误
-  }
-}
+List<Group> groups = client.groups().list();
 ```
 
-### 测试
+### 新增 API 流程
 
-- 单元测试使用 Jest
-- Mock 知识星球 API 响应
-- 测试文件与源文件同目录，命名为 `*.spec.ts`
+1. 更新 `spec/openapi.yaml` 添加端点定义
+2. 更新 `spec/errors/error-codes.yaml`（如有新错误码）
+3. 在各语言 SDK 中实现对应方法
+4. 保持方法命名一致
 
 ## 环境变量
 
 ```bash
-ZSXQ_TOKEN=xxx           # 知识星球 Token
-ZSXQ_TIMEOUT=10000       # 请求超时（毫秒）
-ZSXQ_RETRY=3             # 重试次数
+ZSXQ_TOKEN=xxx              # 知识星球 Token
+ZSXQ_TIMEOUT=10000          # 请求超时（毫秒）
+ZSXQ_RETRY_COUNT=3          # 重试次数
 ```
 
 ## 知识星球 API
@@ -143,4 +131,4 @@ ZSXQ_RETRY=3             # 重试次数
 - **基础 URL**: `https://api.zsxq.com`
 - **认证头**: `authorization: <token>`
 - **签名头**: `x-timestamp`, `x-signature`
-- 详细 API 列表见 `docs/reference/native-api.md`
+- 详细规范见 `spec/openapi.yaml`

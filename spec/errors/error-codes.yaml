@@ -1,0 +1,220 @@
+# 错误码定义
+
+# 认证相关 (1xxxx)
+authentication:
+  10001:
+    name: TOKEN_INVALID
+    message: Token 无效
+    description: 提供的 Token 格式错误或不存在
+    exception: TokenInvalidException
+    http_status: 401
+
+  10002:
+    name: TOKEN_EXPIRED
+    message: Token 已过期
+    description: Token 已过期，需要重新登录获取
+    exception: TokenExpiredException
+    http_status: 401
+
+  10003:
+    name: SIGNATURE_INVALID
+    message: 签名验证失败
+    description: 请求签名不正确
+    exception: SignatureInvalidException
+    http_status: 401
+
+# 权限相关 (2xxxx)
+permission:
+  20001:
+    name: PERMISSION_DENIED
+    message: 权限不足
+    description: 当前用户没有执行此操作的权限
+    exception: PermissionException
+    http_status: 403
+
+  20002:
+    name: NOT_MEMBER
+    message: 非星球成员
+    description: 用户不是该星球的成员
+    exception: NotMemberException
+    http_status: 403
+
+  20003:
+    name: NOT_OWNER
+    message: 非星主
+    description: 此操作需要星主权限
+    exception: NotOwnerException
+    http_status: 403
+
+# 资源相关 (3xxxx)
+resource:
+  30001:
+    name: GROUP_NOT_FOUND
+    message: 星球不存在
+    description: 指定的星球 ID 不存在或已被删除
+    exception: GroupNotFoundException
+    http_status: 404
+
+  30002:
+    name: TOPIC_NOT_FOUND
+    message: 话题不存在
+    description: 指定的话题 ID 不存在或已被删除
+    exception: TopicNotFoundException
+    http_status: 404
+
+  30003:
+    name: USER_NOT_FOUND
+    message: 用户不存在
+    description: 指定的用户 ID 不存在
+    exception: UserNotFoundException
+    http_status: 404
+
+  30004:
+    name: CHECKIN_NOT_FOUND
+    message: 打卡项目不存在
+    description: 指定的打卡项目 ID 不存在
+    exception: CheckinNotFoundException
+    http_status: 404
+
+  30005:
+    name: COMMENT_NOT_FOUND
+    message: 评论不存在
+    description: 指定的评论 ID 不存在
+    exception: CommentNotFoundException
+    http_status: 404
+
+# 限流相关 (4xxxx)
+rate_limit:
+  40001:
+    name: RATE_LIMIT_EXCEEDED
+    message: 请求过于频繁
+    description: 超出 API 请求频率限制
+    exception: RateLimitException
+    http_status: 429
+
+  40002:
+    name: DAILY_LIMIT_EXCEEDED
+    message: 今日请求次数已达上限
+    description: 超出每日 API 请求限制
+    exception: DailyLimitException
+    http_status: 429
+
+# 业务相关 (5xxxx)
+business:
+  50001:
+    name: ALREADY_MEMBER
+    message: 已是星球成员
+    description: 用户已经是该星球的成员
+    exception: AlreadyMemberException
+    http_status: 400
+
+  50002:
+    name: ALREADY_LIKED
+    message: 已点赞
+    description: 用户已经对该内容点赞
+    exception: AlreadyLikedException
+    http_status: 400
+
+  52010:
+    name: NOT_JOINED_CHECKIN
+    message: 未参与打卡项目
+    description: 用户未报名参加该打卡任务
+    exception: NotJoinedCheckinException
+    http_status: 400
+
+  52011:
+    name: ALREADY_CHECKED_IN
+    message: 今日已打卡
+    description: 用户今日已完成打卡
+    exception: AlreadyCheckedInException
+    http_status: 400
+
+  52012:
+    name: CHECKIN_CLOSED
+    message: 打卡项目已关闭
+    description: 该打卡项目已结束或关闭
+    exception: CheckinClosedException
+    http_status: 400
+
+# 参数相关 (6xxxx)
+validation:
+  60001:
+    name: INVALID_PARAMETER
+    message: 参数错误
+    description: 请求参数格式或值不正确
+    exception: InvalidParameterException
+    http_status: 400
+
+  60002:
+    name: MISSING_PARAMETER
+    message: 缺少必要参数
+    description: 请求缺少必要的参数
+    exception: MissingParameterException
+    http_status: 400
+
+# 网络相关 (7xxxx)
+network:
+  70001:
+    name: NETWORK_ERROR
+    message: 网络错误
+    description: 网络连接失败或超时
+    exception: NetworkException
+    http_status: 0
+
+  70002:
+    name: TIMEOUT
+    message: 请求超时
+    description: 请求超过设定的超时时间
+    exception: TimeoutException
+    http_status: 0
+
+  70003:
+    name: SERVER_ERROR
+    message: 服务器错误
+    description: 知识星球服务器返回错误
+    exception: ServerErrorException
+    http_status: 500
+
+# 异常层次结构
+exception_hierarchy:
+  ZsxqException:
+    description: 所有 SDK 异常的基类
+    children:
+      - AuthException:
+          description: 认证相关异常
+          children:
+            - TokenInvalidException
+            - TokenExpiredException
+            - SignatureInvalidException
+      - PermissionException:
+          description: 权限相关异常
+          children:
+            - NotMemberException
+            - NotOwnerException
+      - ResourceNotFoundException:
+          description: 资源不存在异常
+          children:
+            - GroupNotFoundException
+            - TopicNotFoundException
+            - UserNotFoundException
+            - CheckinNotFoundException
+      - RateLimitException:
+          description: 限流异常
+          children:
+            - DailyLimitException
+      - BusinessException:
+          description: 业务逻辑异常
+          children:
+            - AlreadyMemberException
+            - NotJoinedCheckinException
+            - AlreadyCheckedInException
+      - ValidationException:
+          description: 参数验证异常
+          children:
+            - InvalidParameterException
+            - MissingParameterException
+      - NetworkException:
+          description: 网络异常
+          children:
+            - TimeoutException
+            - ServerErrorException
