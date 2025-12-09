@@ -1,7 +1,7 @@
 {
-  "name": "zsxq-api",
+  "name": "zsxq-sdk",
   "version": "0.1.0",
-  "description": "知识星球API封装服务",
+  "description": "知识星球 TypeScript SDK - 轻量级、开箱即用的知识星球 API 客户端库",
   "author": "Your Name",
   "private": true,
   "license": "MIT",

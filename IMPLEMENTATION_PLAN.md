@@ -1,255 +1,184 @@
-# 实施计划
+# zsxq-sdk 重构实施计划
 
-## 概述
+> 将 zsxq-api 重构为符合 SDK 标准的 zsxq-sdk
 
-本文档规划了知识星球API项目的实施路径，将项目分为5个阶段逐步实现。每个阶段都有明确的目标、交付物和测试标准。
+## 重构目标
 
-## Stage 1: 基础设施搭建
-
-**目标**: 完成项目基础设施，确保开发环境可用
-
-**成功标准**:
-- [x] 项目目录结构完整
-- [x] 所有配置文件已创建
-- [x] 依赖包安装成功
-- [ ] 数据库连接正常
-- [ ] Redis连接正常
-- [ ] 项目可以启动且无错误
-
-**任务清单**:
-- [x] 创建项目架构设计文档
-- [x] 初始化npm项目和依赖
-- [x] 创建TypeScript配置
-- [x] 配置ESLint和Prettier
-- [x] 创建环境变量配置
-- [x] 创建项目目录结构
-- [ ] 安装依赖包
-- [ ] 配置数据库连接
-- [ ] 配置Redis连接
-- [ ] 添加数据库迁移工具
-- [ ] 验证项目启动
-
-**测试**:
-- [ ] 运行 `npm install` 成功
-- [ ] 运行 `npm run build` 成功
-- [ ] 运行 `npm run start:dev` 成功启动
-- [ ] 访问 `http://localhost:3000` 正常响应
-- [ ] Swagger文档可访问
-
-**状态**: In Progress
+1. **项目重命名**: zsxq-api → zsxq-sdk
+2. **架构重构**: 参考 FastAuth SDK 设计模式，适配 TypeScript
+3. **文档重构**: 遵循 SSOT 原则，参考 AutoDepositRefundAgent 文档架构
 
 ---
 
-## Stage 2: 用户认证模块
+## Stage 1: 项目重命名
 
-**目标**: 实现用户认证和授权功能
+**Goal**: 完成项目基础信息重命名
 
-**成功标准**:
-- [ ] 用户可以成功登录
-- [ ] JWT Token生成和验证正常
-- [ ] 权限控制Guard工作正常
-- [ ] 所有认证相关接口通过测试
+**Success Criteria**:
+- [x] package.json name 改为 zsxq-sdk
+- [x] 所有相关描述更新
+- [x] Git 仓库信息不变（保留提交历史）
 
-**任务清单**:
-- [ ] 创建用户实体和数据库表
-- [ ] 实现用户注册功能
-- [ ] 实现用户登录功能（JWT）
-- [ ] 实现JWT验证Strategy
-- [ ] 实现角色权限Guard
-- [ ] 实现密码加密（bcrypt）
-- [ ] 添加Refresh Token机制
-- [ ] 编写单元测试
-- [ ] 编写集成测试
-
-**测试**:
-- [ ] POST `/api/v1/auth/login` 返回token
-- [ ] 使用token访问 `/api/v1/users/me` 成功
-- [ ] 无效token访问返回401
-- [ ] 权限不足访问返回403
-- [ ] 单元测试覆盖率 > 80%
-
-**状态**: Not Started
+**Status**: ✅ Complete
 
 ---
 
-## Stage 3: 星球和话题模块
+## Stage 2: 文档重构（SSOT）
 
-**目标**: 实现星球和话题的基础CRUD功能
+**Goal**: 按 SSOT 原则重构文档目录
 
-**成功标准**:
-- [ ] 可以获取星球列表和详情
-- [ ] 可以获取话题列表和详情
-- [ ] 普通用户权限验证正常
-- [ ] 数据缓存策略生效
+**新文档结构**:
 
-**任务清单**:
-- [ ] 创建星球实体和数据库表
-- [ ] 创建话题实体和数据库表
-- [ ] 实现星球Service和Controller
-- [ ] 实现话题Service和Controller
-- [ ] 集成知识星球API客户端
-- [ ] 实现数据同步逻辑
-- [ ] 添加Redis缓存
-- [ ] 实现分页功能
-- [ ] 编写单元测试
-- [ ] 编写E2E测试
+```
+docs/
+├── README.md                   # 文档索引
+├── design/                     # 设计文档
+│   ├── architecture.md         # 架构设计
+│   ├── api-mapping.md          # API 映射关系（SSOT）
+│   └── error-codes.md          # 错误码定义（SSOT）
+├── api/                        # API 参考
+│   ├── client.md               # 客户端 API
+│   ├── group.md                # 星球 API
+│   ├── topic.md                # 话题 API
+│   ├── user.md                 # 用户 API
+│   └── checkin.md              # 打卡 API
+├── guides/                     # 使用指南
+│   ├── quick-start.md          # 快速开始
+│   ├── authentication.md       # 认证指南
+│   ├── nestjs-integration.md   # NestJS 集成
+│   └── error-handling.md       # 错误处理
+├── reference/                  # 原生 API 参考
+│   └── native-api.md           # 原生 API 文档（合并）
+└── archive/                    # 归档文档
+    └── v0.1/                   # 旧版本文档
+```
 
-**测试**:
-- [ ] GET `/api/v1/planets` 返回星球列表
-- [ ] GET `/api/v1/planets/:id` 返回星球详情
-- [ ] GET `/api/v1/planets/:id/topics` 返回话题列表
-- [ ] GET `/api/v1/topics/:id` 返回话题详情
-- [ ] 缓存命中率测试通过
-- [ ] 分页功能正常
-- [ ] 测试覆盖率 > 80%
+**SSOT 核心文件**:
+- `design/api-mapping.md`: API 映射的唯一来源
+- `design/error-codes.md`: 错误码的唯一来源
+- 其他文档通过链接引用这些 SSOT 文件
 
-**状态**: Not Started
-
----
-
-## Stage 4: 训练营模块
-
-**目标**: 实现训练营相关功能
-
-**成功标准**:
-- [ ] 可以获取训练营列表和详情
-- [ ] 可以查看打卡记录
-- [ ] 可以查看排行榜
-- [ ] 数据统计准确
-
-**任务清单**:
-- [ ] 创建训练营实体和数据库表
-- [ ] 创建打卡记录实体和数据库表
-- [ ] 实现训练营Service和Controller
-- [ ] 实现打卡记录查询
-- [ ] 实现排行榜算法
-- [ ] 添加数据缓存
-- [ ] 集成知识星球API
-- [ ] 编写单元测试
-- [ ] 编写E2E测试
-
-**测试**:
-- [ ] GET `/api/v1/training-camps` 返回训练营列表
-- [ ] GET `/api/v1/training-camps/:id` 返回详情
-- [ ] GET `/api/v1/training-camps/:id/checkins` 返回打卡记录
-- [ ] GET `/api/v1/training-camps/:id/ranking` 返回排行榜
-- [ ] 排行榜数据准确性验证
-- [ ] 测试覆盖率 > 80%
-
-**状态**: Not Started
+**Status**: Not Started
 
 ---
 
-## Stage 5: 星主专用功能
+## Stage 3: SDK 核心架构重构
 
-**目标**: 实现星主专用的管理功能
+**Goal**: 按 FastAuth 设计模式重构代码结构
 
-**成功标准**:
-- [ ] 星主可以管理星球成员
-- [ ] 星主可以创建训练营
-- [ ] 星主可以发布、编辑、删除话题
-- [ ] 权限控制严格，普通用户无法访问
+**设计对比**:
 
-**任务清单**:
-- [ ] 实现成员管理Service和Controller
-- [ ] 实现星主创建训练营功能
-- [ ] 实现星主话题管理功能
-- [ ] 添加星主权限验证
-- [ ] 实现批量操作功能
-- [ ] 添加操作日志
-- [ ] 编写单元测试
-- [ ] 编写E2E测试
+| FastAuth (Java) | zsxq-sdk (TypeScript) | 说明 |
+|-----------------|----------------------|------|
+| AuthRequestBuilder | ZsxqClientBuilder | Builder 入口类 |
+| AuthDefaultRequest | ZsxqRequest | 请求基类 |
+| AuthSource | ZsxqEndpoint | API 端点定义 |
+| AuthConfig | ZsxqConfig | 客户端配置 |
+| AuthUser/AuthToken | ZsxqUser/ZsxqToken | 数据模型 |
 
-**测试**:
-- [ ] GET `/api/v1/owner/planets/:id/members` 返回成员列表
-- [ ] POST `/api/v1/owner/training-camps` 创建成功
-- [ ] POST `/api/v1/owner/topics` 创建成功
-- [ ] PUT `/api/v1/owner/topics/:id` 更新成功
-- [ ] DELETE `/api/v1/owner/topics/:id` 删除成功
-- [ ] 普通用户访问星主接口返回403
-- [ ] 测试覆盖率 > 80%
+**新目录结构**:
 
-**状态**: Not Started
+```
+src/
+├── index.ts                    # SDK 主入口（导出所有公共 API）
+├── client/                     # 客户端核心（原 zsxq-client）
+│   ├── zsxq-client.ts          # 主客户端类
+│   ├── zsxq-client.builder.ts  # Builder 模式构建器
+│   └── zsxq-client.config.ts   # 配置类
+├── request/                    # API 请求实现
+│   ├── base.request.ts         # 请求基类
+│   ├── group.request.ts        # 星球相关请求
+│   ├── topic.request.ts        # 话题相关请求
+│   ├── user.request.ts         # 用户相关请求
+│   ├── checkin.request.ts      # 打卡相关请求
+│   └── dashboard.request.ts    # Dashboard 请求
+├── endpoint/                   # API 端点定义
+│   ├── index.ts                # 端点汇总
+│   ├── group.endpoint.ts       # 星球端点
+│   ├── topic.endpoint.ts       # 话题端点
+│   ├── user.endpoint.ts        # 用户端点
+│   └── checkin.endpoint.ts     # 打卡端点
+├── model/                      # 数据模型
+│   ├── group.model.ts          # 星球模型
+│   ├── topic.model.ts          # 话题模型
+│   ├── user.model.ts           # 用户模型
+│   ├── checkin.model.ts        # 打卡模型
+│   └── response.model.ts       # 响应模型
+├── enums/                      # 枚举定义
+│   ├── scope.enum.ts           # API scope 枚举
+│   └── error-code.enum.ts      # 错误码枚举
+├── exception/                  # 异常定义
+│   ├── zsxq.exception.ts       # 基础异常
+│   ├── auth.exception.ts       # 认证异常
+│   └── rate-limit.exception.ts # 限流异常
+├── cache/                      # 缓存实现
+│   └── token.cache.ts          # Token 缓存
+├── utils/                      # 工具类
+│   ├── http.util.ts            # HTTP 工具
+│   ├── signature.util.ts       # 签名工具
+│   └── transform.util.ts       # 数据转换
+└── nestjs/                     # NestJS 集成（可选）
+    ├── zsxq.module.ts          # NestJS 模块
+    └── zsxq.service.ts         # NestJS 服务
+```
 
----
+**Success Criteria**:
+- 核心 SDK 可独立使用（不依赖 NestJS）
+- NestJS 集成作为可选模块
+- 遵循 Builder 模式
+- 完整的 TypeScript 类型支持
 
-## 附加任务（后续优化）
-
-### 性能优化
-- [ ] 数据库索引优化
-- [ ] 查询性能优化
-- [ ] 缓存策略优化
-- [ ] API响应时间优化（< 200ms）
-
-### 监控和日志
-- [ ] 接入日志收集系统
-- [ ] 添加性能监控
-- [ ] 添加错误告警
-- [ ] 实现健康检查接口
-
-### 部署相关
-- [ ] Docker化
-- [ ] 编写部署文档
-- [ ] CI/CD流程配置
-- [ ] 生产环境配置
-
-### 文档完善
-- [ ] API文档完善
-- [ ] 开发者文档
-- [ ] 部署运维文档
-- [ ] 故障排查手册
-
-## 里程碑
-
-| 里程碑 | 完成阶段 | 预期成果 |
-|--------|---------|---------|
-| M1: 项目可运行 | Stage 1 | 项目可启动，基础设施就绪 |
-| M2: 认证系统 | Stage 2 | 用户登录、权限控制完成 |
-| M3: 核心功能 | Stage 3-4 | 星球、话题、训练营功能完成 |
-| M4: 完整功能 | Stage 5 | 星主功能完成，系统功能完整 |
-| M5: 生产就绪 | 附加任务 | 优化、监控、部署完成 |
-
-## 风险与应对
-
-### 风险1: 知识星球API变更
-- **影响**: 可能导致API调用失败
-- **应对**:
-  - 添加API版本控制
-  - 实现降级策略
-  - 监控API调用成功率
-
-### 风险2: 性能问题
-- **影响**: 高并发下响应慢
-- **应对**:
-  - 添加缓存层
-  - 数据库查询优化
-  - 实现限流机制
-
-### 风险3: 数据同步问题
-- **影响**: 本地数据与知识星球数据不一致
-- **应对**:
-  - 实现定时同步任务
-  - 添加数据校验
-  - 提供手动刷新功能
-
-## 开发原则
-
-1. **增量开发**: 每完成一个Stage立即测试和提交
-2. **测试先行**: 关键功能先写测试再实现
-3. **代码审查**: 重要改动需要自我审查
-4. **文档同步**: 代码和文档同步更新
-5. **及时重构**: 发现代码异味立即重构
-
-## 完成标准
-
-每个Stage完成后需要满足：
-1. ✅ 所有任务已完成
-2. ✅ 所有测试通过
-3. ✅ 代码已提交到Git
-4. ✅ 文档已更新
-5. ✅ 无已知Bug
+**Status**: Not Started
 
 ---
 
-**最后更新**: 2025-12-07
+## Stage 4: 更新项目入口文件
+
+**Goal**: 更新 README.md 和 CLAUDE.md
+
+**README.md 结构**（参考 FastAuth）:
+1. 项目徽章
+2. 项目简介
+3. 核心特性
+4. 快速开始
+5. 使用示例
+6. 文档链接
+7. 更新日志
+8. 贡献指南
+9. 许可证
+
+**CLAUDE.md 结构**:
+1. 项目概述
+2. 常用命令
+3. 核心架构
+4. 包结构
+5. 核心类
+6. 扩展指南
+7. 依赖说明
+8. 测试说明
+
+**Status**: Not Started
+
+---
+
+## 执行顺序
+
+1. ✅ 分析参考项目（已完成）
+2. ⏳ Stage 1: 项目重命名（当前）
+3. ⏳ Stage 2: 文档重构（先整理文档，明确 API 结构）
+4. ⏳ Stage 3: SDK 核心架构重构
+5. ⏳ Stage 4: 更新项目入口文件
+
+---
+
+## 注意事项
+
+- 保留 Git 提交历史
+- 每个阶段可独立编译和测试
+- NestJS 功能保留为可选集成
+- 现有功能不受影响
+
+---
+
+**最后更新**: 2025-12-09
 **当前进度**: Stage 1 - In Progress
