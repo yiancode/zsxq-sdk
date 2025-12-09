@@ -19,9 +19,19 @@ zsxq-sdk/
 │   │   ├── src/
 │   │   ├── package.json
 │   │   └── tsconfig.json
-│   └── java/                    # Java SDK
-│       ├── src/main/java/
-│       └── pom.xml
+│   ├── java/                    # Java SDK
+│   │   ├── src/main/java/
+│   │   └── pom.xml
+│   ├── go/                      # Go SDK
+│   │   ├── client/
+│   │   ├── model/
+│   │   ├── request/
+│   │   ├── http/
+│   │   ├── exception/
+│   │   └── go.mod
+│   └── python/                  # Python SDK
+│       ├── zsxq/
+│       └── pyproject.toml
 └── docs/                        # 通用文档
 ```
 
@@ -45,6 +55,25 @@ mvn compile               # 编译
 mvn test                  # 测试
 mvn package               # 打包
 mvn install               # 安装到本地仓库
+```
+
+### Go SDK
+
+```bash
+cd packages/go
+go mod tidy               # 整理依赖
+go build ./...            # 构建
+go test ./...             # 测试
+```
+
+### Python SDK
+
+```bash
+cd packages/python
+pip install -e ".[dev]"   # 安装开发依赖
+pytest                    # 测试
+black zsxq                # 格式化
+mypy zsxq                 # 类型检查
 ```
 
 ## SDK 统一架构
@@ -109,6 +138,26 @@ ZsxqClient client = new ZsxqClientBuilder()
     .build();
 
 List<Group> groups = client.groups().list();
+```
+
+**Go**:
+```go
+client := zsxq.NewClientBuilder().
+    SetToken(token).
+    SetTimeout(10 * time.Second).
+    MustBuild()
+
+groups, err := client.Groups().List(ctx)
+```
+
+**Python**:
+```python
+client = ZsxqClientBuilder() \
+    .set_token(token) \
+    .set_timeout(10) \
+    .build()
+
+groups = await client.groups.list()
 ```
 
 ### 新增 API 流程
