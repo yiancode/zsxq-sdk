@@ -31,8 +31,8 @@
 - [阅读追踪](#阅读追踪)
   - [阅读进度](#阅读追踪阅读进度)
 
-### 第二部分：服务端 API 封装（NestJS）
-- [服务端 API 封装](#服务端-api-封装)
+### 第二部分：SDK 封装接口设计
+- [SDK 封装接口设计](#sdk-封装接口设计-1)
   - [认证接口](#认证接口)
   - [用户接口](#用户接口)
   - [星球接口](#星球接口)
@@ -3509,6 +3509,211 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812/joined_users?f
 
 ---
 
+#### `POST` /v2/groups/{group_id}/checkins
+
+**完整 URL**:
+```
+https://api.zsxq.com/v2/groups/15555411412112/checkins
+```
+
+**功能说明**: 创建打卡项目/训练营
+
+**特殊请求头**:
+
+| 请求头 | 值 |
+|--------|----|
+| `x-timestamp` | `1765344634` |
+| `authorization` | `D047A423-A...169922C77C` |
+| `x-signature` | `a1b2c3d4e5f6g7h8i9j0...` |
+| `x-aduid` | `d75d966c-ed30-4fe8-b0f9-f030eb39d9be` |
+| `x-version` | `2.83.0` |
+
+**请求体**:
+
+```json
+{
+  "req_data": {
+    "checkin_days": 7,
+    "type": "accumulated",
+    "show_topics_on_timeline": false,
+    "title": "测试打卡流程",
+    "text": "打卡10天，要求完成7天",
+    "validity": {
+      "long_period": false,
+      "expiration_time": "2025-12-17T23:59:59.594+0800"
+    }
+  }
+}
+```
+
+**请求参数说明**:
+
+| 参数名 | 类型 | 必填 | 说明 |
+|--------|------|------|------|
+| `checkin_days` | integer | 是 | 需要打卡的天数 |
+| `type` | string | 是 | 打卡类型: `accumulated`(累计) / `continuous`(连续) |
+| `show_topics_on_timeline` | boolean | 否 | 是否在时间线显示打卡话题 |
+| `title` | string | 是 | 打卡项目标题 |
+| `text` | string | 否 | 打卡项目描述 |
+| `validity.long_period` | boolean | 是 | 是否长期有效 |
+| `validity.expiration_time` | string | 否 | 截止时间（ISO8601格式），`long_period=false`时必填 |
+
+**响应状态码**: `200`
+
+**响应示例**:
+
+```json
+{
+  "succeeded": true,
+  "resp_data": {
+    "checkin": {
+      "checkin_id": 2424141411,
+      "group": {
+        "group_id": 15555411412112,
+        "name": "AI私域赚钱",
+        "background_url": "https://images.zsxq.com/..."
+      },
+      "owner": {
+        "user_id": 184444848828412,
+        "name": "易安",
+        "avatar_url": "https://images.zsxq.com/..."
+      },
+      "title": "测试打卡流程",
+      "text": "打卡10天，要求完成7天",
+      "checkin_days": 7,
+      "validity": {
+        "long_period": false,
+        "expiration_time": "2025-12-17T23:59:59.594+0800"
+      },
+      "show_topics_on_timeline": false,
+      "create_time": "2025-12-10T16:30:34.085+0800",
+      "status": "ongoing",
+      "type": "accumulated",
+      "joined_count": 0,
+      "statistics": {
+        "joined_count": 0,
+        "completed_count": 0,
+        "checkined_count": 0
+      },
+      "joined_users": [],
+      "user_specific": {
+        "joined": false
+      },
+      "min_words_count": 0
+    }
+  }
+}
+```
+
+**平均响应时间**: 150ms
+
+
+---
+
+#### `PUT` /v2/groups/{group_id}/checkins/{checkin_id}
+
+**完整 URL**:
+```
+https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141411
+```
+
+**功能说明**: 修改打卡项目（标题/描述）
+
+**特殊请求头**:
+
+| 请求头 | 值 |
+|--------|----|
+| `x-timestamp` | `1765344650` |
+| `authorization` | `D047A423-A...169922C77C` |
+| `x-signature` | `b2c3d4e5f6g7h8i9j0k1...` |
+| `x-aduid` | `d75d966c-ed30-4fe8-b0f9-f030eb39d9be` |
+| `x-version` | `2.83.0` |
+
+**请求体**:
+
+```json
+{
+  "req_data": {
+    "title": "测试打卡流程",
+    "text": "打卡10天，要求完成7天，修改"
+  }
+}
+```
+
+**请求参数说明**:
+
+| 参数名 | 类型 | 必填 | 说明 |
+|--------|------|------|------|
+| `title` | string | 否 | 打卡项目新标题 |
+| `text` | string | 否 | 打卡项目新描述 |
+
+**响应状态码**: `200`
+
+**响应示例**:
+
+```json
+{
+  "succeeded": true,
+  "resp_data": {}
+}
+```
+
+**平均响应时间**: 80ms
+
+
+---
+
+#### `PUT` /v2/groups/{group_id}/checkins/{checkin_id} (关闭项目)
+
+**完整 URL**:
+```
+https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141411
+```
+
+**功能说明**: 关闭打卡项目
+
+**特殊请求头**:
+
+| 请求头 | 值 |
+|--------|----|
+| `x-timestamp` | `1765344680` |
+| `authorization` | `D047A423-A...169922C77C` |
+| `x-signature` | `c3d4e5f6g7h8i9j0k1l2...` |
+| `x-aduid` | `d75d966c-ed30-4fe8-b0f9-f030eb39d9be` |
+| `x-version` | `2.83.0` |
+
+**请求体**:
+
+```json
+{
+  "req_data": {
+    "status": "closed"
+  }
+}
+```
+
+**请求参数说明**:
+
+| 参数名 | 类型 | 必填 | 说明 |
+|--------|------|------|------|
+| `status` | string | 是 | 状态值: `closed`(关闭项目) |
+
+**响应状态码**: `200`
+
+**响应示例**:
+
+```json
+{
+  "succeeded": true,
+  "resp_data": {}
+}
+```
+
+**平均响应时间**: 75ms
+
+
+---
+
 ### 星球推荐
 
 **接口数量**: 1
@@ -4630,14 +4835,13 @@ def generate_signature(timestamp, method, path, body=None, secret_key="UNKNOWN")
 
 ---
 
-# 服务端 API 封装
+# SDK 封装接口设计
 
-> 以下是基于知识星球原生 API 封装的 NestJS 服务端接口
+> 以下是基于知识星球原生 API 封装的 SDK 接口设计，适用于 TypeScript、Java、Go、Python 等多语言 SDK 实现
 
 ## 基础信息
 
-- **Base URL**: `http://localhost:3000/api/v1`
-- **认证方式**: Bearer Token (JWT)
+- **认证方式**: Token 认证（通过 `authorization` 请求头）
 - **响应格式**: JSON
 
 ## 通用响应格式
@@ -5047,6 +5251,9 @@ def generate_signature(timestamp, method, path, body=None, secret_key="UNKNOWN")
 | `GET /checkins/:id` | `GET /v2/groups/{group_id}/checkins/{checkin_id}` | 打卡详情 |
 | `GET /checkins/:id/stats` | `GET /v2/groups/{group_id}/checkins/{checkin_id}/statistics` | 打卡统计 |
 | `GET /checkins/:id/leaderboard` | `GET /v2/groups/{group_id}/checkins/{checkin_id}/ranking_list` | 排行榜 |
+| `POST /planets/:id/checkins` | `POST /v2/groups/{group_id}/checkins` | 创建打卡项目 |
+| `PUT /checkins/:id` | `PUT /v2/groups/{group_id}/checkins/{checkin_id}` | 修改打卡项目 |
+| `PUT /checkins/:id/close` | `PUT /v2/groups/{group_id}/checkins/{checkin_id}` | 关闭打卡项目 |
 
 ---
 
@@ -5087,7 +5294,7 @@ def generate_signature(timestamp, method, path, body=None, secret_key="UNKNOWN")
 ## 📝 更新日志
 
 - **2025-12-09**: 初始版本，包含 118 个唯一接口
-- **2025-12-09**: 整合服务端 API 封装文档
+- **2025-12-09**: 整合 SDK 封装接口设计文档
 
 ---
 
