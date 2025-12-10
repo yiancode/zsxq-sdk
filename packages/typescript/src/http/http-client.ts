@@ -97,28 +97,35 @@ export class HttpClient {
   }
 
   /**
-   * 处理错误
+   * 处理错误,将axios错误转换为ZsxqException
    */
-  private handleError(error: AxiosError, requestId: string): never {
+  private convertError(error: AxiosError, requestId: string): ZsxqException {
     if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
-      throw new TimeoutException('请求超时', error, requestId);
+      return new TimeoutException(error.message || '请求超时', error, requestId);
     }
 
     if (error.response) {
       // 服务器返回错误
       const data = error.response.data as ZsxqResponse;
       if (data && typeof data === 'object' && 'code' in data) {
-        throw createException(
+        return createException(
           data.code || error.response.status,
           data.error || data.info || error.message,
           requestId,
         );
       }
-      throw new ZsxqException(error.response.status, error.message, requestId);
+      return new ZsxqException(error.response.status, error.message, requestId);
     }
 
     // 网络错误
-    throw new NetworkException(error.message || '网络错误', error, requestId);
+    return new NetworkException(error.message || '网络错误', error, requestId);
+  }
+
+  /**
+   * 处理错误(用于不需要重试的情况)
+   */
+  private handleError(error: AxiosError, requestId: string): never {
+    throw this.convertError(error, requestId);
   }
 
   /**
@@ -132,9 +139,14 @@ export class HttpClient {
     try {
       return await requestFn();
     } catch (error) {
+      // 将axios错误转换为我们的异常类型
+      const exception = error instanceof ZsxqException
+        ? error
+        : this.convertError(error as AxiosError, requestId);
+
       const shouldRetry =
         retryCount < this.config.retryCount &&
-        (error instanceof NetworkException || error instanceof TimeoutException);
+        (exception instanceof NetworkException || exception instanceof TimeoutException);
 
       if (shouldRetry) {
         const delay = this.config.retryDelay * Math.pow(2, retryCount);
@@ -142,7 +154,7 @@ export class HttpClient {
         return this.executeWithRetry(requestFn, requestId, retryCount + 1);
       }
 
-      throw error;
+      throw exception;
     }
   }
 
