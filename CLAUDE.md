@@ -6,74 +6,49 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 zsxq-sdk - 知识星球多语言 SDK Monorepo，提供类型安全的 API 封装。
 
-## 项目结构
-
-```
-zsxq-sdk/
-├── spec/                        # API 规范（SSOT）
-│   ├── openapi.yaml             # OpenAPI 3.0 规范
-│   ├── errors/error-codes.yaml  # 错误码定义
-│   └── sdk-design/              # SDK 设计规范
-├── packages/
-│   ├── typescript/              # TypeScript SDK
-│   │   ├── src/
-│   │   ├── package.json
-│   │   └── tsconfig.json
-│   ├── java/                    # Java SDK
-│   │   ├── src/main/java/
-│   │   └── pom.xml
-│   ├── go/                      # Go SDK
-│   │   ├── client/
-│   │   ├── model/
-│   │   ├── request/
-│   │   ├── http/
-│   │   ├── exception/
-│   │   └── go.mod
-│   └── python/                  # Python SDK
-│       ├── zsxq/
-│       └── pyproject.toml
-└── docs/                        # 通用文档
-```
-
 ## 常用命令
 
 ### TypeScript SDK
 
 ```bash
 cd packages/typescript
-npm install               # 安装依赖
-npm run build             # 构建
-npm run test              # 测试
-npm run lint              # 代码检查
+npm install                           # 安装依赖
+npm run build                         # 构建
+npm run test                          # 运行所有测试
+npm run test -- --testPathPattern="GroupsRequest"  # 运行单个测试
+npm run lint                          # 代码检查
 ```
 
 ### Java SDK
 
 ```bash
 cd packages/java
-mvn compile               # 编译
-mvn test                  # 测试
-mvn package               # 打包
-mvn install               # 安装到本地仓库
+mvn compile                           # 编译
+mvn test                              # 运行所有测试
+mvn test -Dtest=GroupsRequestTest     # 运行单个测试类
+mvn test -Dtest=GroupsRequestTest#testList  # 运行单个测试方法
+mvn package                           # 打包
 ```
 
 ### Go SDK
 
 ```bash
 cd packages/go
-go mod tidy               # 整理依赖
-go build ./...            # 构建
-go test ./...             # 测试
+go mod tidy                           # 整理依赖
+go build ./...                        # 构建
+go test ./...                         # 运行所有测试
+go test ./client -run TestList        # 运行单个测试
 ```
 
 ### Python SDK
 
 ```bash
 cd packages/python
-pip install -e ".[dev]"   # 安装开发依赖
-pytest                    # 测试
-black zsxq                # 格式化
-mypy zsxq                 # 类型检查
+pip install -e ".[dev]"               # 安装开发依赖
+pytest                                # 运行所有测试
+pytest tests/test_client.py -k test_list  # 运行单个测试
+black zsxq                            # 格式化
+mypy zsxq                             # 类型检查
 ```
 
 ## SDK 统一架构
@@ -179,5 +154,12 @@ ZSXQ_RETRY_COUNT=3          # 重试次数
 
 - **基础 URL**: `https://api.zsxq.com`
 - **认证头**: `authorization: <token>`
-- **签名头**: `x-timestamp`, `x-signature`
+- **签名头**: `x-timestamp`, `x-signature`（HMAC-SHA1 签名）
 - 详细规范见 `spec/openapi.yaml`
+
+## 工具脚本
+
+`tools/` 目录包含开发辅助脚本：
+
+- `analyze_har.py` - 分析 HAR 抓包文件，提取 API 信息
+- `generate_api_docs.py` - 从抓包数据生成 API 文档
