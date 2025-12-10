@@ -72,6 +72,10 @@ https://api.zsxq.com
 
 #### `GET` /v2/groups
 
+**接口名称**: 获取用户星球列表
+
+**功能说明**: 获取当前登录用户已加入的所有星球列表，包含星球基本信息、最近更新时间、成员角色等
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups
@@ -101,6 +105,10 @@ https://api.zsxq.com/v2/groups
 ---
 
 #### `GET` /v2/pk_groups/{pk_group_id}
+
+**接口名称**: 获取PK群组详情
+
+**功能说明**: 获取指定PK群组的详细信息，包括群组名称、背景图、战力值、防守成功次数等
 
 **完整 URL**:
 ```
@@ -147,6 +155,10 @@ https://api.zsxq.com/v2/pk_groups/15555411412112
 
 #### `GET` /v2/pk_groups/{pk_group_id}/records
 
+**接口名称**: 获取PK群组对战记录
+
+**功能说明**: 获取指定PK群组的对战记录列表，包括攻击方、防守方、对战结果等
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/pk_groups/15555411412112/records?count=1
@@ -188,6 +200,10 @@ https://api.zsxq.com/v2/pk_groups/15555411412112/records?count=1
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
 
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/hashtags/28844882581111/topics?count=1
@@ -223,6 +239,10 @@ https://api.zsxq.com/v2/hashtags/28844882581111/topics?count=1
 ---
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
+
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
 
 **完整 URL**:
 ```
@@ -260,6 +280,10 @@ https://api.zsxq.com/v2/hashtags/15514284488142/topics?count=1
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
 
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/hashtags/51144121845184/topics?count=1
@@ -295,6 +319,10 @@ https://api.zsxq.com/v2/hashtags/51144121845184/topics?count=1
 ---
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
+
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
 
 **完整 URL**:
 ```
@@ -332,6 +360,10 @@ https://api.zsxq.com/v2/hashtags/51145125424814/topics?count=1
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
 
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/hashtags/15425825555222/topics?count=1
@@ -367,6 +399,10 @@ https://api.zsxq.com/v2/hashtags/15425825555222/topics?count=1
 ---
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
+
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
 
 **完整 URL**:
 ```
@@ -404,6 +440,10 @@ https://api.zsxq.com/v2/hashtags/51521485524884/topics?count=1
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
 
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/hashtags/51184585284414/topics?count=1
@@ -439,6 +479,10 @@ https://api.zsxq.com/v2/hashtags/51184585284414/topics?count=1
 ---
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
+
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
 
 **完整 URL**:
 ```
@@ -476,6 +520,10 @@ https://api.zsxq.com/v2/hashtags/28812242884811/topics?count=1
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
 
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/hashtags/48818152154548/topics?count=1
@@ -511,6 +559,10 @@ https://api.zsxq.com/v2/hashtags/48818152154548/topics?count=1
 ---
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
+
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
 
 **完整 URL**:
 ```
@@ -548,6 +600,10 @@ https://api.zsxq.com/v2/hashtags/48548284252828/topics?count=1
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
 
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/hashtags/88258485424282/topics?count=1
@@ -583,6 +639,10 @@ https://api.zsxq.com/v2/hashtags/88258485424282/topics?count=1
 ---
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
+
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
 
 **完整 URL**:
 ```
@@ -620,6 +680,10 @@ https://api.zsxq.com/v2/hashtags/51521412454144/topics?count=1
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
 
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/hashtags/28844882581111/topics?count=10
@@ -655,6 +719,10 @@ https://api.zsxq.com/v2/hashtags/28844882581111/topics?count=10
 ---
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
+
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
 
 **完整 URL**:
 ```
@@ -692,6 +760,10 @@ https://api.zsxq.com/v2/hashtags/15514284488142/topics?count=10
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
 
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/hashtags/51144121845184/topics?count=10
@@ -727,6 +799,10 @@ https://api.zsxq.com/v2/hashtags/51144121845184/topics?count=10
 ---
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
+
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
 
 **完整 URL**:
 ```
@@ -764,6 +840,10 @@ https://api.zsxq.com/v2/hashtags/51145125424814/topics?count=10
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
 
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/hashtags/15425825555222/topics?count=10
@@ -799,6 +879,10 @@ https://api.zsxq.com/v2/hashtags/15425825555222/topics?count=10
 ---
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
+
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
 
 **完整 URL**:
 ```
@@ -836,6 +920,10 @@ https://api.zsxq.com/v2/hashtags/51521485524884/topics?count=10
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
 
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/hashtags/88258185254482/topics?count=10
@@ -871,6 +959,10 @@ https://api.zsxq.com/v2/hashtags/88258185254482/topics?count=10
 ---
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
+
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
 
 **完整 URL**:
 ```
@@ -908,6 +1000,10 @@ https://api.zsxq.com/v2/hashtags/51184585284414/topics?count=10
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
 
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/hashtags/28812242884811/topics?count=10
@@ -943,6 +1039,10 @@ https://api.zsxq.com/v2/hashtags/28812242884811/topics?count=10
 ---
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
+
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
 
 **完整 URL**:
 ```
@@ -980,6 +1080,10 @@ https://api.zsxq.com/v2/hashtags/88285218512422/topics?count=10
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
 
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/hashtags/88258185254482/topics?count=1
@@ -1016,6 +1120,10 @@ https://api.zsxq.com/v2/hashtags/88258185254482/topics?count=1
 
 #### `GET` /v2/hashtags/{hashtag_id}/topics
 
+**接口名称**: 获取标签下的话题列表
+
+**功能说明**: 获取指定标签下的话题列表，支持分页查询和按时间排序
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/hashtags/88285218512422/topics?count=1
@@ -1051,6 +1159,10 @@ https://api.zsxq.com/v2/hashtags/88285218512422/topics?count=1
 ---
 
 #### `GET` /v2/url_details
+
+**接口名称**: 获取URL详情
+
+**功能说明**: 解析指定URL的详细信息，获取链接的元数据（标题、描述、图标等）
 
 **完整 URL**:
 ```
@@ -1093,6 +1205,10 @@ https://api.zsxq.com/v2/url_details?url=https%3A%2F%2Fwx.zsxq.com%2Fmweb%2Fviews
 
 #### `GET` /v2/topics/{topic_id}/info
 
+**接口名称**: 获取话题基础信息
+
+**功能说明**: 获取指定话题的基础信息，不包含评论和点赞详情
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/topics/5125585155255524/info
@@ -1123,6 +1239,10 @@ https://api.zsxq.com/v2/topics/5125585155255524/info
 
 #### `GET` /v2/topics/{topic_id}
 
+**接口名称**: 获取话题详情
+
+**功能说明**: 获取指定话题的完整详情，包括话题内容、作者信息、点赞数、评论数等
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/topics/5125585155255524
@@ -1152,6 +1272,10 @@ https://api.zsxq.com/v2/topics/5125585155255524
 ---
 
 #### `GET` /v2/topics/{topic_id}/recommendations
+
+**接口名称**: 获取话题推荐列表
+
+**功能说明**: 获取与指定话题相关的推荐话题列表
 
 **完整 URL**:
 ```
@@ -1187,6 +1311,10 @@ https://api.zsxq.com/v2/topics/5125585155255524/recommendations
 ---
 
 #### `GET` /v2/topics/{topic_id}/comments
+
+**接口名称**: 获取话题评论列表
+
+**功能说明**: 获取指定话题的评论列表，支持分页查询和排序
 
 **完整 URL**:
 ```
@@ -1233,6 +1361,10 @@ https://api.zsxq.com/v2/topics/5125585155255524/comments?with_sticky=true&sort=a
 
 #### `GET` /v2/topics/{topic_id}/rewards
 
+**接口名称**: 获取话题打赏列表
+
+**功能说明**: 获取指定话题的打赏记录列表
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/topics/5125585155255524/rewards
@@ -1268,6 +1400,10 @@ https://api.zsxq.com/v2/topics/5125585155255524/rewards
 
 #### `POST` /secret/user/
 
+**接口名称**: 用户密钥相关操作
+
+**功能说明**: 与用户密钥或加密相关的操作接口
+
 **完整 URL**:
 ```
 https://user.jpush.cn/secret/user/
@@ -1296,6 +1432,10 @@ Badge API success
 ---
 
 #### `POST` /v3/report
+
+**接口名称**: 数据上报
+
+**功能说明**: 上报用户行为数据或统计信息
 
 **完整 URL**:
 ```
@@ -1340,6 +1480,10 @@ https://stats.jpush.cn/v3/report
 
 #### `GET` /v2/groups/{group_id}/topics
 
+**接口名称**: 获取星球话题列表
+
+**功能说明**: 获取指定星球的话题列表，支持分页查询、时间范围筛选和多种排序方式
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/topics?count=1&begin_time=2025-12-04T01%3A47%3A34.978%2B0800&scope=digests&with_invisibles=false
@@ -1378,6 +1522,10 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=1&begin_time=2025-12-
 ---
 
 #### `GET` /v2/groups/{group_id}/topics
+
+**接口名称**: 获取星球话题列表
+
+**功能说明**: 获取指定星球的话题列表，支持分页查询、时间范围筛选和多种排序方式
 
 **完整 URL**:
 ```
@@ -1423,6 +1571,10 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=1&begin_time=2025-12-
 
 #### `GET` /v2/groups/{group_id}/topics
 
+**接口名称**: 获取星球话题列表
+
+**功能说明**: 获取指定星球的话题列表，支持分页查询、时间范围筛选和多种排序方式
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/topics?count=1&begin_time=2025-12-01T00%3A05%3A46.684%2B0800&scope=by_owner&with_invisibles=false
@@ -1461,6 +1613,10 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=1&begin_time=2025-12-
 ---
 
 #### `GET` /v2/groups/{group_id}/topics
+
+**接口名称**: 获取星球话题列表
+
+**功能说明**: 获取指定星球的话题列表，支持分页查询、时间范围筛选和多种排序方式
 
 **完整 URL**:
 ```
@@ -1501,6 +1657,10 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=10&end_time=2025-12-0
 
 #### `GET` /v2/groups/{group_id}/topics
 
+**接口名称**: 获取星球话题列表
+
+**功能说明**: 获取指定星球的话题列表，支持分页查询、时间范围筛选和多种排序方式
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/topics?count=10&scope=by_owner&direction=backward
@@ -1538,6 +1698,10 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=10&scope=by_owner&dir
 ---
 
 #### `GET` /v2/groups/{group_id}/topics
+
+**接口名称**: 获取星球话题列表
+
+**功能说明**: 获取指定星球的话题列表，支持分页查询、时间范围筛选和多种排序方式
 
 **完整 URL**:
 ```
@@ -1583,6 +1747,10 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=1&begin_time=2025-12-
 
 #### `GET` /v2/groups/{group_id}/topics
 
+**接口名称**: 获取星球话题列表
+
+**功能说明**: 获取指定星球的话题列表，支持分页查询、时间范围筛选和多种排序方式
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/topics?count=1&begin_time=2025-12-09T16%3A16%3A53.201%2B0800&scope=all&with_invisibles=false
@@ -1626,6 +1794,10 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=1&begin_time=2025-12-
 ---
 
 #### `GET` /v2/groups/{group_id}/topics
+
+**接口名称**: 获取星球话题列表
+
+**功能说明**: 获取指定星球的话题列表，支持分页查询、时间范围筛选和多种排序方式
 
 **完整 URL**:
 ```
@@ -1671,6 +1843,10 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=1&begin_time=2025-12-
 
 #### `GET` /v2/groups/{group_id}/columns/{column_id}/topics
 
+**接口名称**: 获取专栏话题列表
+
+**功能说明**: 获取指定星球下特定专栏的话题列表，支持分页查询
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/columns/518528184554/topics?count=100
@@ -1706,6 +1882,10 @@ https://api.zsxq.com/v2/groups/15555411412112/columns/518528184554/topics?count=
 ---
 
 #### `GET` /v2/groups/{group_id}/columns/{column_id}/topics
+
+**接口名称**: 获取专栏话题列表
+
+**功能说明**: 获取指定星球下特定专栏的话题列表，支持分页查询
 
 **完整 URL**:
 ```
@@ -1743,6 +1923,10 @@ https://api.zsxq.com/v2/groups/15555411412112/columns/518528184554/topics?count=
 
 #### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/topics
 
+**接口名称**: 获取打卡话题列表
+
+**功能说明**: 获取指定星球下特定打卡活动的相关话题列表
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141521/topics?count=20
@@ -1779,6 +1963,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141521/topics?count=2
 
 #### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/topics
 
+**接口名称**: 获取打卡话题列表
+
+**功能说明**: 获取指定星球下特定打卡活动的相关话题列表
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/topics?count=20
@@ -1814,6 +2002,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/topics?count=2
 ---
 
 #### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/topics
+
+**接口名称**: 获取打卡话题列表
+
+**功能说明**: 获取指定星球下特定打卡活动的相关话题列表
 
 **完整 URL**:
 ```
@@ -1858,6 +2050,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812/topics?count=2
 
 #### `GET` /v3/groups/ranking_list
 
+**接口名称**: 获取星球排行榜
+
+**功能说明**: 获取星球排行榜列表，支持按不同维度排名
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v3/groups/ranking_list?type=group_fortune_list&count=3
@@ -1894,6 +2090,10 @@ https://api.zsxq.com/v3/groups/ranking_list?type=group_fortune_list&count=3
 ---
 
 #### `GET` /v3/groups/ranking_list
+
+**接口名称**: 获取星球排行榜
+
+**功能说明**: 获取星球排行榜列表，支持按不同维度排名
 
 **完整 URL**:
 ```
@@ -1932,6 +2132,10 @@ https://api.zsxq.com/v3/groups/ranking_list?type=paid_group_active_list&count=3
 
 #### `GET` /v3/groups/ranking_list
 
+**接口名称**: 获取星球排行榜
+
+**功能说明**: 获取星球排行榜列表，支持按不同维度排名
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v3/groups/ranking_list?type=new_star_list&count=3
@@ -1968,6 +2172,10 @@ https://api.zsxq.com/v3/groups/ranking_list?type=new_star_list&count=3
 ---
 
 #### `GET` /v3/groups/ranking_list
+
+**接口名称**: 获取星球排行榜
+
+**功能说明**: 获取星球排行榜列表，支持按不同维度排名
 
 **完整 URL**:
 ```
@@ -2006,6 +2214,10 @@ https://api.zsxq.com/v3/groups/ranking_list?type=group_sales_list&count=3
 
 #### `GET` /v3/groups/{group_id}/ranking_list/statistics
 
+**接口名称**: 获取星球排行榜统计
+
+**功能说明**: 获取指定星球的排行榜统计信息
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v3/groups/15555411412112/ranking_list/statistics
@@ -2041,6 +2253,10 @@ https://api.zsxq.com/v3/groups/15555411412112/ranking_list/statistics
 ---
 
 #### `GET` /v2/dashboard/groups/{group_id}/scoreboard/ranking_list
+
+**接口名称**: 获取星球数据面板积分排行榜
+
+**功能说明**: 获取指定星球的数据面板积分排行榜，包含用户积分排名信息
 
 **完整 URL**:
 ```
@@ -2079,6 +2295,10 @@ https://api.zsxq.com/v2/dashboard/groups/15555411412112/scoreboard/ranking_list?
 
 #### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/ranking_list
 
+**接口名称**: 获取打卡排行榜
+
+**功能说明**: 获取指定打卡活动的用户排行榜，支持按打卡次数或积分排名
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/ranking_list?type=continuous&index=0
@@ -2115,6 +2335,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/ranking_list?t
 ---
 
 #### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/ranking_list
+
+**接口名称**: 获取打卡排行榜
+
+**功能说明**: 获取指定打卡活动的用户排行榜，支持按打卡次数或积分排名
 
 **完整 URL**:
 ```
@@ -2153,6 +2377,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/ranking_list?t
 
 #### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/ranking_list
 
+**接口名称**: 获取打卡排行榜
+
+**功能说明**: 获取指定打卡活动的用户排行榜，支持按打卡次数或积分排名
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/ranking_list?type=continuous&index=21
@@ -2189,6 +2417,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/ranking_list?t
 ---
 
 #### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/ranking_list
+
+**接口名称**: 获取打卡排行榜
+
+**功能说明**: 获取指定打卡活动的用户排行榜，支持按打卡次数或积分排名
 
 **完整 URL**:
 ```
@@ -2234,6 +2466,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/ranking_list?t
 
 #### `POST` /sa
 
+**接口名称**: 数据埋点上报
+
+**功能说明**: 神策数据埋点上报接口，用于用户行为追踪和数据分析
+
 **完整 URL**:
 ```
 https://sa.zsxq.com/sa?project=production
@@ -2266,6 +2502,10 @@ https://sa.zsxq.com/sa?project=production
 **接口数量**: 1
 
 #### `GET` /v2/groups/upgradable_groups
+
+**接口名称**: 获取可升级星球列表
+
+**功能说明**: 获取当前用户可以升级的星球列表
 
 **完整 URL**:
 ```
@@ -2307,6 +2547,10 @@ https://api.zsxq.com/v2/groups/upgradable_groups
 
 #### `GET` /v2/groups/{group_id}
 
+**接口名称**: 获取星球详情
+
+**功能说明**: 获取指定星球的详细信息，包括名称、简介、成员数、话题数等
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112
@@ -2337,6 +2581,10 @@ https://api.zsxq.com/v2/groups/15555411412112
 
 #### `GET` /v2/groups/{group_id}/hashtags
 
+**接口名称**: 获取星球标签列表
+
+**功能说明**: 获取指定星球的所有标签（话题分类）列表
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/hashtags
@@ -2366,6 +2614,10 @@ https://api.zsxq.com/v2/groups/15555411412112/hashtags
 ---
 
 #### `GET` /v2/groups/{group_id}/menus
+
+**接口名称**: 获取星球菜单列表
+
+**功能说明**: 获取指定星球的自定义菜单配置
 
 **完整 URL**:
 ```
@@ -2403,6 +2655,10 @@ https://api.zsxq.com/v2/groups/15555411412112/menus?with_optional_menus=false
 
 #### `GET` /v2/groups/{group_id}/role_members
 
+**接口名称**: 获取星球角色成员列表
+
+**功能说明**: 获取指定星球的特定角色成员列表，如管理员、嘉宾等
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/role_members?role=owner,partners,guests
@@ -2439,6 +2695,10 @@ https://api.zsxq.com/v2/groups/15555411412112/role_members?role=owner,partners,g
 
 #### `GET` /v2/groups/{group_id}/renewal
 
+**接口名称**: 获取星球续费信息
+
+**功能说明**: 获取指定星球的续费相关信息，包括续费价格、到期时间等
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/renewal
@@ -2468,6 +2728,10 @@ https://api.zsxq.com/v2/groups/15555411412112/renewal
 ---
 
 #### `GET` /v2/dashboard/groups/{group_id}/privileges
+
+**接口名称**: 获取星球权限信息
+
+**功能说明**: 获取当前用户在指定星球的管理权限信息
 
 **完整 URL**:
 ```
@@ -2508,6 +2772,10 @@ https://api.zsxq.com/v2/dashboard/groups/15555411412112/privileges
 ---
 
 #### `GET` /v2/dashboard/groups/{group_id}/scoreboard/settings
+
+**接口名称**: 获取积分榜设置
+
+**功能说明**: 获取指定星球的积分榜配置信息，包括积分规则等
 
 **完整 URL**:
 ```
@@ -2563,6 +2831,10 @@ https://api.zsxq.com/v2/dashboard/groups/15555411412112/scoreboard/settings
 ---
 
 #### `GET` /v2/dashboard/groups/{group_id}/overview
+
+**接口名称**: 获取星球数据面板概览
+
+**功能说明**: 获取指定星球的数据面板概览信息，包括成员数、话题数、活跃度等统计数据
 
 **完整 URL**:
 ```
@@ -2629,6 +2901,10 @@ https://api.zsxq.com/v2/dashboard/groups/15555411412112/overview
 
 #### `GET` /v2/dashboard/groups/{group_id}/scoreboard/statistics/self
 
+**接口名称**: 获取个人积分统计
+
+**功能说明**: 获取当前用户在指定星球的个人积分统计信息
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/dashboard/groups/15555411412112/scoreboard/statistics/self
@@ -2669,6 +2945,10 @@ https://api.zsxq.com/v2/dashboard/groups/15555411412112/scoreboard/statistics/se
 
 #### `GET` /v2/groups/{group_id}/columns/summary
 
+**接口名称**: 获取专栏摘要
+
+**功能说明**: 获取指定星球的专栏摘要信息
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/columns/summary
@@ -2704,6 +2984,10 @@ https://api.zsxq.com/v2/groups/15555411412112/columns/summary
 ---
 
 #### `GET` /v2/groups/{group_id}/statistics
+
+**接口名称**: 获取星球统计信息
+
+**功能说明**: 获取指定星球的统计数据，包括成员数、话题数、评论数等
 
 **完整 URL**:
 ```
@@ -2748,6 +3032,10 @@ https://api.zsxq.com/v2/groups/15555411412112/statistics
 
 #### `GET` /v2/groups/{group_id}/checkins
 
+**接口名称**: 获取星球打卡项目列表
+
+**功能说明**: 获取指定星球的打卡项目列表，支持按状态筛选
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/checkins?scope=ongoing&count=30
@@ -2785,6 +3073,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins?scope=ongoing&count=30
 
 #### `GET` /v2/groups/{group_id}/columns
 
+**接口名称**: 获取星球专栏列表
+
+**功能说明**: 获取指定星球的所有专栏列表
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/columns
@@ -2814,6 +3106,10 @@ https://api.zsxq.com/v2/groups/15555411412112/columns
 ---
 
 #### `GET` /v2/dashboard/groups/{group_id}/incomes/overview
+
+**接口名称**: 获取星球收入概览
+
+**功能说明**: 获取指定星球的收入概览数据，包括总收入、各类型收入等
 
 **完整 URL**:
 ```
@@ -2865,6 +3161,10 @@ https://api.zsxq.com/v2/dashboard/groups/15555411412112/incomes/overview
 ---
 
 #### `GET` /v2/groups/{group_id}/distribution
+
+**接口名称**: 获取星球分销信息
+
+**功能说明**: 获取指定星球的分销配置和数据信息
 
 **完整 URL**:
 ```
@@ -2918,6 +3218,10 @@ https://api.zsxq.com/v2/groups/15555411412112/distribution?self_inviter=true
 
 #### `GET` /v2/groups/{group_id}/checkins
 
+**接口名称**: 获取星球打卡项目列表
+
+**功能说明**: 获取指定星球的打卡项目列表，支持按状态筛选
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/checkins?scope=closed&count=30
@@ -2954,6 +3258,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins?scope=closed&count=30
 ---
 
 #### `GET` /v2/groups/{group_id}/checkins
+
+**接口名称**: 获取星球打卡项目列表
+
+**功能说明**: 获取指定星球的打卡项目列表，支持按状态筛选
 
 **完整 URL**:
 ```
@@ -2992,6 +3300,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins?scope=over&count=30
 
 #### `GET` /v2/groups/{group_id}/checkins
 
+**接口名称**: 获取星球打卡项目列表
+
+**功能说明**: 获取指定星球的打卡项目列表，支持按状态筛选
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/checkins?scope=ongoing&count=100
@@ -3029,6 +3341,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins?scope=ongoing&count=100
 
 #### `GET` /v2/groups/{group_id}/checkins/{checkin_id}
 
+**接口名称**: 获取打卡项目详情
+
+**功能说明**: 获取指定打卡项目的详细信息
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141521
@@ -3059,6 +3375,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141521
 
 #### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/statistics
 
+**接口名称**: 获取打卡项目统计
+
+**功能说明**: 获取指定打卡项目的统计信息，包括参与人数、打卡次数等
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141521/statistics
@@ -3088,6 +3408,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141521/statistics
 ---
 
 #### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/statistics/daily
+
+**接口名称**: 获取打卡项目每日统计
+
+**功能说明**: 获取指定打卡项目的每日统计数据，按日期展示打卡情况
 
 **完整 URL**:
 ```
@@ -3130,6 +3454,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141521/statistics/dai
 
 #### `GET` /v2/groups/{group_id}/checkins/{checkin_id}
 
+**接口名称**: 获取打卡项目详情
+
+**功能说明**: 获取指定打卡项目的详细信息
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814
@@ -3160,6 +3488,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814
 
 #### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/statistics
 
+**接口名称**: 获取打卡项目统计
+
+**功能说明**: 获取指定打卡项目的统计信息，包括参与人数、打卡次数等
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/statistics
@@ -3189,6 +3521,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/statistics
 ---
 
 #### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/statistics/daily
+
+**接口名称**: 获取打卡项目每日统计
+
+**功能说明**: 获取指定打卡项目的每日统计数据，按日期展示打卡情况
 
 **完整 URL**:
 ```
@@ -3230,6 +3566,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/statistics/dai
 ---
 
 #### `GET` /v2/groups/{group_id}/members/{member_id}
+
+**接口名称**: 获取成员详情
+
+**功能说明**: 获取指定星球成员的详细信息
 
 **完整 URL**:
 ```
@@ -3277,6 +3617,10 @@ https://api.zsxq.com/v2/groups/15555411412112/members/184444848828412
 ---
 
 #### `GET` /v2/groups/{group_id}/members/{member_id}/summary
+
+**接口名称**: 获取成员摘要信息
+
+**功能说明**: 获取指定星球成员的摘要信息，包括发帖数、评论数等
 
 **完整 URL**:
 ```
@@ -3328,6 +3672,10 @@ https://api.zsxq.com/v2/groups/15555411412112/members/844415445224112/summary
 
 #### `GET` /v2/groups/{group_id}/checkins/{checkin_id}
 
+**接口名称**: 获取打卡项目详情
+
+**功能说明**: 获取指定打卡项目的详细信息
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812
@@ -3358,6 +3706,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812
 
 #### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/statistics
 
+**接口名称**: 获取打卡项目统计
+
+**功能说明**: 获取指定打卡项目的统计信息，包括参与人数、打卡次数等
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812/statistics
@@ -3387,6 +3739,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812/statistics
 ---
 
 #### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/statistics/daily
+
+**接口名称**: 获取打卡项目每日统计
+
+**功能说明**: 获取指定打卡项目的每日统计数据，按日期展示打卡情况
 
 **完整 URL**:
 ```
@@ -3429,6 +3785,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812/statistics/dai
 
 #### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/joined_users
 
+**接口名称**: 获取打卡项目参与用户列表
+
+**功能说明**: 获取参与指定打卡项目的用户列表
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812/joined_users?filter=uncheckined&count=10
@@ -3465,6 +3825,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812/joined_users?f
 ---
 
 #### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/joined_users
+
+**接口名称**: 获取打卡项目参与用户列表
+
+**功能说明**: 获取参与指定打卡项目的用户列表
 
 **完整 URL**:
 ```
@@ -3507,6 +3871,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812/joined_users?f
 ---
 
 #### `POST` /v2/groups/{group_id}/checkins
+
+**接口名称**: 创建打卡项目
+
+**功能说明**: 在指定星球创建新的打卡项目，设置打卡规则、开始结束时间等
 
 **完整 URL**:
 ```
@@ -3609,6 +3977,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins
 
 #### `PUT` /v2/groups/{group_id}/checkins/{checkin_id}
 
+**接口名称**: 更新打卡项目
+
+**功能说明**: 更新指定打卡项目的配置信息，如名称、规则、时间等
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141411
@@ -3661,6 +4033,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141411
 ---
 
 #### `PUT` /v2/groups/{group_id}/checkins/{checkin_id} (关闭项目)
+
+**接口名称**: 关闭打卡项目
+
+**功能说明**: 关闭指定的打卡项目，停止接受新的打卡记录
 
 **完整 URL**:
 ```
@@ -3717,6 +4093,10 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141411
 
 #### `GET` /v2/groups/recommendations
 
+**接口名称**: 获取推荐星球列表
+
+**功能说明**: 获取系统推荐的星球列表
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/groups/recommendations?count=3&index=3&source=GroupListView
@@ -3758,6 +4138,10 @@ https://api.zsxq.com/v2/groups/recommendations?count=3&index=3&source=GroupListV
 **接口数量**: 1
 
 #### `GET` /v2/groups/unread_topics_count
+
+**接口名称**: 获取星球未读话题数
+
+**功能说明**: 获取各星球的未读话题数量统计
 
 **完整 URL**:
 ```
@@ -3830,6 +4214,10 @@ https://api.zsxq.com/v2/groups/unread_topics_count
 
 #### `GET` /v2/users/self/merchant_coupons
 
+**接口名称**: 获取用户优惠券列表
+
+**功能说明**: 获取当前用户拥有的商家优惠券列表
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/users/self/merchant_coupons
@@ -3868,6 +4256,10 @@ https://api.zsxq.com/v2/users/self/merchant_coupons
 **接口数量**: 1
 
 #### `GET` /v3/users/self/remarks
+
+**接口名称**: 获取用户备注列表
+
+**功能说明**: 获取当前用户设置的好友备注信息列表
 
 **完整 URL**:
 ```
@@ -3914,6 +4306,10 @@ https://api.zsxq.com/v3/users/self/remarks?begin_time=1970-01-01T08%3A00%3A00.00
 
 #### `GET` /v2/users/self/recommendations/users
 
+**接口名称**: 获取推荐用户列表
+
+**功能说明**: 获取系统为当前用户推荐的可能认识的用户列表
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/users/self/recommendations/users?type=unfollowed_group_owner&count=9
@@ -3959,6 +4355,10 @@ https://api.zsxq.com/v2/users/self/recommendations/users?type=unfollowed_group_o
 **接口数量**: 5
 
 #### `GET` /v3/users/self
+
+**接口名称**: 获取当前用户信息
+
+**功能说明**: 获取当前登录用户的详细信息，包括用户ID、昵称、头像等
 
 **完整 URL**:
 ```
@@ -4021,6 +4421,10 @@ https://api.zsxq.com/v3/users/self
 
 #### `GET` /v3/users/{user_id}
 
+**接口名称**: 获取指定用户信息
+
+**功能说明**: 获取指定用户的详细信息
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v3/users/844415445224112
@@ -4067,6 +4471,10 @@ https://api.zsxq.com/v3/users/844415445224112
 
 #### `GET` /v2/users/{user_id}/footprints
 
+**接口名称**: 获取用户足迹
+
+**功能说明**: 获取指定用户的活动足迹记录
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/users/844415445224112/footprints?count=20&group_id=15555411412112&filter=group&filter_group_id=15555411412112
@@ -4106,6 +4514,10 @@ https://api.zsxq.com/v2/users/844415445224112/footprints?count=20&group_id=15555
 
 #### `GET` /v3/users/{user_id}/statistics
 
+**接口名称**: 获取用户统计信息
+
+**功能说明**: 获取指定用户的统计数据，包括加入星球数、发帖数等
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v3/users/844415445224112/statistics
@@ -4143,6 +4555,10 @@ https://api.zsxq.com/v3/users/844415445224112/statistics
 ---
 
 #### `GET` /v3/users/{user_id}/avatar_url
+
+**接口名称**: 获取用户头像URL
+
+**功能说明**: 获取指定用户的头像图片URL
 
 **完整 URL**:
 ```
@@ -4183,6 +4599,10 @@ https://api.zsxq.com/v3/users/844415445224112/avatar_url
 
 #### `GET` /v2/users/self/groups/applied_groups
 
+**接口名称**: 获取已申请加入的星球列表
+
+**功能说明**: 获取当前用户已申请但尚未通过的星球列表
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/users/self/groups/applied_groups
@@ -4218,6 +4638,10 @@ https://api.zsxq.com/v2/users/self/groups/applied_groups
 
 #### `GET` /v2/users/self/groups/{group_id}/inviter
 
+**接口名称**: 获取星球邀请人信息
+
+**功能说明**: 获取邀请当前用户加入指定星球的邀请人信息
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/users/self/groups/15555411412112/inviter
@@ -4250,6 +4674,10 @@ https://api.zsxq.com/v2/users/self/groups/15555411412112/inviter
 ---
 
 #### `GET` /v2/users/self/groups/{group_id}/checkins/{checkin_id}/topics
+
+**接口名称**: 获取我在打卡项目中的话题
+
+**功能说明**: 获取当前用户在指定打卡项目中发布的话题列表
 
 **完整 URL**:
 ```
@@ -4292,6 +4720,10 @@ https://api.zsxq.com/v2/users/self/groups/15555411412112/checkins/5454855814/top
 ---
 
 #### `GET` /v2/users/self/groups/{group_id}/checkins/{checkin_id}/checkined_dates
+
+**接口名称**: 获取我的打卡日期列表
+
+**功能说明**: 获取当前用户在指定打卡项目中已打卡的日期列表
 
 **完整 URL**:
 ```
@@ -4336,6 +4768,10 @@ https://api.zsxq.com/v2/users/self/groups/15555411412112/checkins/5454855814/che
 
 #### `GET` /v2/users/self/groups/{group_id}/checkins/{checkin_id}/checkined_dates
 
+**接口名称**: 获取我的打卡日期列表
+
+**功能说明**: 获取当前用户在指定打卡项目中已打卡的日期列表
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/users/self/groups/15555411412112/checkins/5454855814/checkined_dates?begin_time=2026-01-01T00%3A00%3A00.000%2B0800&end_time=2026-01-04T23%3A59%3A59.900%2B0800
@@ -4379,6 +4815,10 @@ https://api.zsxq.com/v2/users/self/groups/15555411412112/checkins/5454855814/che
 
 #### `GET` /v2/users/self/groups/{group_id}/checkins/{checkin_id}/statistics
 
+**接口名称**: 获取我的打卡统计
+
+**功能说明**: 获取当前用户在指定打卡项目中的个人打卡统计数据
+
 **完整 URL**:
 ```
 https://api.zsxq.com/v2/users/self/groups/15555411412112/checkins/5454855814/statistics
@@ -4414,6 +4854,10 @@ https://api.zsxq.com/v2/users/self/groups/15555411412112/checkins/5454855814/sta
 ---
 
 #### `GET` /v2/users/{user_id}/created_groups
+
+**接口名称**: 获取用户创建的星球列表
+
+**功能说明**: 获取指定用户创建的星球列表
 
 **完整 URL**:
 ```
@@ -4455,6 +4899,10 @@ https://api.zsxq.com/v2/users/844415445224112/created_groups?count=200
 ---
 
 #### `GET` /v2/users/{user_id}/footprints/groups
+
+**接口名称**: 获取用户活跃的星球列表
+
+**功能说明**: 获取指定用户有活动足迹的星球列表
 
 **完整 URL**:
 ```
@@ -4499,6 +4947,10 @@ https://api.zsxq.com/v2/users/844415445224112/footprints/groups?group_id=1555541
 
 #### `POST` /api/{api_id}/envelope/
 
+**接口名称**: 极光推送信封接口
+
+**功能说明**: 极光推送服务的信封API，用于消息推送
+
 **完整 URL**:
 ```
 https://client-report.zsxq.com/api/5/envelope/?sentry_version=7&sentry_key=eb3ab2f2d9cc499e95d1c8ff86a0637a&sentry_client=sentry.javascript.vue%2F9.0.1
@@ -4533,6 +4985,10 @@ https://client-report.zsxq.com/api/5/envelope/?sentry_version=7&sentry_key=eb3ab
 
 #### `POST` /rqd/sync
 
+**接口名称**: 腾讯质量监控数据同步
+
+**功能说明**: 腾讯移动质量监控（RQD）的数据同步接口，用于上报崩溃和性能数据
+
 **完整 URL**:
 ```
 https://ios.bugly.qq.com/rqd/sync?aid=FB8E26AF-5DF6-4BED-86E0-D431C39B29FF
@@ -4552,6 +5008,10 @@ https://ios.bugly.qq.com/rqd/sync?aid=FB8E26AF-5DF6-4BED-86E0-D431C39B29FF
 ---
 
 #### `POST` /rqd/sync
+
+**接口名称**: 腾讯质量监控数据同步
+
+**功能说明**: 腾讯移动质量监控（RQD）的数据同步接口，用于上报崩溃和性能数据
 
 **完整 URL**:
 ```
@@ -4573,6 +5033,10 @@ https://ios.bugly.qq.com/rqd/sync?aid=03C24FBA-0CA5-4C07-BE56-2D34AF6A3516
 
 #### `POST` /rqd/sync
 
+**接口名称**: 腾讯质量监控数据同步
+
+**功能说明**: 腾讯移动质量监控（RQD）的数据同步接口，用于上报崩溃和性能数据
+
 **完整 URL**:
 ```
 https://ios.bugly.qq.com/rqd/sync?aid=2A442AE6-F690-423E-AEBE-1E462752D0B9
@@ -4592,6 +5056,10 @@ https://ios.bugly.qq.com/rqd/sync?aid=2A442AE6-F690-423E-AEBE-1E462752D0B9
 ---
 
 #### `POST` /rqd/sync
+
+**接口名称**: 腾讯质量监控数据同步
+
+**功能说明**: 腾讯移动质量监控（RQD）的数据同步接口，用于上报崩溃和性能数据
 
 **完整 URL**:
 ```
@@ -4613,6 +5081,10 @@ https://ios.bugly.qq.com/rqd/sync?aid=63F67FBB-732B-4B66-A267-E4F1CEED712B
 
 #### `POST` /rqd/sync
 
+**接口名称**: 腾讯质量监控数据同步
+
+**功能说明**: 腾讯移动质量监控（RQD）的数据同步接口，用于上报崩溃和性能数据
+
 **完整 URL**:
 ```
 https://ios.bugly.qq.com/rqd/sync?aid=533EE2B7-A226-4CC6-8888-EE3E739DDA59
@@ -4632,6 +5104,10 @@ https://ios.bugly.qq.com/rqd/sync?aid=533EE2B7-A226-4CC6-8888-EE3E739DDA59
 ---
 
 #### `POST` /rqd/sync
+
+**接口名称**: 腾讯质量监控数据同步
+
+**功能说明**: 腾讯移动质量监控（RQD）的数据同步接口，用于上报崩溃和性能数据
 
 **完整 URL**:
 ```
@@ -4659,6 +5135,10 @@ https://ios.bugly.qq.com/rqd/sync?aid=A2E994F3-E510-47A4-AA8B-D82A2EECEED7
 **接口数量**: 2
 
 #### `GET` /v2/groups/{group_id}/menus/last_read_time
+
+**接口名称**: 获取菜单最后阅读时间
+
+**功能说明**: 获取当前用户最后阅读星球菜单的时间
 
 **完整 URL**:
 ```
@@ -4689,6 +5169,10 @@ https://api.zsxq.com/v2/groups/15555411412112/menus/last_read_time
 ---
 
 #### `PUT` /v2/groups/{group_id}/menus/last_read_time
+
+**接口名称**: 更新菜单最后阅读时间
+
+**功能说明**: 更新当前用户最后阅读星球菜单的时间
 
 **完整 URL**:
 ```
