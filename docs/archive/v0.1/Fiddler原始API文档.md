@@ -70,7 +70,7 @@ https://api.zsxq.com
 
 **接口数量**: 35
 
-#### `GET` /v2/groups
+#### 1.1.1 `GET` /v2/groups
 
 **接口名称**: 获取用户星球列表
 
@@ -96,7 +96,7 @@ https://api.zsxq.com/v2/groups
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'groups': [{'group_id': 88885121521552, 'name': '易安AI编程·出海赚钱', 'privilege_user_last_topic_create_time': '2025-12-08T18:09:50.408+0800', 'background_url': 'https://images.zsxq.com/FprqWRYy8OAu6_Y4T4uOIQZSBbE6?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:NzzZ020dO7CxwhmzvThPB5NAskE=', 'type': 'free', 'risk_level': 'normal', 'partner_ids': [51544811224184, 51418248822184, 455451411288, 184444848828412, 184444148525542, 244418184485821], 'admin_ids': ...
+{"succeeded": true, "resp_data": {"groups": [{"group_id": 88885121521552, "name": "易安AI编程·出海赚钱", "privilege_user_last_topic_create_time": "2025-12-08T18:09:50.408+0800", "background_url": "https://images.zsxq.com/FprqWRYy8OAu6_Y4T4uOIQZSBbE6?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:NzzZ020dO7CxwhmzvThPB5NAskE=", "type": "free", "risk_level": "normal", "partner_ids": [51544811224184, 51418248822184, 455451411288, 184444848828412, 184444148525542, 244418184485821], "admin_ids": ...
 ```
 
 **平均响应时间**: 227ms
@@ -104,7 +104,7 @@ https://api.zsxq.com/v2/groups
 
 ---
 
-#### `GET` /v2/pk_groups/{pk_group_id}
+#### 1.1.2 `GET` /v2/pk_groups/{pk_group_id}
 
 **接口名称**: 获取PK群组详情
 
@@ -153,7 +153,7 @@ https://api.zsxq.com/v2/pk_groups/15555411412112
 
 ---
 
-#### `GET` /v2/pk_groups/{pk_group_id}/records
+#### 1.1.3 `GET` /v2/pk_groups/{pk_group_id}/records
 
 **接口名称**: 获取PK群组对战记录
 
@@ -198,7 +198,7 @@ https://api.zsxq.com/v2/pk_groups/15555411412112/records?count=1
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.4 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -230,7 +230,7 @@ https://api.zsxq.com/v2/hashtags/28844882581111/topics?count=1
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 82811825281411142, 'topic_uid': '82811825281411142', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 51118424254414, 'name': '岸芷汀兰', 'avatar_url': 'https://images.zsxq.com/Ftpe2Fl5Ubay2gVmaH9Lmg1AUc3j?imageMog...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 82811825281411142, "topic_uid": "82811825281411142", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 51118424254414, "name": "岸芷汀兰", "avatar_url": "https://images.zsxq.com/Ftpe2Fl5Ubay2gVmaH9Lmg1AUc3j?imageMog...
 ```
 
 **平均响应时间**: 179ms
@@ -238,7 +238,7 @@ https://api.zsxq.com/v2/hashtags/28844882581111/topics?count=1
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.5 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -270,7 +270,7 @@ https://api.zsxq.com/v2/hashtags/15514284488142/topics?count=1
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 82811825841211442, 'topic_uid': '82811825841211442', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 582884445452854, 'name': '深圳大冲', 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 82811825841211442, "topic_uid": "82811825841211442", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 582884445452854, "name": "深圳大冲", "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
 ```
 
 **平均响应时间**: 193ms
@@ -278,7 +278,7 @@ https://api.zsxq.com/v2/hashtags/15514284488142/topics?count=1
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.6 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -310,7 +310,7 @@ https://api.zsxq.com/v2/hashtags/51144121845184/topics?count=1
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 45811854885441458, 'topic_uid': '45811854885441458', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 8442455112, 'name': '英男', 'avatar_url': 'https://images.zsxq.com/FiCL-2eyOJd-lJbDxefn8OJSX4m3?imageMogr2/aut...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 45811854885441458, "topic_uid": "45811854885441458", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 8442455112, "name": "英男", "avatar_url": "https://images.zsxq.com/FiCL-2eyOJd-lJbDxefn8OJSX4m3?imageMogr2/aut...
 ```
 
 **平均响应时间**: 117ms
@@ -318,7 +318,7 @@ https://api.zsxq.com/v2/hashtags/51144121845184/topics?count=1
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.7 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -350,7 +350,7 @@ https://api.zsxq.com/v2/hashtags/51145125424814/topics?count=1
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 22811851848118141, 'topic_uid': '22811851848118141', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 812858181514282, 'name': '平老板', 'avatar_url': 'https://images.zsxq.com/FnvL5BJE_ZSAVyPVlPr_hvOSgXY7?imageMog...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 22811851848118141, "topic_uid": "22811851848118141", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 812858181514282, "name": "平老板", "avatar_url": "https://images.zsxq.com/FnvL5BJE_ZSAVyPVlPr_hvOSgXY7?imageMog...
 ```
 
 **平均响应时间**: 227ms
@@ -358,7 +358,7 @@ https://api.zsxq.com/v2/hashtags/51145125424814/topics?count=1
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.8 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -390,7 +390,7 @@ https://api.zsxq.com/v2/hashtags/15425825555222/topics?count=1
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 55188118821885814, 'topic_uid': '55188118821885814', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 585582848845524, 'name': '张铖', 'avatar_url': 'https://images.zsxq.com/FsEA3CRumbupAAbz55eP77brOqWQ?imageMogr...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 55188118821885814, "topic_uid": "55188118821885814", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 585582848845524, "name": "张铖", "avatar_url": "https://images.zsxq.com/FsEA3CRumbupAAbz55eP77brOqWQ?imageMogr...
 ```
 
 **平均响应时间**: 168ms
@@ -398,7 +398,7 @@ https://api.zsxq.com/v2/hashtags/15425825555222/topics?count=1
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.9 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -430,7 +430,7 @@ https://api.zsxq.com/v2/hashtags/51521485524884/topics?count=1
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 55188118845855824, 'topic_uid': '55188118845855824', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'task', 'task': {'owner': {'user_id': 582884445452854, 'name': '深圳大冲', 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 55188118845855824, "topic_uid": "55188118845855824", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "task", "task": {"owner": {"user_id": 582884445452854, "name": "深圳大冲", "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
 ```
 
 **平均响应时间**: 131ms
@@ -438,7 +438,7 @@ https://api.zsxq.com/v2/hashtags/51521485524884/topics?count=1
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.10 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -470,7 +470,7 @@ https://api.zsxq.com/v2/hashtags/51184585284414/topics?count=1
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 14588542541554542, 'topic_uid': '14588542541554542', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 241888888148421, 'name': '无岸', 'avatar_url': 'https://images.zsxq.com/FvseKqtKMNLtLE1fmRYExEOsrlOY?imageMogr...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 14588542541554542, "topic_uid": "14588542541554542", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 241888888148421, "name": "无岸", "avatar_url": "https://images.zsxq.com/FvseKqtKMNLtLE1fmRYExEOsrlOY?imageMogr...
 ```
 
 **平均响应时间**: 104ms
@@ -478,7 +478,7 @@ https://api.zsxq.com/v2/hashtags/51184585284414/topics?count=1
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.11 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -510,7 +510,7 @@ https://api.zsxq.com/v2/hashtags/28812242884811/topics?count=1
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 14588542545411422, 'topic_uid': '14588542545411422', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 585125485845184, 'name': '维度哥', 'avatar_url': 'https://images.zsxq.com/Fp2MzGf6um9-v-8EbZ4sXvdjgLr8?imageMog...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 14588542545411422, "topic_uid": "14588542545411422", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 585125485845184, "name": "维度哥", "avatar_url": "https://images.zsxq.com/Fp2MzGf6um9-v-8EbZ4sXvdjgLr8?imageMog...
 ```
 
 **平均响应时间**: 95ms
@@ -518,7 +518,7 @@ https://api.zsxq.com/v2/hashtags/28812242884811/topics?count=1
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.12 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -550,7 +550,7 @@ https://api.zsxq.com/v2/hashtags/48818152154548/topics?count=1
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 45811414222482148, 'topic_uid': '45811414222482148', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 582884445452854, 'name': '深圳大冲', 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 45811414222482148, "topic_uid": "45811414222482148", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 582884445452854, "name": "深圳大冲", "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
 ```
 
 **平均响应时间**: 278ms
@@ -558,7 +558,7 @@ https://api.zsxq.com/v2/hashtags/48818152154548/topics?count=1
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.13 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -590,7 +590,7 @@ https://api.zsxq.com/v2/hashtags/48548284252828/topics?count=1
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 14588552155851222, 'topic_uid': '14588552155851222', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 582885851288184, 'name': '正能量者', 'avatar_url': 'https://images.zsxq.com/FiguBZnZfRFRxu-8yGeyO6-d7s9S?imageMo...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 14588552155851222, "topic_uid": "14588552155851222", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 582885851288184, "name": "正能量者", "avatar_url": "https://images.zsxq.com/FiguBZnZfRFRxu-8yGeyO6-d7s9S?imageMo...
 ```
 
 **平均响应时间**: 285ms
@@ -598,7 +598,7 @@ https://api.zsxq.com/v2/hashtags/48548284252828/topics?count=1
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.14 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -630,7 +630,7 @@ https://api.zsxq.com/v2/hashtags/88258485424282/topics?count=1
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 55188124185152254, 'topic_uid': '55188124185152254', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 815815145851582, 'name': '三横王者', 'avatar_url': 'https://images.zsxq.com/FqhLCVwfN-BhVm_oKRLVJu8QfKOX?imageMo...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 55188124185152254, "topic_uid": "55188124185152254", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 815815145851582, "name": "三横王者", "avatar_url": "https://images.zsxq.com/FqhLCVwfN-BhVm_oKRLVJu8QfKOX?imageMo...
 ```
 
 **平均响应时间**: 185ms
@@ -638,7 +638,7 @@ https://api.zsxq.com/v2/hashtags/88258485424282/topics?count=1
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.15 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -670,7 +670,7 @@ https://api.zsxq.com/v2/hashtags/51521412454144/topics?count=1
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 82811885454852552, 'topic_uid': '82811885454852552', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 181281551422882, 'name': '顾北', 'avatar_url': 'https://images.zsxq.com/FkZPZx9n5upu_sS96uE2dc97Z39m?imageMogr...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 82811885454852552, "topic_uid": "82811885454852552", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 181281551422882, "name": "顾北", "avatar_url": "https://images.zsxq.com/FkZPZx9n5upu_sS96uE2dc97Z39m?imageMogr...
 ```
 
 **平均响应时间**: 177ms
@@ -678,7 +678,7 @@ https://api.zsxq.com/v2/hashtags/51521412454144/topics?count=1
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.16 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -710,7 +710,7 @@ https://api.zsxq.com/v2/hashtags/28844882581111/topics?count=10
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 82811825281411142, 'topic_uid': '82811825281411142', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 51118424254414, 'name': '岸芷汀兰', 'avatar_url': 'https://images.zsxq.com/Ftpe2Fl5Ubay2gVmaH9Lmg1AUc3j?imageMog...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 82811825281411142, "topic_uid": "82811825281411142", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 51118424254414, "name": "岸芷汀兰", "avatar_url": "https://images.zsxq.com/Ftpe2Fl5Ubay2gVmaH9Lmg1AUc3j?imageMog...
 ```
 
 **平均响应时间**: 282ms
@@ -718,7 +718,7 @@ https://api.zsxq.com/v2/hashtags/28844882581111/topics?count=10
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.17 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -750,7 +750,7 @@ https://api.zsxq.com/v2/hashtags/15514284488142/topics?count=10
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 82811825841211442, 'topic_uid': '82811825841211442', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 582884445452854, 'name': '深圳大冲', 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 82811825841211442, "topic_uid": "82811825841211442", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 582884445452854, "name": "深圳大冲", "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
 ```
 
 **平均响应时间**: 190ms
@@ -758,7 +758,7 @@ https://api.zsxq.com/v2/hashtags/15514284488142/topics?count=10
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.18 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -790,7 +790,7 @@ https://api.zsxq.com/v2/hashtags/51144121845184/topics?count=10
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 45811854885441458, 'topic_uid': '45811854885441458', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 8442455112, 'name': '英男', 'avatar_url': 'https://images.zsxq.com/FiCL-2eyOJd-lJbDxefn8OJSX4m3?imageMogr2/aut...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 45811854885441458, "topic_uid": "45811854885441458", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 8442455112, "name": "英男", "avatar_url": "https://images.zsxq.com/FiCL-2eyOJd-lJbDxefn8OJSX4m3?imageMogr2/aut...
 ```
 
 **平均响应时间**: 161ms
@@ -798,7 +798,7 @@ https://api.zsxq.com/v2/hashtags/51144121845184/topics?count=10
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.19 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -830,7 +830,7 @@ https://api.zsxq.com/v2/hashtags/51145125424814/topics?count=10
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 22811851848118141, 'topic_uid': '22811851848118141', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 812858181514282, 'name': '平老板', 'avatar_url': 'https://images.zsxq.com/FnvL5BJE_ZSAVyPVlPr_hvOSgXY7?imageMog...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 22811851848118141, "topic_uid": "22811851848118141", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 812858181514282, "name": "平老板", "avatar_url": "https://images.zsxq.com/FnvL5BJE_ZSAVyPVlPr_hvOSgXY7?imageMog...
 ```
 
 **平均响应时间**: 195ms
@@ -838,7 +838,7 @@ https://api.zsxq.com/v2/hashtags/51145125424814/topics?count=10
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.20 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -870,7 +870,7 @@ https://api.zsxq.com/v2/hashtags/15425825555222/topics?count=10
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 55188118821885814, 'topic_uid': '55188118821885814', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 585582848845524, 'name': '张铖', 'avatar_url': 'https://images.zsxq.com/FsEA3CRumbupAAbz55eP77brOqWQ?imageMogr...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 55188118821885814, "topic_uid": "55188118821885814", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 585582848845524, "name": "张铖", "avatar_url": "https://images.zsxq.com/FsEA3CRumbupAAbz55eP77brOqWQ?imageMogr...
 ```
 
 **平均响应时间**: 306ms
@@ -878,7 +878,7 @@ https://api.zsxq.com/v2/hashtags/15425825555222/topics?count=10
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.21 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -910,7 +910,7 @@ https://api.zsxq.com/v2/hashtags/51521485524884/topics?count=10
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 55188118845855824, 'topic_uid': '55188118845855824', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'task', 'task': {'owner': {'user_id': 582884445452854, 'name': '深圳大冲', 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 55188118845855824, "topic_uid": "55188118845855824", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "task", "task": {"owner": {"user_id": 582884445452854, "name": "深圳大冲", "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
 ```
 
 **平均响应时间**: 131ms
@@ -918,7 +918,7 @@ https://api.zsxq.com/v2/hashtags/51521485524884/topics?count=10
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.22 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -950,7 +950,7 @@ https://api.zsxq.com/v2/hashtags/88258185254482/topics?count=10
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 45811414222482148, 'topic_uid': '45811414222482148', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 582884445452854, 'name': '深圳大冲', 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 45811414222482148, "topic_uid": "45811414222482148", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 582884445452854, "name": "深圳大冲", "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
 ```
 
 **平均响应时间**: 121ms
@@ -958,7 +958,7 @@ https://api.zsxq.com/v2/hashtags/88258185254482/topics?count=10
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.23 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -990,7 +990,7 @@ https://api.zsxq.com/v2/hashtags/51184585284414/topics?count=10
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 14588542541554542, 'topic_uid': '14588542541554542', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 241888888148421, 'name': '无岸', 'avatar_url': 'https://images.zsxq.com/FvseKqtKMNLtLE1fmRYExEOsrlOY?imageMogr...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 14588542541554542, "topic_uid": "14588542541554542", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 241888888148421, "name": "无岸", "avatar_url": "https://images.zsxq.com/FvseKqtKMNLtLE1fmRYExEOsrlOY?imageMogr...
 ```
 
 **平均响应时间**: 190ms
@@ -998,7 +998,7 @@ https://api.zsxq.com/v2/hashtags/51184585284414/topics?count=10
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.24 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -1030,7 +1030,7 @@ https://api.zsxq.com/v2/hashtags/28812242884811/topics?count=10
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 14588542545411422, 'topic_uid': '14588542545411422', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 585125485845184, 'name': '维度哥', 'avatar_url': 'https://images.zsxq.com/Fp2MzGf6um9-v-8EbZ4sXvdjgLr8?imageMog...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 14588542545411422, "topic_uid": "14588542545411422", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 585125485845184, "name": "维度哥", "avatar_url": "https://images.zsxq.com/Fp2MzGf6um9-v-8EbZ4sXvdjgLr8?imageMog...
 ```
 
 **平均响应时间**: 300ms
@@ -1038,7 +1038,7 @@ https://api.zsxq.com/v2/hashtags/28812242884811/topics?count=10
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.25 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -1070,7 +1070,7 @@ https://api.zsxq.com/v2/hashtags/88285218512422/topics?count=10
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 45811881252542118, 'topic_uid': '45811881252542118', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 582884445452854, 'name': '深圳大冲', 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 45811881252542118, "topic_uid": "45811881252542118", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 582884445452854, "name": "深圳大冲", "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
 ```
 
 **平均响应时间**: 203ms
@@ -1078,7 +1078,7 @@ https://api.zsxq.com/v2/hashtags/88285218512422/topics?count=10
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.26 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -1110,7 +1110,7 @@ https://api.zsxq.com/v2/hashtags/88258185254482/topics?count=1
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 45811414222482148, 'topic_uid': '45811414222482148', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 582884445452854, 'name': '深圳大冲', 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 45811414222482148, "topic_uid": "45811414222482148", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 582884445452854, "name": "深圳大冲", "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
 ```
 
 **平均响应时间**: 189ms
@@ -1118,7 +1118,7 @@ https://api.zsxq.com/v2/hashtags/88258185254482/topics?count=1
 
 ---
 
-#### `GET` /v2/hashtags/{hashtag_id}/topics
+#### 1.1.27 `GET` /v2/hashtags/{hashtag_id}/topics
 
 **接口名称**: 获取标签下的话题列表
 
@@ -1150,7 +1150,7 @@ https://api.zsxq.com/v2/hashtags/88285218512422/topics?count=1
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 45811881252542118, 'topic_uid': '45811881252542118', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 582884445452854, 'name': '深圳大冲', 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 45811881252542118, "topic_uid": "45811881252542118", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 582884445452854, "name": "深圳大冲", "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
 ```
 
 **平均响应时间**: 119ms
@@ -1158,7 +1158,7 @@ https://api.zsxq.com/v2/hashtags/88285218512422/topics?count=1
 
 ---
 
-#### `GET` /v2/url_details
+#### 1.1.28 `GET` /v2/url_details
 
 **接口名称**: 获取URL详情
 
@@ -1203,7 +1203,7 @@ https://api.zsxq.com/v2/url_details?url=https%3A%2F%2Fwx.zsxq.com%2Fmweb%2Fviews
 
 ---
 
-#### `GET` /v2/topics/{topic_id}/info
+#### 1.1.29 `GET` /v2/topics/{topic_id}/info
 
 **接口名称**: 获取话题基础信息
 
@@ -1229,7 +1229,7 @@ https://api.zsxq.com/v2/topics/5125585155255524/info
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topic': {'topic_id': 5125585155255524, 'topic_uid': '5125585155255524', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 582884445452854, 'name': '深圳大冲', 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMogr2/...
+{"succeeded": true, "resp_data": {"topic": {"topic_id": 5125585155255524, "topic_uid": "5125585155255524", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 582884445452854, "name": "深圳大冲", "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMogr2/...
 ```
 
 **平均响应时间**: 135ms
@@ -1237,7 +1237,7 @@ https://api.zsxq.com/v2/topics/5125585155255524/info
 
 ---
 
-#### `GET` /v2/topics/{topic_id}
+#### 1.1.30 `GET` /v2/topics/{topic_id}
 
 **接口名称**: 获取话题详情
 
@@ -1263,7 +1263,7 @@ https://api.zsxq.com/v2/topics/5125585155255524
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topic': {'topic_id': 5125585155255524, 'topic_uid': '5125585155255524', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 582884445452854, 'name': '深圳大冲', 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMogr2/...
+{"succeeded": true, "resp_data": {"topic": {"topic_id": 5125585155255524, "topic_uid": "5125585155255524", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 582884445452854, "name": "深圳大冲", "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMogr2/...
 ```
 
 **平均响应时间**: 176ms
@@ -1271,7 +1271,7 @@ https://api.zsxq.com/v2/topics/5125585155255524
 
 ---
 
-#### `GET` /v2/topics/{topic_id}/recommendations
+#### 1.1.31 `GET` /v2/topics/{topic_id}/recommendations
 
 **接口名称**: 获取话题推荐列表
 
@@ -1310,7 +1310,7 @@ https://api.zsxq.com/v2/topics/5125585155255524/recommendations
 
 ---
 
-#### `GET` /v2/topics/{topic_id}/comments
+#### 1.1.32 `GET` /v2/topics/{topic_id}/comments
 
 **接口名称**: 获取话题评论列表
 
@@ -1359,7 +1359,7 @@ https://api.zsxq.com/v2/topics/5125585155255524/comments?with_sticky=true&sort=a
 
 ---
 
-#### `GET` /v2/topics/{topic_id}/rewards
+#### 1.1.33 `GET` /v2/topics/{topic_id}/rewards
 
 **接口名称**: 获取话题打赏列表
 
@@ -1398,7 +1398,7 @@ https://api.zsxq.com/v2/topics/5125585155255524/rewards
 
 ---
 
-#### `POST` /secret/user/
+#### 1.1.34 `POST` /secret/user/
 
 **接口名称**: 用户密钥相关操作
 
@@ -1431,7 +1431,7 @@ Badge API success
 
 ---
 
-#### `POST` /v3/report
+#### 1.1.35 `POST` /v3/report
 
 **接口名称**: 数据上报
 
@@ -1452,7 +1452,7 @@ https://stats.jpush.cn/v3/report
 **请求体**:
 
 ```json
-��/�R�'����1�o�a�|R�����`R|�c[Wyd]�6�����?PL��Mh&�%�u�nu��pWMHX�X�<�<x)D�bT�Q�$O���} �g,L��1m�"�m*é�#����T����y�L��u�*ڔ��9;�yA^T�c��ղ�P�g��42�D��jf�d��3tG9�L.�]���n:xkZ�/��M��*�aR...
+��/�R�"����1�o�a�|R�����`R|�c[Wyd]�6�����?PL��Mh&�%�u�nu��pWMHX�X�<�<x)D�bT�Q�$O���} �g,L��1m�"�m*é�#����T����y�L��u�*ڔ��9;�yA^T�c��ղ�P�g��42�D��jf�d��3tG9�L.�]���n:xkZ�/��M��*�aR...
 ```
 
 **响应状态码**: `200`
@@ -1478,7 +1478,7 @@ https://stats.jpush.cn/v3/report
 
 **接口数量**: 13
 
-#### `GET` /v2/groups/{group_id}/topics
+#### 2.1.1 `GET` /v2/groups/{group_id}/topics
 
 **接口名称**: 获取星球话题列表
 
@@ -1513,7 +1513,7 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=1&begin_time=2025-12-
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 82811825841211442, 'topic_uid': '82811825841211442', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 582884445452854, 'name': '深圳大冲', 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 82811825841211442, "topic_uid": "82811825841211442", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 582884445452854, "name": "深圳大冲", "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
 ```
 
 **平均响应时间**: 106ms
@@ -1521,7 +1521,7 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=1&begin_time=2025-12-
 
 ---
 
-#### `GET` /v2/groups/{group_id}/topics
+#### 2.1.2 `GET` /v2/groups/{group_id}/topics
 
 **接口名称**: 获取星球话题列表
 
@@ -1569,7 +1569,7 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=1&begin_time=2025-12-
 
 ---
 
-#### `GET` /v2/groups/{group_id}/topics
+#### 2.1.3 `GET` /v2/groups/{group_id}/topics
 
 **接口名称**: 获取星球话题列表
 
@@ -1604,7 +1604,7 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=1&begin_time=2025-12-
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 82811825841211442, 'topic_uid': '82811825841211442', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 582884445452854, 'name': '深圳大冲', 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 82811825841211442, "topic_uid": "82811825841211442", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 582884445452854, "name": "深圳大冲", "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
 ```
 
 **平均响应时间**: 115ms
@@ -1612,7 +1612,7 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=1&begin_time=2025-12-
 
 ---
 
-#### `GET` /v2/groups/{group_id}/topics
+#### 2.1.4 `GET` /v2/groups/{group_id}/topics
 
 **接口名称**: 获取星球话题列表
 
@@ -1647,7 +1647,7 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=10&end_time=2025-12-0
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 14588542541554542, 'topic_uid': '14588542541554542', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 241888888148421, 'name': '无岸', 'avatar_url': 'https://images.zsxq.com/FvseKqtKMNLtLE1fmRYExEOsrlOY?imageMogr...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 14588542541554542, "topic_uid": "14588542541554542", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 241888888148421, "name": "无岸", "avatar_url": "https://images.zsxq.com/FvseKqtKMNLtLE1fmRYExEOsrlOY?imageMogr...
 ```
 
 **平均响应时间**: 311ms
@@ -1655,7 +1655,7 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=10&end_time=2025-12-0
 
 ---
 
-#### `GET` /v2/groups/{group_id}/topics
+#### 2.1.5 `GET` /v2/groups/{group_id}/topics
 
 **接口名称**: 获取星球话题列表
 
@@ -1689,7 +1689,7 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=10&scope=by_owner&dir
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 82811825841211442, 'topic_uid': '82811825841211442', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 582884445452854, 'name': '深圳大冲', 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 82811825841211442, "topic_uid": "82811825841211442", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 582884445452854, "name": "深圳大冲", "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMo...
 ```
 
 **平均响应时间**: 188ms
@@ -1697,7 +1697,7 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=10&scope=by_owner&dir
 
 ---
 
-#### `GET` /v2/groups/{group_id}/topics
+#### 2.1.6 `GET` /v2/groups/{group_id}/topics
 
 **接口名称**: 获取星球话题列表
 
@@ -1745,7 +1745,7 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=1&begin_time=2025-12-
 
 ---
 
-#### `GET` /v2/groups/{group_id}/topics
+#### 2.1.7 `GET` /v2/groups/{group_id}/topics
 
 **接口名称**: 获取星球话题列表
 
@@ -1793,7 +1793,7 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=1&begin_time=2025-12-
 
 ---
 
-#### `GET` /v2/groups/{group_id}/topics
+#### 2.1.8 `GET` /v2/groups/{group_id}/topics
 
 **接口名称**: 获取星球话题列表
 
@@ -1841,7 +1841,7 @@ https://api.zsxq.com/v2/groups/15555411412112/topics?count=1&begin_time=2025-12-
 
 ---
 
-#### `GET` /v2/groups/{group_id}/columns/{column_id}/topics
+#### 2.1.9 `GET` /v2/groups/{group_id}/columns/{column_id}/topics
 
 **接口名称**: 获取专栏话题列表
 
@@ -1873,7 +1873,7 @@ https://api.zsxq.com/v2/groups/15555411412112/columns/518528184554/topics?count=
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 5125585155255524, 'topic_uid': '5125585155255524', 'title': '✅ 快闪项目汇总', 'text': '你好呀，项目全部分享给你，快闪项目汇总：\n\n项目介绍：❤️项目介绍：什么是闲鱼无货源...\n\n已经在星球配套群的，搜索：', 'create_time': '2025-05-02T10:42:13.963+0800', 'attached_to_column_time': '2025-07-21T11:36:00.553+0800'}, {'topic_id': 1524188582228482, 'topic_uid': '1524188582228482', 'title': '新手如何制作一张属于自己的海报', 'text': '新手如何制作一张属于自己的海报\n\n大家应该发现，我们星球每次活动的海报，都是蛮不错的，学会制作海报，是一个副业入门的必备', 'create_time': '2025-...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 5125585155255524, "topic_uid": "5125585155255524", "title": "✅ 快闪项目汇总", "text": "你好呀，项目全部分享给你，快闪项目汇总：\n\n项目介绍：❤️项目介绍：什么是闲鱼无货源...\n\n已经在星球配套群的，搜索：", "create_time": "2025-05-02T10:42:13.963+0800", "attached_to_column_time": "2025-07-21T11:36:00.553+0800" }, {"topic_id": 1524188582228482, "topic_uid": "1524188582228482", "title": "新手如何制作一张属于自己的海报", "text": "新手如何制作一张属于自己的海报\n\n大家应该发现，我们星球每次活动的海报，都是蛮不错的，学会制作海报，是一个副业入门的必备", "create_time": "2025-...
 ```
 
 **平均响应时间**: 84ms
@@ -1881,7 +1881,7 @@ https://api.zsxq.com/v2/groups/15555411412112/columns/518528184554/topics?count=
 
 ---
 
-#### `GET` /v2/groups/{group_id}/columns/{column_id}/topics
+#### 2.1.10 `GET` /v2/groups/{group_id}/columns/{column_id}/topics
 
 **接口名称**: 获取专栏话题列表
 
@@ -1913,7 +1913,7 @@ https://api.zsxq.com/v2/groups/15555411412112/columns/518528184554/topics?count=
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 5125585155255524, 'topic_uid': '5125585155255524', 'title': '✅ 快闪项目汇总', 'text': '你好呀，项目全部分享给你，快闪项目汇总：\n\n项目介绍：❤️项目介绍：什么是闲鱼无货源...\n\n已经在星球配套群的，搜索：', 'create_time': '2025-05-02T10:42:13.963+0800', 'attached_to_column_time': '2025-07-21T11:36:00.553+0800'}, {'topic_id': 1524188582228482, 'topic_uid': '1524188582228482', 'title': '新手如何制作一张属于自己的海报', 'text': '新手如何制作一张属于自己的海报\n\n大家应该发现，我们星球每次活动的海报，都是蛮不错的，学会制作海报，是一个副业入门的必备', 'create_time': '2025-...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 5125585155255524, "topic_uid": "5125585155255524", "title": "✅ 快闪项目汇总", "text": "你好呀，项目全部分享给你，快闪项目汇总：\n\n项目介绍：❤️项目介绍：什么是闲鱼无货源...\n\n已经在星球配套群的，搜索：", "create_time": "2025-05-02T10:42:13.963+0800", "attached_to_column_time": "2025-07-21T11:36:00.553+0800" }, {"topic_id": 1524188582228482, "topic_uid": "1524188582228482", "title": "新手如何制作一张属于自己的海报", "text": "新手如何制作一张属于自己的海报\n\n大家应该发现，我们星球每次活动的海报，都是蛮不错的，学会制作海报，是一个副业入门的必备", "create_time": "2025-...
 ```
 
 **平均响应时间**: 82ms
@@ -1921,7 +1921,7 @@ https://api.zsxq.com/v2/groups/15555411412112/columns/518528184554/topics?count=
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/topics
+#### 2.1.11 `GET` /v2/groups/{group_id}/checkins/{checkin_id}/topics
 
 **接口名称**: 获取打卡话题列表
 
@@ -1953,7 +1953,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141521/topics?count=2
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 45811854524448528, 'topic_uid': '45811854524448528', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 815114424224452, 'name': '深圳小江', 'avatar_url': 'https://images.zsxq.com/Frqh2a41m5bYxWU5TV1CEr-bA_8z?imageMo...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 45811854524448528, "topic_uid": "45811854524448528", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 815114424224452, "name": "深圳小江", "avatar_url": "https://images.zsxq.com/Frqh2a41m5bYxWU5TV1CEr-bA_8z?imageMo...
 ```
 
 **平均响应时间**: 336ms
@@ -1961,7 +1961,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141521/topics?count=2
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/topics
+#### 2.1.12 `GET` /v2/groups/{group_id}/checkins/{checkin_id}/topics
 
 **接口名称**: 获取打卡话题列表
 
@@ -1993,7 +1993,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/topics?count=2
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 45811884445588148, 'topic_uid': '45811884445588148', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 212544188448281, 'name': '大地', 'avatar_url': 'https://images.zsxq.com/FukP0hBPkZtgVMWzGu91cMMqhNtK?imageMogr...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 45811884445588148, "topic_uid": "45811884445588148", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 212544188448281, "name": "大地", "avatar_url": "https://images.zsxq.com/FukP0hBPkZtgVMWzGu91cMMqhNtK?imageMogr...
 ```
 
 **平均响应时间**: 312ms
@@ -2001,7 +2001,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/topics?count=2
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/topics
+#### 2.1.13 `GET` /v2/groups/{group_id}/checkins/{checkin_id}/topics
 
 **接口名称**: 获取打卡话题列表
 
@@ -2033,7 +2033,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812/topics?count=2
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'topics': [{'topic_id': 4842452528182518, 'topic_uid': '4842452528182518', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 548122428284524, 'name': 'Echo', 'avatar_url': 'https://images.zsxq.com/Fq60wZcJWxrSk7d6RNBV9-ZtCait?imageMogr...
+{"succeeded": true, "resp_data": {"topics": [{"topic_id": 4842452528182518, "topic_uid": "4842452528182518", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 548122428284524, "name": "Echo", "avatar_url": "https://images.zsxq.com/Fq60wZcJWxrSk7d6RNBV9-ZtCait?imageMogr...
 ```
 
 **平均响应时间**: 251ms
@@ -2048,7 +2048,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812/topics?count=2
 
 **接口数量**: 10
 
-#### `GET` /v3/groups/ranking_list
+#### 3.1.1 `GET` /v3/groups/ranking_list
 
 **接口名称**: 获取星球排行榜
 
@@ -2081,7 +2081,7 @@ https://api.zsxq.com/v3/groups/ranking_list?type=group_fortune_list&count=3
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'period': {'begin_time': '2025-12-08T00:00:00.000+0800', 'end_time': '2025-12-14T23:59:59.999+0800'}, 'groups': [{'uid': '552521181154', 'name': '齐俊杰的粉丝群', 'background_url': 'https://images.zsxq.com/FkGWEV8Qr7CWKnz1ZNyPjeM5msxJ?e=1780368555&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:8KGtfECsI35F89WyxFUadmIRa6w=', 'description': '1，投资不是打板算卦的择时撞大运！而是应对之道！是资金和仓位管理！\n2，预测的胜率不超过60%！策略才能改变赔率！让你对的时候多赚，错的时候少赔。\n3，不分析个股！！不指导个股操作！！问个股勿扰\n4，所有回复都是个人观点不作为投资建议！\n5，团队证券基金...
+{"succeeded": true, "resp_data": {"period": {"begin_time": "2025-12-08T00:00:00.000+0800", "end_time": "2025-12-14T23:59:59.999+0800" }, "groups": [{"uid": "552521181154", "name": "齐俊杰的粉丝群", "background_url": "https://images.zsxq.com/FkGWEV8Qr7CWKnz1ZNyPjeM5msxJ?e=1780368555&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:8KGtfECsI35F89WyxFUadmIRa6w=", "description": "1，投资不是打板算卦的择时撞大运！而是应对之道！是资金和仓位管理！\n2，预测的胜率不超过60%！策略才能改变赔率！让你对的时候多赚，错的时候少赔。\n3，不分析个股！！不指导个股操作！！问个股勿扰\n4，所有回复都是个人观点不作为投资建议！\n5，团队证券基金...
 ```
 
 **平均响应时间**: 76ms
@@ -2089,7 +2089,7 @@ https://api.zsxq.com/v3/groups/ranking_list?type=group_fortune_list&count=3
 
 ---
 
-#### `GET` /v3/groups/ranking_list
+#### 3.1.2 `GET` /v3/groups/ranking_list
 
 **接口名称**: 获取星球排行榜
 
@@ -2122,7 +2122,7 @@ https://api.zsxq.com/v3/groups/ranking_list?type=paid_group_active_list&count=3
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'period': {'begin_time': '2025-12-09T10:00:00.000+0800', 'end_time': '2025-12-09T16:00:00.000+0800'}, 'groups': [{'uid': '48884542242158', 'name': '粥左罗•终身写作社群', 'background_url': 'https://images.zsxq.com/FjwWIl3s7hVspBBxR9tm0Sfw2QLM?e=1780368555&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:LIzuUxxq3HEGKNfdQSXkKD_ZDyY=', 'description': '原价 699，优惠价 529 元！！\n\n【👇点“点击展开”，看完整介绍】\n\n‼️为啥一定要跟粥老师学写作？\n\n粥左罗写作10年，教写作7年：\n2018.3创立公众号，110万粉，视频号20万\n2019.4 创立写作营，连开7年，超过10...
+{"succeeded": true, "resp_data": {"period": {"begin_time": "2025-12-09T10:00:00.000+0800", "end_time": "2025-12-09T16:00:00.000+0800" }, "groups": [{"uid": "48884542242158", "name": "粥左罗•终身写作社群", "background_url": "https://images.zsxq.com/FjwWIl3s7hVspBBxR9tm0Sfw2QLM?e=1780368555&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:LIzuUxxq3HEGKNfdQSXkKD_ZDyY=", "description": "原价 699，优惠价 529 元！！\n\n【👇点“点击展开”，看完整介绍】\n\n‼️为啥一定要跟粥老师学写作？\n\n粥左罗写作10年，教写作7年：\n2018.3创立公众号，110万粉，视频号20万\n2019.4 创立写作营，连开7年，超过10...
 ```
 
 **平均响应时间**: 76ms
@@ -2130,7 +2130,7 @@ https://api.zsxq.com/v3/groups/ranking_list?type=paid_group_active_list&count=3
 
 ---
 
-#### `GET` /v3/groups/ranking_list
+#### 3.1.3 `GET` /v3/groups/ranking_list
 
 **接口名称**: 获取星球排行榜
 
@@ -2163,7 +2163,7 @@ https://api.zsxq.com/v3/groups/ranking_list?type=new_star_list&count=3
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'period': {'begin_time': '2025-12-01T00:00:00.000+0800', 'end_time': '2025-12-31T23:59:59.999+0800'}, 'groups': [{'uid': '48885522454248', 'name': '大耳哥讲酒旅', 'background_url': 'https://images.zsxq.com/Fn6AuZuF1DcJAlbtDUOJGDZu-5Rd?e=1780368555&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:pq9YrYA8wYNDRQwvlleyr0o8BRU=', 'description': '抖音头部酒旅团购MCN+服务商，视频号首批酒旅合作机构🎙️拥有抖音酒旅头部IP“大耳哥”，旗下签约学员400+🤵🏻专注抖音·视频号-酒店团购直播。致力于打造1万名具备“文化力”的酒旅主播🌇', 'create_time': '2025-11-30T16:16:...
+{"succeeded": true, "resp_data": {"period": {"begin_time": "2025-12-01T00:00:00.000+0800", "end_time": "2025-12-31T23:59:59.999+0800" }, "groups": [{"uid": "48885522454248", "name": "大耳哥讲酒旅", "background_url": "https://images.zsxq.com/Fn6AuZuF1DcJAlbtDUOJGDZu-5Rd?e=1780368555&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:pq9YrYA8wYNDRQwvlleyr0o8BRU=", "description": "抖音头部酒旅团购MCN+服务商，视频号首批酒旅合作机构🎙️拥有抖音酒旅头部IP“大耳哥”，旗下签约学员400+🤵🏻专注抖音·视频号-酒店团购直播。致力于打造1万名具备“文化力”的酒旅主播🌇", "create_time": "2025-11-30T16:16:...
 ```
 
 **平均响应时间**: 112ms
@@ -2171,7 +2171,7 @@ https://api.zsxq.com/v3/groups/ranking_list?type=new_star_list&count=3
 
 ---
 
-#### `GET` /v3/groups/ranking_list
+#### 3.1.4 `GET` /v3/groups/ranking_list
 
 **接口名称**: 获取星球排行榜
 
@@ -2204,7 +2204,7 @@ https://api.zsxq.com/v3/groups/ranking_list?type=group_sales_list&count=3
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'period': {'begin_time': '2025-12-08T00:00:00.000+0800', 'end_time': '2025-12-14T23:59:59.999+0800'}, 'groups': [{'uid': '88885185281182', 'name': '粥左罗每日思考·365日更群', 'background_url': 'https://images.zsxq.com/Fk_wTIwyRYgma_hsbKm2VDlEF8KH?e=1780368555&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:PeLw3VW6AfqADGKMMrAAJexs9oI=', 'description': '【现在请勿付费加入】🌹【本期已到期】【12月10日社群升级迭代，新一期发售】请关注粥左罗直播间、朋友圈、公众号动态。想邀请朋友加入的，12.10 开始。升级后，定价 365 元，12.10 开放早鸟价。\n不是垂直社群\n不是单讲写作或自媒体或...
+{"succeeded": true, "resp_data": {"period": {"begin_time": "2025-12-08T00:00:00.000+0800", "end_time": "2025-12-14T23:59:59.999+0800" }, "groups": [{"uid": "88885185281182", "name": "粥左罗每日思考·365日更群", "background_url": "https://images.zsxq.com/Fk_wTIwyRYgma_hsbKm2VDlEF8KH?e=1780368555&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:PeLw3VW6AfqADGKMMrAAJexs9oI=", "description": "【现在请勿付费加入】🌹【本期已到期】【12月10日社群升级迭代，新一期发售】请关注粥左罗直播间、朋友圈、公众号动态。想邀请朋友加入的，12.10 开始。升级后，定价 365 元，12.10 开放早鸟价。\n不是垂直社群\n不是单讲写作或自媒体或...
 ```
 
 **平均响应时间**: 112ms
@@ -2212,7 +2212,7 @@ https://api.zsxq.com/v3/groups/ranking_list?type=group_sales_list&count=3
 
 ---
 
-#### `GET` /v3/groups/{group_id}/ranking_list/statistics
+#### 3.1.5 `GET` /v3/groups/{group_id}/ranking_list/statistics
 
 **接口名称**: 获取星球排行榜统计
 
@@ -2252,7 +2252,7 @@ https://api.zsxq.com/v3/groups/15555411412112/ranking_list/statistics
 
 ---
 
-#### `GET` /v2/dashboard/groups/{group_id}/scoreboard/ranking_list
+#### 3.1.6 `GET` /v2/dashboard/groups/{group_id}/scoreboard/ranking_list
 
 **接口名称**: 获取星球数据面板积分排行榜
 
@@ -2285,7 +2285,7 @@ https://api.zsxq.com/v2/dashboard/groups/15555411412112/scoreboard/ranking_list?
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'period': {'begin_time': '2025-11-01T00:00:00.000+0800', 'end_time': '2025-11-30T23:59:59.999+0800'}, 'ranking_list': [{'rank': 1, 'member': {'user_id': 582884445452854, 'name': '深圳大冲', 'alias': '', 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?e=1780368681&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:z4MNjKataNTK4rxNa_WUgfXCrzY='}, 'score': 1198.9, 'archived_time': '2025-11-30T23:44:51.240+0800'}, {'rank': 2, 'member': {'user_id': 212212...
+{"succeeded": true, "resp_data": {"period": {"begin_time": "2025-11-01T00:00:00.000+0800", "end_time": "2025-11-30T23:59:59.999+0800" }, "ranking_list": [{"rank": 1, "member": {"user_id": 582884445452854, "name": "深圳大冲", "alias": "", "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?e=1780368681&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:z4MNjKataNTK4rxNa_WUgfXCrzY=" }, "score": 1198.9, "archived_time": "2025-11-30T23:44:51.240+0800" }, {"rank": 2, "member": {"user_id": 212212...
 ```
 
 **平均响应时间**: 93ms
@@ -2293,7 +2293,7 @@ https://api.zsxq.com/v2/dashboard/groups/15555411412112/scoreboard/ranking_list?
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/ranking_list
+#### 3.1.7 `GET` /v2/groups/{group_id}/checkins/{checkin_id}/ranking_list
 
 **接口名称**: 获取打卡排行榜
 
@@ -2326,7 +2326,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/ranking_list?t
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'ranking_list': [{'user': {'user_id': 585581528521884, 'name': '爱玮', 'alias': '', 'avatar_url': 'https://images.zsxq.com/Fh6BmMzP8QWqtyfA1gStqUvnrw0E?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:s0GfEh58IT1iq336TX-0SXfRcrY='}, 'rankings': 1, 'checkined_days': 10}, {'user': {'user_id': 48551442254588, 'name': 'Sherry', 'alias': '', 'avatar_url': 'https://images.zsxq...
+{"succeeded": true, "resp_data": {"ranking_list": [{"user": {"user_id": 585581528521884, "name": "爱玮", "alias": "", "avatar_url": "https://images.zsxq.com/Fh6BmMzP8QWqtyfA1gStqUvnrw0E?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:s0GfEh58IT1iq336TX-0SXfRcrY=" }, "rankings": 1, "checkined_days": 10}, {"user": {"user_id": 48551442254588, "name": "Sherry", "alias": "", "avatar_url": "https://images.zsxq...
 ```
 
 **平均响应时间**: 74ms
@@ -2334,7 +2334,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/ranking_list?t
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/ranking_list
+#### 3.1.8 `GET` /v2/groups/{group_id}/checkins/{checkin_id}/ranking_list
 
 **接口名称**: 获取打卡排行榜
 
@@ -2367,7 +2367,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/ranking_list?t
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'ranking_list': [{'user': {'user_id': 585581528521884, 'name': '爱玮', 'alias': '', 'avatar_url': 'https://images.zsxq.com/Fh6BmMzP8QWqtyfA1gStqUvnrw0E?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:s0GfEh58IT1iq336TX-0SXfRcrY='}, 'rankings': 1, 'checkined_days': 10}, {'user': {'user_id': 48551442254588, 'name': 'Sherry', 'alias': '', 'avatar_url': 'https://images.zsxq...
+{"succeeded": true, "resp_data": {"ranking_list": [{"user": {"user_id": 585581528521884, "name": "爱玮", "alias": "", "avatar_url": "https://images.zsxq.com/Fh6BmMzP8QWqtyfA1gStqUvnrw0E?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:s0GfEh58IT1iq336TX-0SXfRcrY=" }, "rankings": 1, "checkined_days": 10}, {"user": {"user_id": 48551442254588, "name": "Sherry", "alias": "", "avatar_url": "https://images.zsxq...
 ```
 
 **平均响应时间**: 110ms
@@ -2375,7 +2375,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/ranking_list?t
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/ranking_list
+#### 3.1.9 `GET` /v2/groups/{group_id}/checkins/{checkin_id}/ranking_list
 
 **接口名称**: 获取打卡排行榜
 
@@ -2408,7 +2408,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/ranking_list?t
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'ranking_list': [{'user': {'user_id': 184558881148412, 'name': '涤生', 'alias': '', 'avatar_url': 'https://images.zsxq.com/Fu7QOlljnMcKoxfZA3BnPqtFwplu?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:YznUaw8pMpN7qeald7Ssp1hUZVc='}, 'rankings': 22, 'checkined_days': 8}, {'user': {'user_id': 212251422881241, 'name': '刘秀莲', 'alias': '', 'avatar_url': 'https://images.zsxq.c...
+{"succeeded": true, "resp_data": {"ranking_list": [{"user": {"user_id": 184558881148412, "name": "涤生", "alias": "", "avatar_url": "https://images.zsxq.com/Fu7QOlljnMcKoxfZA3BnPqtFwplu?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:YznUaw8pMpN7qeald7Ssp1hUZVc=" }, "rankings": 22, "checkined_days": 8}, {"user": {"user_id": 212251422881241, "name": "刘秀莲", "alias": "", "avatar_url": "https://images.zsxq.c...
 ```
 
 **平均响应时间**: 90ms
@@ -2416,7 +2416,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/ranking_list?t
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/ranking_list
+#### 3.1.10 `GET` /v2/groups/{group_id}/checkins/{checkin_id}/ranking_list
 
 **接口名称**: 获取打卡排行榜
 
@@ -2449,7 +2449,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/ranking_list?t
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'ranking_list': [{'user': {'user_id': 422125848454118, 'name': 'Max', 'alias': '', 'avatar_url': 'https://images.zsxq.com/FgWlaqGYdlSgsQ5HC-XUPQkvwyf9?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:dGyL_8l6N7HqYyGA-bvXaXd_PKk='}, 'rankings': 22, 'checkined_days': 9}, {'user': {'user_id': 212544188448281, 'name': '大地', 'alias': '', 'avatar_url': 'https://images.zsxq.c...
+{"succeeded": true, "resp_data": {"ranking_list": [{"user": {"user_id": 422125848454118, "name": "Max", "alias": "", "avatar_url": "https://images.zsxq.com/FgWlaqGYdlSgsQ5HC-XUPQkvwyf9?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:dGyL_8l6N7HqYyGA-bvXaXd_PKk=" }, "rankings": 22, "checkined_days": 9}, {"user": {"user_id": 212544188448281, "name": "大地", "alias": "", "avatar_url": "https://images.zsxq.c...
 ```
 
 **平均响应时间**: 73ms
@@ -2464,7 +2464,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/ranking_list?t
 
 **接口数量**: 1
 
-#### `POST` /sa
+#### 4.1.1 `POST` /sa
 
 **接口名称**: 数据埋点上报
 
@@ -2501,7 +2501,7 @@ https://sa.zsxq.com/sa?project=production
 
 **接口数量**: 1
 
-#### `GET` /v2/groups/upgradable_groups
+#### 5.1.1 `GET` /v2/groups/upgradable_groups
 
 **接口名称**: 获取可升级星球列表
 
@@ -2545,7 +2545,7 @@ https://api.zsxq.com/v2/groups/upgradable_groups
 
 **接口数量**: 31
 
-#### `GET` /v2/groups/{group_id}
+#### 5.2.1 `GET` /v2/groups/{group_id}
 
 **接口名称**: 获取星球详情
 
@@ -2571,7 +2571,7 @@ https://api.zsxq.com/v2/groups/15555411412112
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'group': {'group_id': 15555411412112, 'number': 50620566, 'name': 'AI私域赚钱', 'description': '领大额优惠券，请拖到下方，截图海报上的二维码，领取优惠券，或加大冲微信：95017333 或 330517251 领取。\n\n我是深圳大冲，在职场玩副业，项目型 IP 孵化教练，大冲十年退休发起人，大冲从副业小白，微信 0 好友， 一年内从私域运营起步，通过 1500 好友赚到 7 位数，一年带领 500 位副业小白通过 AI 私域赚钱变现，辅导大冲私教 360+ 人。\n\n这里分享大冲的私域运营经验，私域高客单成交秘籍，项目型 IP 打造经验。\n\n本星球免费解答项目型 IP 和 副业赚钱问题，免费参加副业小项目快闪实战，免费诊断个人 IP 账号，分享大冲副业百万实战经验，更新能落地，易理解，可商业化的案例，应用，风险，避坑。\n\n适合人群：\n1、副业刚开始起步的小白\n2、想打造个人IP的初学者\n3、想成为超级个体的探索者...
+{"succeeded": true, "resp_data": {"group": {"group_id": 15555411412112, "number": 50620566, "name": "AI私域赚钱", "description": "领大额优惠券，请拖到下方，截图海报上的二维码，领取优惠券，或加大冲微信：95017333 或 330517251 领取。\n\n我是深圳大冲，在职场玩副业，项目型 IP 孵化教练，大冲十年退休发起人，大冲从副业小白，微信 0 好友， 一年内从私域运营起步，通过 1500 好友赚到 7 位数，一年带领 500 位副业小白通过 AI 私域赚钱变现，辅导大冲私教 360+ 人。\n\n这里分享大冲的私域运营经验，私域高客单成交秘籍，项目型 IP 打造经验。\n\n本星球免费解答项目型 IP 和 副业赚钱问题，免费参加副业小项目快闪实战，免费诊断个人 IP 账号，分享大冲副业百万实战经验，更新能落地，易理解，可商业化的案例，应用，风险，避坑。\n\n适合人群：\n1、副业刚开始起步的小白\n2、想打造个人IP的初学者\n3、想成为超级个体的探索者...
 ```
 
 **平均响应时间**: 97ms
@@ -2579,7 +2579,7 @@ https://api.zsxq.com/v2/groups/15555411412112
 
 ---
 
-#### `GET` /v2/groups/{group_id}/hashtags
+#### 5.2.2 `GET` /v2/groups/{group_id}/hashtags
 
 **接口名称**: 获取星球标签列表
 
@@ -2605,7 +2605,7 @@ https://api.zsxq.com/v2/groups/15555411412112/hashtags
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'hashtags': [{'hashtag_id': 15514284488142, 'title': '#小项目#', 'owner': {'user_id': 582884445452854}, 'properties': {'show_on_timeline': True, 'privileged': True}, 'topics_count': 1633}, {'hashtag_id': 28844882581111, 'title': '#复盘#', 'owner': {'user_id': 582884445452854}, 'properties': {'show_on_timeline': True, 'privileged': False}, 'topics_count': 1096}, {'hashtag_id': 51185581188214, 'title': '#积小胜#', 'owner': {'user_id': 582884445452854}, 'properties': {'sho...
+{"succeeded": true, "resp_data": {"hashtags": [{"hashtag_id": 15514284488142, "title": "#小项目#", "owner": {"user_id": 582884445452854}, "properties": {"show_on_timeline": true, "privileged": true}, "topics_count": 1633}, {"hashtag_id": 28844882581111, "title": "#复盘#", "owner": {"user_id": 582884445452854}, "properties": {"show_on_timeline": true, "privileged": false}, "topics_count": 1096}, {"hashtag_id": 51185581188214, "title": "#积小胜#", "owner": {"user_id": 582884445452854}, "properties": {"sho...
 ```
 
 **平均响应时间**: 72ms
@@ -2613,7 +2613,7 @@ https://api.zsxq.com/v2/groups/15555411412112/hashtags
 
 ---
 
-#### `GET` /v2/groups/{group_id}/menus
+#### 5.2.3 `GET` /v2/groups/{group_id}/menus
 
 **接口名称**: 获取星球菜单列表
 
@@ -2645,7 +2645,7 @@ https://api.zsxq.com/v2/groups/15555411412112/menus?with_optional_menus=false
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'menus': [{'menu_id': 51285448425514, 'title': '精华', 'preset': True, 'preset_type': 'digests', 'latest_topic_create_time': '2025-12-08T23:30:09.201+0800'}, {'menu_id': 15284118124422, 'title': '最新', 'preset': True, 'preset_type': 'all'}, {'menu_id': 15284118124442, 'title': '只看星主', 'preset': True, 'preset_type': 'by_owner'}, {'menu_id': 28844882581111, 'title': '#复盘#', 'hashtag': {'hashtag_id': 28844882581111}}, {'menu_id': 15514284488142, 'title': '#小项目#', 'has...
+{"succeeded": true, "resp_data": {"menus": [{"menu_id": 51285448425514, "title": "精华", "preset": true, "preset_type": "digests", "latest_topic_create_time": "2025-12-08T23:30:09.201+0800" }, {"menu_id": 15284118124422, "title": "最新", "preset": true, "preset_type": "all" }, {"menu_id": 15284118124442, "title": "只看星主", "preset": true, "preset_type": "by_owner" }, {"menu_id": 28844882581111, "title": "#复盘#", "hashtag": {"hashtag_id": 28844882581111}}, {"menu_id": 15514284488142, "title": "#小项目#", "has...
 ```
 
 **平均响应时间**: 127ms
@@ -2653,7 +2653,7 @@ https://api.zsxq.com/v2/groups/15555411412112/menus?with_optional_menus=false
 
 ---
 
-#### `GET` /v2/groups/{group_id}/role_members
+#### 5.2.4 `GET` /v2/groups/{group_id}/role_members
 
 **接口名称**: 获取星球角色成员列表
 
@@ -2685,7 +2685,7 @@ https://api.zsxq.com/v2/groups/15555411412112/role_members?role=owner,partners,g
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'owner': {'group_id': 15555411412112, 'user_id': 582884445452854, 'name': '深圳大冲', 'number': 1, 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:iTz-sF6KYHl60VBMT77uU4SLcUc=', 'description': 'AI私域赚钱星球主理人，项目型 IP 孵化教练，主业架构师、副业销冠操盘手、副业首年收入超百万，一人企业私域社群商业化探索者、大冲十年退休计划发起人。', 'join_time': '2024-09-03T15:17:27....
+{"succeeded": true, "resp_data": {"owner": {"group_id": 15555411412112, "user_id": 582884445452854, "name": "深圳大冲", "number": 1, "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:iTz-sF6KYHl60VBMT77uU4SLcUc=", "description": "AI私域赚钱星球主理人，项目型 IP 孵化教练，主业架构师、副业销冠操盘手、副业首年收入超百万，一人企业私域社群商业化探索者、大冲十年退休计划发起人。", "join_time": "2024-09-03T15:17:27....
 ```
 
 **平均响应时间**: 120ms
@@ -2693,7 +2693,7 @@ https://api.zsxq.com/v2/groups/15555411412112/role_members?role=owner,partners,g
 
 ---
 
-#### `GET` /v2/groups/{group_id}/renewal
+#### 5.2.5 `GET` /v2/groups/{group_id}/renewal
 
 **接口名称**: 获取星球续费信息
 
@@ -2719,7 +2719,7 @@ https://api.zsxq.com/v2/groups/15555411412112/renewal
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'amount': 4080, 'original_amount': 6800, 'discounted_percentage': 60, 'begin_time': '2286-11-21T01:46:39.999+0800', 'mode': 'period', 'duration': '1Y', 'guidance': '你好，我是深圳大冲，AI私域赚钱星球已经到了第 2 年，感谢支持。\n\nAI私域赚钱星球，一年以来累计举办小项目实战 60 次以上，很多人赚到了 4 位数以上，星球长期排在活跃榜前 3，畅销榜前 3，项目实战口碑也非常好，也得到了众多大佬的极力推荐。\n\n为了回报大家，我把续期价格全部下调，现在只要原价的 5 折，可能现在是咱们星球最便宜的一次了，8月份开始，星球价格会持续上调，并逐步取消续费折扣和优惠券。\n\n最后，再次感谢你的信任与陪伴，还有问题可加大冲微信：95017333 或 330517251 咨询。\n\n如果有无法续期的星友，麻烦关注【知识星球公众号】，在公众号内进行付款。'...
+{"succeeded": true, "resp_data": {"amount": 4080, "original_amount": 6800, "discounted_percentage": 60, "begin_time": "2286-11-21T01:46:39.999+0800", "mode": "period", "duration": "1Y", "guidance": "你好，我是深圳大冲，AI私域赚钱星球已经到了第 2 年，感谢支持。\n\nAI私域赚钱星球，一年以来累计举办小项目实战 60 次以上，很多人赚到了 4 位数以上，星球长期排在活跃榜前 3，畅销榜前 3，项目实战口碑也非常好，也得到了众多大佬的极力推荐。\n\n为了回报大家，我把续期价格全部下调，现在只要原价的 5 折，可能现在是咱们星球最便宜的一次了，8月份开始，星球价格会持续上调，并逐步取消续费折扣和优惠券。\n\n最后，再次感谢你的信任与陪伴，还有问题可加大冲微信：95017333 或 330517251 咨询。\n\n如果有无法续期的星友，麻烦关注【知识星球公众号】，在公众号内进行付款。"...
 ```
 
 **平均响应时间**: 81ms
@@ -2727,7 +2727,7 @@ https://api.zsxq.com/v2/groups/15555411412112/renewal
 
 ---
 
-#### `GET` /v2/dashboard/groups/{group_id}/privileges
+#### 5.2.6 `GET` /v2/dashboard/groups/{group_id}/privileges
 
 **接口名称**: 获取星球权限信息
 
@@ -2771,7 +2771,7 @@ https://api.zsxq.com/v2/dashboard/groups/15555411412112/privileges
 
 ---
 
-#### `GET` /v2/dashboard/groups/{group_id}/scoreboard/settings
+#### 5.2.7 `GET` /v2/dashboard/groups/{group_id}/scoreboard/settings
 
 **接口名称**: 获取积分榜设置
 
@@ -2830,7 +2830,7 @@ https://api.zsxq.com/v2/dashboard/groups/15555411412112/scoreboard/settings
 
 ---
 
-#### `GET` /v2/dashboard/groups/{group_id}/overview
+#### 5.2.8 `GET` /v2/dashboard/groups/{group_id}/overview
 
 **接口名称**: 获取星球数据面板概览
 
@@ -2899,7 +2899,7 @@ https://api.zsxq.com/v2/dashboard/groups/15555411412112/overview
 
 ---
 
-#### `GET` /v2/dashboard/groups/{group_id}/scoreboard/statistics/self
+#### 5.2.9 `GET` /v2/dashboard/groups/{group_id}/scoreboard/statistics/self
 
 **接口名称**: 获取个人积分统计
 
@@ -2943,7 +2943,7 @@ https://api.zsxq.com/v2/dashboard/groups/15555411412112/scoreboard/statistics/se
 
 ---
 
-#### `GET` /v2/groups/{group_id}/columns/summary
+#### 5.2.10 `GET` /v2/groups/{group_id}/columns/summary
 
 **接口名称**: 获取专栏摘要
 
@@ -2983,7 +2983,7 @@ https://api.zsxq.com/v2/groups/15555411412112/columns/summary
 
 ---
 
-#### `GET` /v2/groups/{group_id}/statistics
+#### 5.2.11 `GET` /v2/groups/{group_id}/statistics
 
 **接口名称**: 获取星球统计信息
 
@@ -3030,7 +3030,7 @@ https://api.zsxq.com/v2/groups/15555411412112/statistics
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins
+#### 5.2.12 `GET` /v2/groups/{group_id}/checkins
 
 **接口名称**: 获取星球打卡项目列表
 
@@ -3063,7 +3063,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins?scope=ongoing&count=30
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'checkins': [{'checkin_id': 2424141521, 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'owner': {'user_id': 582884445452854, 'name': '深圳大冲', 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&...
+{"succeeded": true, "resp_data": {"checkins": [{"checkin_id": 2424141521, "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "owner": {"user_id": 582884445452854, "name": "深圳大冲", "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&...
 ```
 
 **平均响应时间**: 82ms
@@ -3071,7 +3071,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins?scope=ongoing&count=30
 
 ---
 
-#### `GET` /v2/groups/{group_id}/columns
+#### 5.2.13 `GET` /v2/groups/{group_id}/columns
 
 **接口名称**: 获取星球专栏列表
 
@@ -3097,7 +3097,7 @@ https://api.zsxq.com/v2/groups/15555411412112/columns
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'columns': [{'column_id': 518528184554, 'name': '新手入门指南', 'cover_url': 'https://file.zsxq.com/column_cover.png', 'statistics': {'topics_count': 7}, 'create_time': '2025-02-02T22:23:19.070+0800', 'last_topic_attach_time': '2025-07-21T11:36:00.555+0800'}, {'column_id': 281444244211, 'name': '大冲每周复盘点评', 'cover_url': 'https://file.zsxq.com/column_cover.png', 'statistics': {'topics_count': 8}, 'create_time': '2025-08-29T17:33:27.243+0800', 'last_topic_attach_time': '...
+{"succeeded": true, "resp_data": {"columns": [{"column_id": 518528184554, "name": "新手入门指南", "cover_url": "https://file.zsxq.com/column_cover.png", "statistics": {"topics_count": 7}, "create_time": "2025-02-02T22:23:19.070+0800", "last_topic_attach_time": "2025-07-21T11:36:00.555+0800" }, {"column_id": 281444244211, "name": "大冲每周复盘点评", "cover_url": "https://file.zsxq.com/column_cover.png", "statistics": {"topics_count": 8}, "create_time": "2025-08-29T17:33:27.243+0800", "last_topic_attach_time": "...
 ```
 
 **平均响应时间**: 65ms
@@ -3105,7 +3105,7 @@ https://api.zsxq.com/v2/groups/15555411412112/columns
 
 ---
 
-#### `GET` /v2/dashboard/groups/{group_id}/incomes/overview
+#### 5.2.14 `GET` /v2/dashboard/groups/{group_id}/incomes/overview
 
 **接口名称**: 获取星球收入概览
 
@@ -3160,7 +3160,7 @@ https://api.zsxq.com/v2/dashboard/groups/15555411412112/incomes/overview
 
 ---
 
-#### `GET` /v2/groups/{group_id}/distribution
+#### 5.2.15 `GET` /v2/groups/{group_id}/distribution
 
 **接口名称**: 获取星球分销信息
 
@@ -3216,7 +3216,7 @@ https://api.zsxq.com/v2/groups/15555411412112/distribution?self_inviter=true
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins
+#### 5.2.16 `GET` /v2/groups/{group_id}/checkins
 
 **接口名称**: 获取星球打卡项目列表
 
@@ -3249,7 +3249,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins?scope=closed&count=30
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'checkins': [{'checkin_id': 8424124482, 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'owner': {'user_id': 585241288554484, 'name': '阳阳', 'alias': '阳阳', 'avatar_url': 'https://images.zsxq.com/Fid7grNDgA3YpV5ag4vtRs5BgevU?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ig...
+{"succeeded": true, "resp_data": {"checkins": [{"checkin_id": 8424124482, "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "owner": {"user_id": 585241288554484, "name": "阳阳", "alias": "阳阳", "avatar_url": "https://images.zsxq.com/Fid7grNDgA3YpV5ag4vtRs5BgevU?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ig...
 ```
 
 **平均响应时间**: 220ms
@@ -3257,7 +3257,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins?scope=closed&count=30
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins
+#### 5.2.17 `GET` /v2/groups/{group_id}/checkins
 
 **接口名称**: 获取星球打卡项目列表
 
@@ -3290,7 +3290,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins?scope=over&count=30
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'checkins': [{'checkin_id': 5454855814, 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'owner': {'user_id': 15412512522222, 'name': '百灵', 'avatar_url': 'https://images.zsxq.com/FvK7w4lWDQDD-KcsiCUY0-Koaznk?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1...
+{"succeeded": true, "resp_data": {"checkins": [{"checkin_id": 5454855814, "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "owner": {"user_id": 15412512522222, "name": "百灵", "avatar_url": "https://images.zsxq.com/FvK7w4lWDQDD-KcsiCUY0-Koaznk?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1...
 ```
 
 **平均响应时间**: 142ms
@@ -3298,7 +3298,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins?scope=over&count=30
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins
+#### 5.2.18 `GET` /v2/groups/{group_id}/checkins
 
 **接口名称**: 获取星球打卡项目列表
 
@@ -3331,7 +3331,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins?scope=ongoing&count=100
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'checkins': [{'checkin_id': 2424141521, 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'owner': {'user_id': 582884445452854, 'name': '深圳大冲', 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&...
+{"succeeded": true, "resp_data": {"checkins": [{"checkin_id": 2424141521, "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "owner": {"user_id": 582884445452854, "name": "深圳大冲", "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&...
 ```
 
 **平均响应时间**: 92ms
@@ -3339,7 +3339,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins?scope=ongoing&count=100
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins/{checkin_id}
+#### 5.2.19 `GET` /v2/groups/{group_id}/checkins/{checkin_id}
 
 **接口名称**: 获取打卡项目详情
 
@@ -3365,7 +3365,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141521
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'is_valid_member': True, 'checkin': {'checkin_id': 2424141521, 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'owner': {'user_id': 582884445452854, 'name': '深圳大冲', 'avatar_url': 'https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/qua...
+{"succeeded": true, "resp_data": {"is_valid_member": true, "checkin": {"checkin_id": 2424141521, "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "owner": {"user_id": 582884445452854, "name": "深圳大冲", "avatar_url": "https://images.zsxq.com/FvMsMu9H2_vt7RZ3ZmeiSRAE-5Zk?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/qua...
 ```
 
 **平均响应时间**: 240ms
@@ -3373,7 +3373,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141521
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/statistics
+#### 5.2.20 `GET` /v2/groups/{group_id}/checkins/{checkin_id}/statistics
 
 **接口名称**: 获取打卡项目统计
 
@@ -3399,7 +3399,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141521/statistics
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'statistics': {'joined_count': 29, 'completed_count': 0, 'checkined_count': 24, 'ranking_list': [{'avatar_url': 'https://images.zsxq.com/FhC1oNRym12tcqiVpdgRI_LXavLb?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:vhB2GI_f56lpQwdC7ZSTKn4rM5Y='}, {'avatar_url': 'https://images.zsxq.com/FulenSryfaTFBFpj9rW3aMEM5Wxr?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1...
+{"succeeded": true, "resp_data": {"statistics": {"joined_count": 29, "completed_count": 0, "checkined_count": 24, "ranking_list": [{"avatar_url": "https://images.zsxq.com/FhC1oNRym12tcqiVpdgRI_LXavLb?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:vhB2GI_f56lpQwdC7ZSTKn4rM5Y=" }, {"avatar_url": "https://images.zsxq.com/FulenSryfaTFBFpj9rW3aMEM5Wxr?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1...
 ```
 
 **平均响应时间**: 241ms
@@ -3407,7 +3407,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141521/statistics
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/statistics/daily
+#### 5.2.21 `GET` /v2/groups/{group_id}/checkins/{checkin_id}/statistics/daily
 
 **接口名称**: 获取打卡项目每日统计
 
@@ -3452,7 +3452,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141521/statistics/dai
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins/{checkin_id}
+#### 5.2.22 `GET` /v2/groups/{group_id}/checkins/{checkin_id}
 
 **接口名称**: 获取打卡项目详情
 
@@ -3478,7 +3478,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'is_valid_member': True, 'checkin': {'checkin_id': 5454855814, 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'owner': {'user_id': 15412512522222, 'name': '百灵', 'avatar_url': 'https://images.zsxq.com/FvK7w4lWDQDD-KcsiCUY0-Koaznk?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/qualit...
+{"succeeded": true, "resp_data": {"is_valid_member": true, "checkin": {"checkin_id": 5454855814, "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "owner": {"user_id": 15412512522222, "name": "百灵", "avatar_url": "https://images.zsxq.com/FvK7w4lWDQDD-KcsiCUY0-Koaznk?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/qualit...
 ```
 
 **平均响应时间**: 78ms
@@ -3486,7 +3486,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/statistics
+#### 5.2.23 `GET` /v2/groups/{group_id}/checkins/{checkin_id}/statistics
 
 **接口名称**: 获取打卡项目统计
 
@@ -3512,7 +3512,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/statistics
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'statistics': {'joined_count': 118, 'completed_count': 23, 'checkined_count': 756, 'ranking_list': [{'avatar_url': 'https://images.zsxq.com/Fh6BmMzP8QWqtyfA1gStqUvnrw0E?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:s0GfEh58IT1iq336TX-0SXfRcrY='}, {'avatar_url': 'https://images.zsxq.com/FhKwHYV1HXFGX20wlWsj9asWYaQw?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blu...
+{"succeeded": true, "resp_data": {"statistics": {"joined_count": 118, "completed_count": 23, "checkined_count": 756, "ranking_list": [{"avatar_url": "https://images.zsxq.com/Fh6BmMzP8QWqtyfA1gStqUvnrw0E?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:s0GfEh58IT1iq336TX-0SXfRcrY=" }, {"avatar_url": "https://images.zsxq.com/FhKwHYV1HXFGX20wlWsj9asWYaQw?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blu...
 ```
 
 **平均响应时间**: 78ms
@@ -3520,7 +3520,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/statistics
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/statistics/daily
+#### 5.2.24 `GET` /v2/groups/{group_id}/checkins/{checkin_id}/statistics/daily
 
 **接口名称**: 获取打卡项目每日统计
 
@@ -3565,7 +3565,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/5454855814/statistics/dai
 
 ---
 
-#### `GET` /v2/groups/{group_id}/members/{member_id}
+#### 5.2.25 `GET` /v2/groups/{group_id}/members/{member_id}
 
 **接口名称**: 获取成员详情
 
@@ -3616,7 +3616,7 @@ https://api.zsxq.com/v2/groups/15555411412112/members/184444848828412
 
 ---
 
-#### `GET` /v2/groups/{group_id}/members/{member_id}/summary
+#### 5.2.26 `GET` /v2/groups/{group_id}/members/{member_id}/summary
 
 **接口名称**: 获取成员摘要信息
 
@@ -3670,7 +3670,7 @@ https://api.zsxq.com/v2/groups/15555411412112/members/844415445224112/summary
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins/{checkin_id}
+#### 5.2.27 `GET` /v2/groups/{group_id}/checkins/{checkin_id}
 
 **接口名称**: 获取打卡项目详情
 
@@ -3696,7 +3696,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'is_valid_member': True, 'checkin': {'checkin_id': 1141425812, 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'owner': {'user_id': 28248815485121, 'name': '深圳老易', 'alias': '深圳老易', 'avatar_url': 'https://images.zsxq.com/FmxHUIwoaOBEYL-RPqv36m4rpi0u?imageMogr2/auto-orient/thumbnail/150x/format/...
+{"succeeded": true, "resp_data": {"is_valid_member": true, "checkin": {"checkin_id": 1141425812, "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "owner": {"user_id": 28248815485121, "name": "深圳老易", "alias": "深圳老易", "avatar_url": "https://images.zsxq.com/FmxHUIwoaOBEYL-RPqv36m4rpi0u?imageMogr2/auto-orient/thumbnail/150x/format/...
 ```
 
 **平均响应时间**: 119ms
@@ -3704,7 +3704,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/statistics
+#### 5.2.28 `GET` /v2/groups/{group_id}/checkins/{checkin_id}/statistics
 
 **接口名称**: 获取打卡项目统计
 
@@ -3730,7 +3730,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812/statistics
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'statistics': {'joined_count': 229, 'completed_count': 2, 'checkined_count': 2107, 'ranking_list': [{'avatar_url': 'https://images.zsxq.com/FiWFBdSd57Sd6Yd_p_FEtdOQP8-h?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:2M61re1ZJu4m8oGWI3KhUbU0weQ='}, {'avatar_url': 'https://images.zsxq.com/Fv7jryQQcsnaFdosEbZcvi31pqpu?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blu...
+{"succeeded": true, "resp_data": {"statistics": {"joined_count": 229, "completed_count": 2, "checkined_count": 2107, "ranking_list": [{"avatar_url": "https://images.zsxq.com/FiWFBdSd57Sd6Yd_p_FEtdOQP8-h?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:2M61re1ZJu4m8oGWI3KhUbU0weQ=" }, {"avatar_url": "https://images.zsxq.com/Fv7jryQQcsnaFdosEbZcvi31pqpu?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blu...
 ```
 
 **平均响应时间**: 72ms
@@ -3738,7 +3738,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812/statistics
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/statistics/daily
+#### 5.2.29 `GET` /v2/groups/{group_id}/checkins/{checkin_id}/statistics/daily
 
 **接口名称**: 获取打卡项目每日统计
 
@@ -3783,7 +3783,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812/statistics/dai
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/joined_users
+#### 5.2.30 `GET` /v2/groups/{group_id}/checkins/{checkin_id}/joined_users
 
 **接口名称**: 获取打卡项目参与用户列表
 
@@ -3816,7 +3816,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812/joined_users?f
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'joined_users': [{'member': {'user_id': 144151582812, 'name': '大风', 'avatar_url': 'https://images.zsxq.com/FkojEV_eWaWJe45riK4zjVlXVsOC?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:kTrzCvdRFBH9bufMhtrUDlYQdeI='}, 'join_time': '2025-09-21T23:22:21.722+0800'}, {'member': {'user_id': 481128551858, 'name': 'Liulx', 'avatar_url': 'https://images.zsxq.com/FnAiHiCIkPZuG2j...
+{"succeeded": true, "resp_data": {"joined_users": [{"member": {"user_id": 144151582812, "name": "大风", "avatar_url": "https://images.zsxq.com/FkojEV_eWaWJe45riK4zjVlXVsOC?imageMogr2/auto-orient/thumbnail/150x/format/jpg/blur/1x0/quality/75/ignore-error/1&e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:kTrzCvdRFBH9bufMhtrUDlYQdeI=" }, "join_time": "2025-09-21T23:22:21.722+0800" }, {"member": {"user_id": 481128551858, "name": "Liulx", "avatar_url": "https://images.zsxq.com/FnAiHiCIkPZuG2j...
 ```
 
 **平均响应时间**: 76ms
@@ -3824,7 +3824,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812/joined_users?f
 
 ---
 
-#### `GET` /v2/groups/{group_id}/checkins/{checkin_id}/joined_users
+#### 5.2.31 `GET` /v2/groups/{group_id}/checkins/{checkin_id}/joined_users
 
 **接口名称**: 获取打卡项目参与用户列表
 
@@ -3870,7 +3870,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/1141425812/joined_users?f
 
 ---
 
-#### `POST` /v2/groups/{group_id}/checkins
+#### 5.2.32 `POST` /v2/groups/{group_id}/checkins
 
 **接口名称**: 创建打卡项目
 
@@ -3975,7 +3975,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins
 
 ---
 
-#### `PUT` /v2/groups/{group_id}/checkins/{checkin_id}
+#### 5.2.33 `PUT` /v2/groups/{group_id}/checkins/{checkin_id}
 
 **接口名称**: 更新打卡项目
 
@@ -4032,7 +4032,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141411
 
 ---
 
-#### `PUT` /v2/groups/{group_id}/checkins/{checkin_id} (关闭项目)
+#### 5.2.34 `PUT` /v2/groups/{group_id}/checkins/{checkin_id}
 
 **接口名称**: 关闭打卡项目
 
@@ -4091,7 +4091,7 @@ https://api.zsxq.com/v2/groups/15555411412112/checkins/2424141411
 
 **接口数量**: 1
 
-#### `GET` /v2/groups/recommendations
+#### 5.3.1 `GET` /v2/groups/recommendations
 
 **接口名称**: 获取推荐星球列表
 
@@ -4125,7 +4125,7 @@ https://api.zsxq.com/v2/groups/recommendations?count=3&index=3&source=GroupListV
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'groups': [{'group_id': 15281855242282, 'name': '亚楠高阶启蒙星球', 'background_url': 'https://images.zsxq.com/Fh9Ms7pKCrOzwSvE9XCNhmlUrBAC?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:fJwshcj3XXgN5PBnb6yn2iEcnVw=', 'statistics': {'members': {'count': 1491}, 'topics': {'topics_count': 17952, 'answers_count': 1214, 'digests_count': 5241}}, 'type': 'pay', 'owner': {'name': '亚楠'}, 'policies': {'payment': {'amount': 5000}, 'enable_iap_join_group': True}, 'des...
+{"succeeded": true, "resp_data": {"groups": [{"group_id": 15281855242282, "name": "亚楠高阶启蒙星球", "background_url": "https://images.zsxq.com/Fh9Ms7pKCrOzwSvE9XCNhmlUrBAC?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:fJwshcj3XXgN5PBnb6yn2iEcnVw=", "statistics": {"members": {"count": 1491}, "topics": {"topics_count": 17952, "answers_count": 1214, "digests_count": 5241}}, "type": "pay", "owner": {"name": "亚楠" }, "policies": {"payment": {"amount": 5000}, "enable_iap_join_group": true}, "des...
 ```
 
 **平均响应时间**: 122ms
@@ -4137,7 +4137,7 @@ https://api.zsxq.com/v2/groups/recommendations?count=3&index=3&source=GroupListV
 
 **接口数量**: 1
 
-#### `GET` /v2/groups/unread_topics_count
+#### 5.4.1 `GET` /v2/groups/unread_topics_count
 
 **接口名称**: 获取星球未读话题数
 
@@ -4212,7 +4212,7 @@ https://api.zsxq.com/v2/groups/unread_topics_count
 
 **接口数量**: 1
 
-#### `GET` /v2/users/self/merchant_coupons
+#### 6.1.1 `GET` /v2/users/self/merchant_coupons
 
 **接口名称**: 获取用户优惠券列表
 
@@ -4255,7 +4255,7 @@ https://api.zsxq.com/v2/users/self/merchant_coupons
 
 **接口数量**: 1
 
-#### `GET` /v3/users/self/remarks
+#### 6.2.1 `GET` /v3/users/self/remarks
 
 **接口名称**: 获取用户备注列表
 
@@ -4304,7 +4304,7 @@ https://api.zsxq.com/v3/users/self/remarks?begin_time=1970-01-01T08%3A00%3A00.00
 
 **接口数量**: 1
 
-#### `GET` /v2/users/self/recommendations/users
+#### 6.3.1 `GET` /v2/users/self/recommendations/users
 
 **接口名称**: 获取推荐用户列表
 
@@ -4354,7 +4354,7 @@ https://api.zsxq.com/v2/users/self/recommendations/users?type=unfollowed_group_o
 
 **接口数量**: 5
 
-#### `GET` /v3/users/self
+#### 6.4.1 `GET` /v3/users/self
 
 **接口名称**: 获取当前用户信息
 
@@ -4419,7 +4419,7 @@ https://api.zsxq.com/v3/users/self
 
 ---
 
-#### `GET` /v3/users/{user_id}
+#### 6.4.2 `GET` /v3/users/{user_id}
 
 **接口名称**: 获取指定用户信息
 
@@ -4469,7 +4469,7 @@ https://api.zsxq.com/v3/users/844415445224112
 
 ---
 
-#### `GET` /v2/users/{user_id}/footprints
+#### 6.4.3 `GET` /v2/users/{user_id}/footprints
 
 **接口名称**: 获取用户足迹
 
@@ -4504,7 +4504,7 @@ https://api.zsxq.com/v2/users/844415445224112/footprints?count=20&group_id=15555
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'footprints': [{'type': 'topic', 'topic': {'topic_id': 55188112221855554, 'topic_uid': '55188112221855554', 'group': {'group_id': 15555411412112, 'name': 'AI私域赚钱', 'type': 'pay', 'background_url': 'https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8='}, 'type': 'talk', 'talk': {'owner': {'user_id': 844415445224112, 'name': '熙雾AI', 'avatar_url': 'https://images.zsxq.com/FjmBf...
+{"succeeded": true, "resp_data": {"footprints": [{"type": "topic", "topic": {"topic_id": 55188112221855554, "topic_uid": "55188112221855554", "group": {"group_id": 15555411412112, "name": "AI私域赚钱", "type": "pay", "background_url": "https://images.zsxq.com/FuYZ7BCEf_2tZwHtWQaZjn6UWlzs?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:H2TzyuKGxYWwT2qU3lLyzwENe_8=" }, "type": "talk", "talk": {"owner": {"user_id": 844415445224112, "name": "熙雾AI", "avatar_url": "https://images.zsxq.com/FjmBf...
 ```
 
 **平均响应时间**: 169ms
@@ -4512,7 +4512,7 @@ https://api.zsxq.com/v2/users/844415445224112/footprints?count=20&group_id=15555
 
 ---
 
-#### `GET` /v3/users/{user_id}/statistics
+#### 6.4.4 `GET` /v3/users/{user_id}/statistics
 
 **接口名称**: 获取用户统计信息
 
@@ -4554,7 +4554,7 @@ https://api.zsxq.com/v3/users/844415445224112/statistics
 
 ---
 
-#### `GET` /v3/users/{user_id}/avatar_url
+#### 6.4.5 `GET` /v3/users/{user_id}/avatar_url
 
 **接口名称**: 获取用户头像URL
 
@@ -4597,7 +4597,7 @@ https://api.zsxq.com/v3/users/844415445224112/avatar_url
 
 **接口数量**: 8
 
-#### `GET` /v2/users/self/groups/applied_groups
+#### 6.5.1 `GET` /v2/users/self/groups/applied_groups
 
 **接口名称**: 获取已申请加入的星球列表
 
@@ -4636,7 +4636,7 @@ https://api.zsxq.com/v2/users/self/groups/applied_groups
 
 ---
 
-#### `GET` /v2/users/self/groups/{group_id}/inviter
+#### 6.5.2 `GET` /v2/users/self/groups/{group_id}/inviter
 
 **接口名称**: 获取星球邀请人信息
 
@@ -4673,7 +4673,7 @@ https://api.zsxq.com/v2/users/self/groups/15555411412112/inviter
 
 ---
 
-#### `GET` /v2/users/self/groups/{group_id}/checkins/{checkin_id}/topics
+#### 6.5.3 `GET` /v2/users/self/groups/{group_id}/checkins/{checkin_id}/topics
 
 **接口名称**: 获取我在打卡项目中的话题
 
@@ -4719,7 +4719,7 @@ https://api.zsxq.com/v2/users/self/groups/15555411412112/checkins/5454855814/top
 
 ---
 
-#### `GET` /v2/users/self/groups/{group_id}/checkins/{checkin_id}/checkined_dates
+#### 6.5.4 `GET` /v2/users/self/groups/{group_id}/checkins/{checkin_id}/checkined_dates
 
 **接口名称**: 获取我的打卡日期列表
 
@@ -4766,7 +4766,7 @@ https://api.zsxq.com/v2/users/self/groups/15555411412112/checkins/5454855814/che
 
 ---
 
-#### `GET` /v2/users/self/groups/{group_id}/checkins/{checkin_id}/checkined_dates
+#### 6.5.5 `GET` /v2/users/self/groups/{group_id}/checkins/{checkin_id}/checkined_dates
 
 **接口名称**: 获取我的打卡日期列表
 
@@ -4813,7 +4813,7 @@ https://api.zsxq.com/v2/users/self/groups/15555411412112/checkins/5454855814/che
 
 ---
 
-#### `GET` /v2/users/self/groups/{group_id}/checkins/{checkin_id}/statistics
+#### 6.5.6 `GET` /v2/users/self/groups/{group_id}/checkins/{checkin_id}/statistics
 
 **接口名称**: 获取我的打卡统计
 
@@ -4853,7 +4853,7 @@ https://api.zsxq.com/v2/users/self/groups/15555411412112/checkins/5454855814/sta
 
 ---
 
-#### `GET` /v2/users/{user_id}/created_groups
+#### 6.5.7 `GET` /v2/users/{user_id}/created_groups
 
 **接口名称**: 获取用户创建的星球列表
 
@@ -4898,7 +4898,7 @@ https://api.zsxq.com/v2/users/844415445224112/created_groups?count=200
 
 ---
 
-#### `GET` /v2/users/{user_id}/footprints/groups
+#### 6.5.8 `GET` /v2/users/{user_id}/footprints/groups
 
 **接口名称**: 获取用户活跃的星球列表
 
@@ -4930,7 +4930,7 @@ https://api.zsxq.com/v2/users/844415445224112/footprints/groups?group_id=1555541
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'groups': [{'group_id': 48884125881548, 'name': '江工·DeepSeek·AIP·十年退休', 'background_url': 'https://images.zsxq.com/FnTqb3A-RtGq6sFZNoqNvQ6Nw4J3?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:_73LRri3EMe-2zu1wfbwKV9T6Iw=', 'member_topics_count': 0}, {'group_id': 15552545485212, 'name': 'AI破局俱乐部', 'background_url': 'https://images.zsxq.com/FvLDlIM-8yYeC17o1sLs5R3yn6J8?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:vd-Mg1ivLm4D6PvaoENoBLZa...
+{"succeeded": true, "resp_data": {"groups": [{"group_id": 48884125881548, "name": "江工·DeepSeek·AIP·十年退休", "background_url": "https://images.zsxq.com/FnTqb3A-RtGq6sFZNoqNvQ6Nw4J3?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:_73LRri3EMe-2zu1wfbwKV9T6Iw=", "member_topics_count": 0}, {"group_id": 15552545485212, "name": "AI破局俱乐部", "background_url": "https://images.zsxq.com/FvLDlIM-8yYeC17o1sLs5R3yn6J8?e=1769875199&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:vd-Mg1ivLm4D6PvaoENoBLZa...
 ```
 
 **平均响应时间**: 78ms
@@ -4945,7 +4945,7 @@ https://api.zsxq.com/v2/users/844415445224112/footprints/groups?group_id=1555541
 
 **接口数量**: 1
 
-#### `POST` /api/{api_id}/envelope/
+#### 7.1.1 `POST` /api/{api_id}/envelope/
 
 **接口名称**: 极光推送信封接口
 
@@ -4983,7 +4983,7 @@ https://client-report.zsxq.com/api/5/envelope/?sentry_version=7&sentry_key=eb3ab
 
 **接口数量**: 6
 
-#### `POST` /rqd/sync
+#### 7.2.1 `POST` /rqd/sync
 
 **接口名称**: 腾讯质量监控数据同步
 
@@ -5007,7 +5007,7 @@ https://ios.bugly.qq.com/rqd/sync?aid=FB8E26AF-5DF6-4BED-86E0-D431C39B29FF
 
 ---
 
-#### `POST` /rqd/sync
+#### 7.2.2 `POST` /rqd/sync
 
 **接口名称**: 腾讯质量监控数据同步
 
@@ -5031,7 +5031,7 @@ https://ios.bugly.qq.com/rqd/sync?aid=03C24FBA-0CA5-4C07-BE56-2D34AF6A3516
 
 ---
 
-#### `POST` /rqd/sync
+#### 7.2.3 `POST` /rqd/sync
 
 **接口名称**: 腾讯质量监控数据同步
 
@@ -5055,7 +5055,7 @@ https://ios.bugly.qq.com/rqd/sync?aid=2A442AE6-F690-423E-AEBE-1E462752D0B9
 
 ---
 
-#### `POST` /rqd/sync
+#### 7.2.4 `POST` /rqd/sync
 
 **接口名称**: 腾讯质量监控数据同步
 
@@ -5079,7 +5079,7 @@ https://ios.bugly.qq.com/rqd/sync?aid=63F67FBB-732B-4B66-A267-E4F1CEED712B
 
 ---
 
-#### `POST` /rqd/sync
+#### 7.2.5 `POST` /rqd/sync
 
 **接口名称**: 腾讯质量监控数据同步
 
@@ -5103,7 +5103,7 @@ https://ios.bugly.qq.com/rqd/sync?aid=533EE2B7-A226-4CC6-8888-EE3E739DDA59
 
 ---
 
-#### `POST` /rqd/sync
+#### 7.2.6 `POST` /rqd/sync
 
 **接口名称**: 腾讯质量监控数据同步
 
@@ -5134,7 +5134,7 @@ https://ios.bugly.qq.com/rqd/sync?aid=A2E994F3-E510-47A4-AA8B-D82A2EECEED7
 
 **接口数量**: 2
 
-#### `GET` /v2/groups/{group_id}/menus/last_read_time
+#### 8.1.1 `GET` /v2/groups/{group_id}/menus/last_read_time
 
 **接口名称**: 获取菜单最后阅读时间
 
@@ -5160,7 +5160,7 @@ https://api.zsxq.com/v2/groups/15555411412112/menus/last_read_time
 **响应示例**:
 
 ```json
-{'succeeded': True, 'resp_data': {'menus': [{'menu_id': 51285448425514, 'last_read_time': '2025-12-04T01:47:34.977+0800'}, {'menu_id': 15284118124422, 'last_read_time': '2025-12-09T15:49:39.927+0800'}, {'menu_id': 28844882581111, 'last_read_time': '2025-12-09T15:49:39.927+0800'}, {'menu_id': 15514284488142, 'last_read_time': '2025-12-09T15:49:39.927+0800'}, {'menu_id': 51144121845184, 'last_read_time': '2025-12-09T15:49:39.927+0800'}, {'menu_id': 51145125424814, 'last_read_time': '2025-12-09T15:...
+{"succeeded": true, "resp_data": {"menus": [{"menu_id": 51285448425514, "last_read_time": "2025-12-04T01:47:34.977+0800" }, {"menu_id": 15284118124422, "last_read_time": "2025-12-09T15:49:39.927+0800" }, {"menu_id": 28844882581111, "last_read_time": "2025-12-09T15:49:39.927+0800" }, {"menu_id": 15514284488142, "last_read_time": "2025-12-09T15:49:39.927+0800" }, {"menu_id": 51144121845184, "last_read_time": "2025-12-09T15:49:39.927+0800" }, {"menu_id": 51145125424814, "last_read_time": "2025-12-09T15:...
 ```
 
 **平均响应时间**: 68ms
@@ -5168,7 +5168,7 @@ https://api.zsxq.com/v2/groups/15555411412112/menus/last_read_time
 
 ---
 
-#### `PUT` /v2/groups/{group_id}/menus/last_read_time
+#### 8.1.2 `PUT` /v2/groups/{group_id}/menus/last_read_time
 
 **接口名称**: 更新菜单最后阅读时间
 
@@ -5285,12 +5285,12 @@ https://api.zsxq.com/v2/groups/15555411412112/menus/last_read_time
 
 ### 签名算法（推测）
 
-```python
+```json
 import hmac
 import hashlib
 import time
 
-def generate_signature(timestamp, method, path, body=None, secret_key="UNKNOWN"):
+def generate_signature(timestamp, method, path, body=null, secret_key="UNKNOWN"):
     """
     生成请求签名
     注意：secret_key 需要通过逆向工程获取
@@ -5345,7 +5345,9 @@ def generate_signature(timestamp, method, path, body=None, secret_key="UNKNOWN")
   "success": false,
   "error": {
     "code": "ERROR_CODE",
-    "message": ["错误信息"],
+    "message": [
+      "错误信息"
+    ],
     "details": {}
   },
   "timestamp": "2025-12-07T12:00:00.000Z",
