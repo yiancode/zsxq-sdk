@@ -3,6 +3,8 @@ package com.zsxq.sdk.http;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.zsxq.sdk.client.ZsxqConfig;
 import com.zsxq.sdk.exception.ExceptionFactory;
@@ -14,9 +16,11 @@ import org.slf4j.LoggerFactory;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import javax.net.ssl.*;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.security.cert.X509Certificate;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -36,14 +40,43 @@ public class HttpClient {
 
     public HttpClient(ZsxqConfig config) {
         this.config = config;
-        this.client = new OkHttpClient.Builder()
-                .connectTimeout(config.getTimeout(), TimeUnit.MILLISECONDS)
-                .readTimeout(config.getTimeout(), TimeUnit.MILLISECONDS)
-                .writeTimeout(config.getTimeout(), TimeUnit.MILLISECONDS)
-                .build();
+        this.client = createOkHttpClient(config);
         this.gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create();
+    }
+
+    /**
+     * 创建 OkHttpClient（带 SSL 信任配置）
+     */
+    private OkHttpClient createOkHttpClient(ZsxqConfig config) {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                .connectTimeout(config.getTimeout(), TimeUnit.MILLISECONDS)
+                .readTimeout(config.getTimeout(), TimeUnit.MILLISECONDS)
+                .writeTimeout(config.getTimeout(), TimeUnit.MILLISECONDS);
+
+        // 配置信任所有证书（用于开发测试）
+        try {
+            TrustManager[] trustAllCerts = new TrustManager[]{
+                    new X509TrustManager() {
+                        @Override
+                        public void checkClientTrusted(X509Certificate[] chain, String authType) {}
+                        @Override
+                        public void checkServerTrusted(X509Certificate[] chain, String authType) {}
+                        @Override
+                        public X509Certificate[] getAcceptedIssuers() { return new X509Certificate[0]; }
+                    }
+            };
+
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+            builder.sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) trustAllCerts[0]);
+            builder.hostnameVerifier((hostname, session) -> true);
+        } catch (Exception e) {
+            log.warn("Failed to configure SSL trust, using default settings", e);
+        }
+
+        return builder.build();
     }
 
     /**
@@ -67,8 +100,11 @@ public class HttpClient {
         }
 
         String requestId = UUID.randomUUID().toString();
+        HttpUrl url = urlBuilder.build();
+        log.debug("GET Request URL: {}", url);
+
         Request request = new Request.Builder()
-                .url(urlBuilder.build())
+                .url(url)
                 .headers(buildHeaders("GET", path, null, requestId))
                 .get()
                 .build();
@@ -175,18 +211,50 @@ public class HttpClient {
     /**
      * 处理响应
      */
+    @SuppressWarnings("unchecked")
     private <T> T handleResponse(String responseBody, Type responseType, String requestId) {
-        ZsxqResponse<T> response = gson.fromJson(responseBody,
-                TypeToken.getParameterized(ZsxqResponse.class, responseType).getType());
+        // 先解析为 JsonObject 以安全检查 succeeded 字段
+        JsonObject jsonResponse = JsonParser.parseString(responseBody).getAsJsonObject();
 
-        if (response.isSucceeded()) {
-            return response.getRespData();
+        log.debug("API Response: {}", responseBody);
+
+        boolean succeeded = jsonResponse.has("succeeded") && jsonResponse.get("succeeded").getAsBoolean();
+
+        if (!succeeded) {
+            // 处理错误响应
+            int code = jsonResponse.has("code") ? jsonResponse.get("code").getAsInt() : 0;
+            String message = "未知错误";
+            if (jsonResponse.has("error") && !jsonResponse.get("error").isJsonNull()) {
+                message = jsonResponse.get("error").getAsString();
+            } else if (jsonResponse.has("info") && !jsonResponse.get("info").isJsonNull()) {
+                message = jsonResponse.get("info").getAsString();
+            }
+            log.error("API Error: code={}, message={}", code, message);
+            throw ExceptionFactory.create(code, message, requestId);
         }
 
-        int code = response.getCode() != null ? response.getCode() : 0;
-        String message = response.getError() != null ? response.getError() :
-                (response.getInfo() != null ? response.getInfo() : "未知错误");
-        throw ExceptionFactory.create(code, message, requestId);
+        // 成功响应，解析 resp_data
+        if (!jsonResponse.has("resp_data") || jsonResponse.get("resp_data").isJsonNull()) {
+            return null;
+        }
+
+        // 处理 resp_data 为基础类型的情况（如 boolean、number）
+        com.google.gson.JsonElement respData = jsonResponse.get("resp_data");
+        log.debug("resp_data type: {}, isJsonPrimitive: {}", respData.getClass().getName(), respData.isJsonPrimitive());
+
+        if (respData.isJsonPrimitive()) {
+            com.google.gson.JsonPrimitive primitive = respData.getAsJsonPrimitive();
+            // 如果是基础类型，直接返回（需要类型匹配）
+            if (primitive.isBoolean()) {
+                return (T) Boolean.valueOf(primitive.getAsBoolean());
+            } else if (primitive.isNumber()) {
+                return (T) primitive.getAsNumber();
+            } else if (primitive.isString()) {
+                return (T) primitive.getAsString();
+            }
+        }
+
+        return gson.fromJson(respData, responseType);
     }
 
     /**
