@@ -105,7 +105,7 @@ python3 analyze_har.py ~/Downloads/zsxq.har
 ### 步骤 3: 生成 API 文档
 
 ```bash
-python3 generate_api_docs.py zsxq_analysis.json ../docs/抓包API文档.md
+python3 generate_api_docs.py zsxq_analysis.json ../docs/Fiddler原始API文档.md
 ```
 
 输出示例：
