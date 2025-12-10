@@ -1,8 +1,11 @@
 /**
  * 用户模型
+ *
+ * 注意：API 返回的数据中，用户ID可能以 uid 或 user_id 形式出现
+ * 两个字段都设为可选，至少有一个会有值
  */
 export interface User {
-  user_id: number;
+  user_id?: number | string;
   uid?: string;
   name: string;
   avatar_url: string;

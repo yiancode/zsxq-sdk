@@ -1,13 +1,17 @@
 """数据模型定义"""
 
-from typing import Optional, List
-from pydantic import BaseModel, Field
+from typing import Optional, List, Union
+from pydantic import BaseModel, Field, model_validator
 from enum import Enum
 
 
 class User(BaseModel):
-    """用户模型"""
-    user_id: int
+    """用户模型
+
+    注意：API 返回的数据中，用户ID可能以 uid 或 user_id 形式出现
+    使用 model_validator 来处理字段兼容性
+    """
+    user_id: Optional[Union[int, str]] = None
     uid: Optional[str] = None
     name: str
     avatar_url: str
@@ -17,6 +21,22 @@ class User(BaseModel):
     user_sid: Optional[str] = None
     grade: Optional[str] = None
     verified: Optional[bool] = None
+
+    @model_validator(mode='before')
+    @classmethod
+    def handle_user_id(cls, data):
+        """处理 user_id 和 uid 字段的兼容性"""
+        if isinstance(data, dict):
+            # 如果只有 uid，将其赋值给 user_id
+            if 'uid' in data and 'user_id' not in data:
+                data['user_id'] = data['uid']
+            # 如果只有 user_id，将其赋值给 uid
+            elif 'user_id' in data and 'uid' not in data:
+                data['uid'] = str(data['user_id'])
+        return data
+
+    class Config:
+        populate_by_name = True  # 允许通过别名和字段名填充
 
 
 class GroupType(str, Enum):

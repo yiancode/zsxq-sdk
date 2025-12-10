@@ -16,7 +16,7 @@ type Group struct {
 	Description   string    `json:"description"`
 	BackgroundURL string    `json:"background_url"`
 	Type          GroupType `json:"type"`
-	MemberCount   int       `json:"member_count,omitempty"`
+	MemberCount   *int      `json:"member_count,omitempty"`
 	Owner         *User     `json:"owner,omitempty"`
 	CreateTime    string    `json:"create_time"`
 	RiskLevel     string    `json:"risk_level,omitempty"`

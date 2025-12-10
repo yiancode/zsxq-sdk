@@ -262,9 +262,9 @@ func (r *UsersRequest) Self(ctx context.Context) (*model.User, error) {
 }
 
 // Get 获取指定用户信息
-func (r *UsersRequest) Get(ctx context.Context, userID int64) (*model.User, error) {
+func (r *UsersRequest) Get(ctx context.Context, userID string) (*model.User, error) {
 	var resp userResponse
-	path := fmt.Sprintf("/v3/users/%d", userID)
+	path := fmt.Sprintf("/v3/users/%s", userID)
 	if err := r.client.Get(ctx, path, nil, &resp); err != nil {
 		return nil, err
 	}
@@ -272,9 +272,9 @@ func (r *UsersRequest) Get(ctx context.Context, userID int64) (*model.User, erro
 }
 
 // GetStatistics 获取用户统计
-func (r *UsersRequest) GetStatistics(ctx context.Context, userID int64) (map[string]interface{}, error) {
+func (r *UsersRequest) GetStatistics(ctx context.Context, userID string) (map[string]interface{}, error) {
 	var resp map[string]interface{}
-	path := fmt.Sprintf("/v3/users/%d/statistics", userID)
+	path := fmt.Sprintf("/v3/users/%s/statistics", userID)
 	if err := r.client.Get(ctx, path, nil, &resp); err != nil {
 		return nil, err
 	}
@@ -282,9 +282,9 @@ func (r *UsersRequest) GetStatistics(ctx context.Context, userID int64) (map[str
 }
 
 // GetFootprints 获取用户动态
-func (r *UsersRequest) GetFootprints(ctx context.Context, userID int64) ([]model.Topic, error) {
+func (r *UsersRequest) GetFootprints(ctx context.Context, userID string) ([]model.Topic, error) {
 	var resp topicsResponse
-	path := fmt.Sprintf("/v2/users/%d/footprints", userID)
+	path := fmt.Sprintf("/v2/users/%s/footprints", userID)
 	if err := r.client.Get(ctx, path, nil, &resp); err != nil {
 		return nil, err
 	}
@@ -292,9 +292,9 @@ func (r *UsersRequest) GetFootprints(ctx context.Context, userID int64) ([]model
 }
 
 // GetCreatedGroups 获取用户创建的星球
-func (r *UsersRequest) GetCreatedGroups(ctx context.Context, userID int64) ([]model.Group, error) {
+func (r *UsersRequest) GetCreatedGroups(ctx context.Context, userID string) ([]model.Group, error) {
 	var resp groupsResponse
-	path := fmt.Sprintf("/v2/users/%d/created_groups", userID)
+	path := fmt.Sprintf("/v2/users/%s/created_groups", userID)
 	if err := r.client.Get(ctx, path, nil, &resp); err != nil {
 		return nil, err
 	}
