@@ -37,7 +37,8 @@ cd packages/go
 go mod tidy                           # 整理依赖
 go build ./...                        # 构建
 go test ./...                         # 运行所有测试
-go test ./client -run TestList        # 运行单个测试
+go test ./client -run TestNewClient   # 运行单个测试
+go test ./request -v                  # 详细输出运行 request 包测试
 ```
 
 ### Python SDK
@@ -162,4 +163,9 @@ ZSXQ_RETRY_COUNT=3          # 重试次数
 `tools/` 目录包含开发辅助脚本：
 
 - `analyze_har.py` - 分析 HAR 抓包文件，提取 API 信息
-- `generate_api_docs.py` - 从抓包数据生成 API 文档
+- `generate_api_docs.py` - 从分析报告生成 Markdown API 文档
+- `fix_api_docs.py` - 修复和格式化 API 文档
+
+## 自定义命令
+
+- `/commit` - 智能分析变更并自动生成 Git 提交（使用 Conventional Commits 格式）
