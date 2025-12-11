@@ -76,8 +76,10 @@ zsxq-sdk/
 │   ├── errors/              # 错误码定义
 │   └── sdk-design/          # SDK 设计规范
 ├── packages/
-│   ├── typescript/          # TypeScript SDK（独立发布到 npm）
-│   └── java/                # Java SDK（独立发布到 Maven）
+│   ├── typescript/          # TypeScript SDK
+│   ├── java/                # Java SDK
+│   ├── go/                  # Go SDK
+│   └── python/              # Python SDK
 └── docs/                    # 详细文档
 ```
 

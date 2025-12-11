@@ -41,4 +41,6 @@ public class Comment {
      * 是否置顶
      */
     private Boolean sticky;
+    private Comment replyToComment;
+    private User mentionedUser;
 }

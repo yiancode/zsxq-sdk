@@ -4,38 +4,45 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.zsxq</groupId>
+    <groupId>io.github.yiancode</groupId>
     <artifactId>zsxq-sdk</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>zsxq-sdk</name>
     <description>知识星球 Java SDK - 轻量级、类型安全的 API 客户端</description>
-    <url>https://github.com/yourorg/zsxq-sdk-java</url>
+    <url>https://github.com/yiancode/zsxq-sdk</url>
 
     <licenses>
         <license>
             <name>MIT License</name>
-            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <url>https://opensource.org/licenses/MIT</url>
         </license>
     </licenses>
 
     <developers>
         <developer>
-            <name>Your Name</name>
-            <email>your.email@example.com</email>
+            <name>yian</name>
+            <email>yian20133213@gmail.com</email>
         </developer>
     </developers>
 
+    <scm>
+        <connection>scm:git:git://github.com/yiancode/zsxq-sdk.git</connection>
+        <developerConnection>scm:git:ssh://github.com:yiancode/zsxq-sdk.git</developerConnection>
+        <url>https://github.com/yiancode/zsxq-sdk/tree/main</url>
+    </scm>
+
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Dependencies versions -->
         <okhttp.version>4.12.0</okhttp.version>
         <gson.version>2.10.1</gson.version>
-        <lombok.version>1.18.30</lombok.version>
+        <lombok.version>1.18.34</lombok.version>
         <slf4j.version>2.0.9</slf4j.version>
 
         <!-- Test dependencies versions -->
@@ -99,10 +106,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>3.13.0</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <release>21</release>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -142,6 +148,32 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <!-- GPG Signing -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Central Publishing -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.6.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
+                </configuration>
             </plugin>
         </plugins>
     </build>
