@@ -11,6 +11,8 @@ from zsxq.request import (
     UsersRequest,
     CheckinsRequest,
     DashboardRequest,
+    RankingRequest,
+    MiscRequest,
 )
 
 
@@ -59,6 +61,8 @@ class ZsxqClient:
         self.users = UsersRequest(self._http_client)
         self.checkins = CheckinsRequest(self._http_client)
         self.dashboard = DashboardRequest(self._http_client)
+        self.ranking = RankingRequest(self._http_client)
+        self.misc = MiscRequest(self._http_client)
 
     async def close(self):
         """关闭客户端"""

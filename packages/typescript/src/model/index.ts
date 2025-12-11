@@ -193,3 +193,288 @@ export interface Hashtag {
   name: string;
   topics_count?: number;
 }
+
+/**
+ * 菜单模型
+ */
+export interface Menu {
+  menu_id: number;
+  name: string;
+  type: string;
+  icon?: string;
+  url?: string;
+  order?: number;
+}
+
+/**
+ * 角色成员模型
+ */
+export interface RoleMembers {
+  owner?: User;
+  partners?: User[];
+  admins?: User[];
+}
+
+/**
+ * 专栏模型
+ */
+export interface Column {
+  column_id: number;
+  name: string;
+  description?: string;
+  topics_count?: number;
+  cover_url?: string;
+  create_time?: string;
+}
+
+/**
+ * 活跃摘要模型
+ */
+export interface ActivitySummary {
+  topics_count?: number;
+  comments_count?: number;
+  likes_count?: number;
+  last_active_time?: string;
+}
+
+/**
+ * 续费信息模型
+ */
+export interface RenewalInfo {
+  renewal_price?: number;
+  renewal_discount?: number;
+  renewal_expire_time?: string;
+  auto_renewal?: boolean;
+}
+
+/**
+ * 分销信息模型
+ */
+export interface DistributionInfo {
+  distribution_enabled?: boolean;
+  commission_rate?: number;
+  total_sales?: number;
+  total_commission?: number;
+}
+
+/**
+ * 自定义标签模型
+ */
+export interface CustomTag {
+  label_id: number;
+  name: string;
+  color?: string;
+  member_count?: number;
+}
+
+/**
+ * 定时任务模型
+ */
+export interface ScheduledJob {
+  job_id: number;
+  name: string;
+  type: string;
+  status: string;
+  schedule_time?: string;
+  create_time?: string;
+}
+
+/**
+ * 星球风险预警模型
+ */
+export interface GroupWarning {
+  warning_type?: string;
+  warning_level?: string;
+  warning_message?: string;
+  warning_time?: string;
+}
+
+/**
+ * 打赏模型
+ */
+export interface Reward {
+  reward_id?: number;
+  user: User;
+  amount?: number;
+  message?: string;
+  create_time?: string;
+}
+
+/**
+ * 邀请人模型
+ */
+export interface Inviter {
+  user?: User;
+  invite_time?: string;
+}
+
+/**
+ * 优惠券模型
+ */
+export interface Coupon {
+  coupon_id: number;
+  name: string;
+  amount?: number;
+  discount?: number;
+  expire_time?: string;
+  status?: string;
+}
+
+/**
+ * 备注模型
+ */
+export interface Remark {
+  remark_id: number;
+  user: User;
+  content?: string;
+  create_time?: string;
+}
+
+/**
+ * 推荐偏好分类模型
+ */
+export interface PreferenceCategory {
+  category_id: number;
+  name: string;
+  selected?: boolean;
+}
+
+/**
+ * 未回答问题摘要模型
+ */
+export interface UnansweredQuestionsSummary {
+  total_count?: number;
+  unanswered_count?: number;
+  oldest_question_time?: string;
+}
+
+/**
+ * 关注者统计模型
+ */
+export interface FollowerStatistics {
+  followers_count?: number;
+  followings_count?: number;
+  new_followers_count?: number;
+}
+
+/**
+ * 贡献记录模型
+ */
+export interface Contribution {
+  contribution_id?: number;
+  type: string;
+  count?: number;
+  date?: string;
+}
+
+/**
+ * 贡献统计模型
+ */
+export interface ContributionStatistics {
+  total_count?: number;
+  total_topics?: number;
+  total_comments?: number;
+  total_likes?: number;
+}
+
+/**
+ * 成就摘要模型
+ */
+export interface AchievementSummary {
+  achievement_id: number;
+  name: string;
+  description?: string;
+  icon?: string;
+  completed?: boolean;
+  progress?: number;
+}
+
+/**
+ * 周榜排名模型
+ */
+export interface WeeklyRanking {
+  rank?: number;
+  score?: number;
+  week_start?: string;
+  week_end?: string;
+}
+
+/**
+ * 每日统计模型
+ */
+export interface DailyStatistics {
+  date: string;
+  checkin_count?: number;
+  user_count?: number;
+}
+
+/**
+ * 我的打卡统计模型
+ */
+export interface MyCheckinStatistics {
+  total_count?: number;
+  continuous_count?: number;
+  max_continuous_count?: number;
+  last_checkin_time?: string;
+}
+
+/**
+ * 排行统计模型
+ */
+export interface RankingStatistics {
+  total_users?: number;
+  my_rank?: number;
+  my_score?: number;
+}
+
+/**
+ * 积分榜设置模型
+ */
+export interface ScoreboardSettings {
+  enabled?: boolean;
+  score_rules?: Record<string, number>;
+  rank_rewards?: Record<string, unknown>;
+}
+
+/**
+ * 发票统计模型
+ */
+export interface InvoiceStats {
+  total_amount?: number;
+  invoice_count?: number;
+  pending_count?: number;
+}
+
+/**
+ * 全局配置模型
+ */
+export interface GlobalConfig {
+  version?: string;
+  features?: Record<string, boolean>;
+  settings?: Record<string, unknown>;
+}
+
+/**
+ * 动态模型
+ */
+export interface Activity {
+  activity_id?: number;
+  type: string;
+  user?: User;
+  content?: string;
+  create_time?: string;
+  target?: Record<string, unknown>;
+}
+
+/**
+ * PK群组模型
+ */
+export interface PkGroup {
+  pk_group_id: number;
+  name: string;
+  description?: string;
+  status?: string;
+  groups?: Group[];
+  start_time?: string;
+  end_time?: string;
+}

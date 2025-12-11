@@ -202,3 +202,209 @@ class RankingItem(BaseModel):
     rank: int
     count: int
     continuous_count: Optional[int] = None
+
+
+class Menu(BaseModel):
+    """菜单模型"""
+    name: str
+    type: str
+    url: Optional[str] = None
+
+
+class RoleMembers(BaseModel):
+    """角色成员模型"""
+    owner: Optional[User] = None
+    partners: Optional[List[User]] = None
+    admins: Optional[List[User]] = None
+
+
+class Column(BaseModel):
+    """专栏模型"""
+    column_id: int
+    name: str
+    topics_count: Optional[int] = None
+    cover_url: Optional[str] = None
+
+
+class ActivitySummary(BaseModel):
+    """活跃摘要模型"""
+    topics_count: Optional[int] = None
+    comments_count: Optional[int] = None
+    likes_received: Optional[int] = None
+    questions_count: Optional[int] = None
+    answers_count: Optional[int] = None
+
+
+class RenewalInfo(BaseModel):
+    """续费信息模型"""
+    renewal_enabled: Optional[bool] = None
+    renewal_price: Optional[int] = None
+    renewal_days: Optional[int] = None
+
+
+class DistributionInfo(BaseModel):
+    """分销信息模型"""
+    enabled: Optional[bool] = None
+    commission_rate: Optional[float] = None
+
+
+class CustomTag(BaseModel):
+    """自定义标签模型"""
+    label_id: Optional[int] = None
+    name: str
+    topics_count: Optional[int] = None
+
+
+class ScheduledJob(BaseModel):
+    """定时任务模型"""
+    job_id: Optional[int] = None
+    name: str
+    status: Optional[str] = None
+    cron: Optional[str] = None
+
+
+class GroupWarning(BaseModel):
+    """风险预警模型"""
+    type: Optional[str] = None
+    level: Optional[str] = None
+    title: Optional[str] = None
+    message: Optional[str] = None
+
+
+class Reward(BaseModel):
+    """打赏模型"""
+    reward_id: Optional[int] = None
+    user: Optional[User] = None
+    amount: Optional[int] = None
+    create_time: Optional[str] = None
+
+
+class Inviter(BaseModel):
+    """邀请人模型"""
+    user: Optional[User] = None
+    join_time: Optional[str] = None
+
+
+class Coupon(BaseModel):
+    """优惠券模型"""
+    coupon_id: int
+    name: str
+    discount: Optional[int] = None
+    expire_time: Optional[str] = None
+
+
+class Remark(BaseModel):
+    """备注模型"""
+    remark_id: int
+    content: str
+    user: Optional[User] = None
+    create_time: Optional[str] = None
+
+
+class PreferenceCategory(BaseModel):
+    """推荐偏好分类"""
+    category_id: Optional[int] = None
+    name: str
+    selected: Optional[bool] = None
+
+
+class UnansweredQuestionsSummary(BaseModel):
+    """未回答问题摘要"""
+    unanswered_count: Optional[int] = None
+
+
+class FollowerStatistics(BaseModel):
+    """关注者统计"""
+    followers_count: Optional[int] = None
+    new_followers_count: Optional[int] = None
+
+
+class Contribution(BaseModel):
+    """贡献记录"""
+    date: str
+    type: Optional[str] = None
+    count: Optional[int] = None
+
+
+class ContributionStatistics(BaseModel):
+    """贡献统计"""
+    max_consecutive_days: Optional[int] = None
+    current_consecutive_days: Optional[int] = None
+    total_contributions: Optional[int] = None
+
+
+class AchievementSummary(BaseModel):
+    """成就摘要"""
+    achievement_id: Optional[int] = None
+    title: str
+    description: Optional[str] = None
+    icon_url: Optional[str] = None
+
+
+class WeeklyRankingItem(BaseModel):
+    """周榜排名项"""
+    ranking: Optional[int] = None
+    count: Optional[int] = None
+
+
+class WeeklyRanking(BaseModel):
+    """周榜排名"""
+    top_topics: Optional[WeeklyRankingItem] = None
+    top_likes: Optional[WeeklyRankingItem] = None
+    top_digests: Optional[WeeklyRankingItem] = None
+
+
+class DailyStatistics(BaseModel):
+    """每日统计"""
+    date: str
+    checkin_count: Optional[int] = None
+    user_count: Optional[int] = None
+
+
+class MyCheckinStatistics(BaseModel):
+    """我的打卡统计"""
+    total_checkin_count: Optional[int] = None
+    continuous_days: Optional[int] = None
+    last_checkin_date: Optional[str] = None
+
+
+class RankingStatistics(BaseModel):
+    """排行统计"""
+    total_count: Optional[int] = None
+    my_rank: Optional[int] = None
+
+
+class ScoreboardSettings(BaseModel):
+    """积分榜设置"""
+    enabled: Optional[bool] = None
+    name: Optional[str] = None
+    rules: Optional[str] = None
+
+
+class InvoiceStats(BaseModel):
+    """发票统计"""
+    total_count: Optional[int] = None
+    pending_count: Optional[int] = None
+    finished_count: Optional[int] = None
+
+
+class GlobalConfig(BaseModel):
+    """全局配置"""
+    topic: Optional[dict] = None
+    max_video_size: Optional[int] = None
+
+
+class Activity(BaseModel):
+    """动态"""
+    dynamic_id: Optional[int] = None
+    action: Optional[str] = None
+    user: Optional[User] = None
+    topic: Optional["Topic"] = None
+    create_time: Optional[str] = None
+
+
+class PkGroup(BaseModel):
+    """PK群组"""
+    pk_group_id: Optional[int] = None
+    name: Optional[str] = None
+    power: Optional[int] = None

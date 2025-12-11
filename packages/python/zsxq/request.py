@@ -13,6 +13,34 @@ from zsxq.model import (
     Checkin,
     CheckinStatistics,
     RankingItem,
+    Menu,
+    RoleMembers,
+    Column,
+    ActivitySummary,
+    RenewalInfo,
+    DistributionInfo,
+    CustomTag,
+    ScheduledJob,
+    GroupWarning,
+    Reward,
+    Inviter,
+    Coupon,
+    Remark,
+    PreferenceCategory,
+    UnansweredQuestionsSummary,
+    FollowerStatistics,
+    Contribution,
+    ContributionStatistics,
+    AchievementSummary,
+    WeeklyRanking,
+    DailyStatistics,
+    MyCheckinStatistics,
+    RankingStatistics,
+    ScoreboardSettings,
+    InvoiceStats,
+    GlobalConfig,
+    Activity,
+    PkGroup,
 )
 
 
@@ -82,6 +110,65 @@ class GroupsRequest:
     async def get_unread_count(self) -> Dict[str, int]:
         """获取未读话题数"""
         return await self._client.get("/v2/groups/unread_topics_count")
+
+    async def get_menus(self, group_id: int) -> List[Menu]:
+        """获取星球菜单配置"""
+        data = await self._client.get(f"/v2/groups/{group_id}/menus")
+        return [Menu.model_validate(m) for m in data.get("menus", [])]
+
+    async def get_role_members(self, group_id: int) -> RoleMembers:
+        """获取星球角色成员"""
+        data = await self._client.get(f"/v2/groups/{group_id}/role_members")
+        return RoleMembers.model_validate(data)
+
+    async def get_columns(self, group_id: int) -> List[Column]:
+        """获取星球专栏列表"""
+        data = await self._client.get(f"/v2/groups/{group_id}/columns")
+        return [Column.model_validate(c) for c in data.get("columns", [])]
+
+    async def get_columns_summary(self, group_id: int) -> Dict[str, Any]:
+        """获取专栏汇总信息"""
+        return await self._client.get(f"/v2/groups/{group_id}/columns/summary")
+
+    async def get_member_activity_summary(self, group_id: int, member_id: int) -> ActivitySummary:
+        """获取成员活跃摘要"""
+        data = await self._client.get(f"/v2/groups/{group_id}/members/{member_id}/summary")
+        return ActivitySummary.model_validate(data.get("summary", {}))
+
+    async def get_renewal_info(self, group_id: int) -> RenewalInfo:
+        """获取星球续费信息"""
+        data = await self._client.get(f"/v2/groups/{group_id}/renewal")
+        return RenewalInfo.model_validate(data.get("renewal", {}))
+
+    async def get_distribution(self, group_id: int) -> DistributionInfo:
+        """获取星球分销信息"""
+        data = await self._client.get(f"/v2/groups/{group_id}/distribution")
+        return DistributionInfo.model_validate(data.get("distribution", {}))
+
+    async def get_upgradeable_groups(self) -> List[Group]:
+        """获取可升级星球列表"""
+        data = await self._client.get("/v2/groups/upgradable_groups")
+        return [Group.model_validate(g) for g in data.get("groups", [])]
+
+    async def get_recommended_groups(self) -> List[Group]:
+        """获取推荐星球列表"""
+        data = await self._client.get("/v2/groups/recommendations")
+        return [Group.model_validate(g) for g in data.get("groups", [])]
+
+    async def get_custom_tags(self, group_id: int) -> List[CustomTag]:
+        """获取星球自定义标签"""
+        data = await self._client.get(f"/v2/groups/{group_id}/labels")
+        return [CustomTag.model_validate(l) for l in data.get("labels", [])]
+
+    async def get_scheduled_tasks(self, group_id: int) -> List[ScheduledJob]:
+        """获取星球定时任务"""
+        data = await self._client.get(f"/v2/groups/{group_id}/scheduled_jobs")
+        return [ScheduledJob.model_validate(j) for j in data.get("jobs", [])]
+
+    async def get_risk_warnings(self, group_id: int) -> GroupWarning:
+        """获取星球风险预警"""
+        data = await self._client.get(f"/v3/groups/{group_id}/group_warning")
+        return GroupWarning.model_validate(data.get("warning", {}))
 
 
 class TopicsRequest:
@@ -161,6 +248,26 @@ class TopicsRequest:
         )
         return [Topic.model_validate(t) for t in data.get("topics", [])]
 
+    async def get_info(self, topic_id: int) -> Topic:
+        """获取话题基础信息"""
+        data = await self._client.get(f"/v2/topics/{topic_id}/info")
+        return Topic.model_validate(data["topic"])
+
+    async def get_rewards(self, topic_id: int) -> List[Reward]:
+        """获取话题打赏列表"""
+        data = await self._client.get(f"/v2/topics/{topic_id}/rewards")
+        return [Reward.model_validate(r) for r in data.get("rewards", [])]
+
+    async def get_recommendations(self, topic_id: int) -> List[Topic]:
+        """获取相关推荐话题"""
+        data = await self._client.get(f"/v2/topics/{topic_id}/recommendations")
+        return [Topic.model_validate(t) for t in data.get("topics", [])]
+
+    async def list_sticky(self, group_id: int) -> List[Topic]:
+        """获取置顶话题列表"""
+        data = await self._client.get(f"/v2/groups/{group_id}/topics/sticky")
+        return [Topic.model_validate(t) for t in data.get("topics", [])]
+
 
 class UsersRequest:
     """用户请求模块"""
@@ -191,6 +298,96 @@ class UsersRequest:
         """获取用户创建的星球"""
         data = await self._client.get(f"/v2/users/{user_id}/created_groups")
         return [Group.model_validate(g) for g in data.get("groups", [])]
+
+    async def get_avatar_url(self, user_id: int) -> str:
+        """获取用户大尺寸头像URL"""
+        data = await self._client.get(f"/v3/users/{user_id}/avatar_url")
+        return data.get("avatar_url", "")
+
+    async def get_group_footprints(self, user_id: int) -> List[Group]:
+        """获取用户星球足迹"""
+        data = await self._client.get(f"/v2/users/{user_id}/group_footprints")
+        return [Group.model_validate(g) for g in data.get("groups", [])]
+
+    async def get_applying_groups(self) -> List[Group]:
+        """获取申请中的星球列表"""
+        data = await self._client.get("/v2/groups/applying")
+        return [Group.model_validate(g) for g in data.get("groups", [])]
+
+    async def get_inviter(self, group_id: int) -> Inviter:
+        """获取星球邀请人信息"""
+        data = await self._client.get(f"/v2/groups/{group_id}/inviter")
+        return Inviter.model_validate(data.get("inviter", {}))
+
+    async def get_coupons(self) -> List[Coupon]:
+        """获取我的优惠券列表"""
+        data = await self._client.get("/v2/coupons")
+        return [Coupon.model_validate(c) for c in data.get("coupons", [])]
+
+    async def get_remarks(self) -> List[Remark]:
+        """获取我的备注列表"""
+        data = await self._client.get("/v2/remarks")
+        return [Remark.model_validate(r) for r in data.get("remarks", [])]
+
+    async def get_recommended_follows(self) -> List[User]:
+        """获取推荐关注用户列表"""
+        data = await self._client.get("/v2/users/recommended_follows")
+        return [User.model_validate(u) for u in data.get("users", [])]
+
+    async def get_blocked_users(self) -> List[User]:
+        """获取屏蔽用户列表"""
+        data = await self._client.get("/v2/users/block_users")
+        return [User.model_validate(u) for u in data.get("users", [])]
+
+    async def report_push_channel(self, channel: str, device_token: str) -> None:
+        """上报推送通道"""
+        body = {"channel": channel, "device_token": device_token}
+        await self._client.post("/v2/users/self/push_channel", body)
+
+    async def get_preference_categories(self) -> List[PreferenceCategory]:
+        """获取推荐偏好分类"""
+        data = await self._client.get("/v2/users/self/recommendations/preference_categories")
+        return [PreferenceCategory.model_validate(c) for c in data.get("categories", [])]
+
+    async def get_unanswered_questions_summary(self) -> UnansweredQuestionsSummary:
+        """获取未回答问题摘要"""
+        data = await self._client.get("/v2/users/self/unanswered_questions/brief")
+        return UnansweredQuestionsSummary.model_validate(data)
+
+    async def get_follower_stats(self, begin_time: Optional[str] = None) -> FollowerStatistics:
+        """获取关注者统计"""
+        path = "/v3/users/self/followers/statistics"
+        if begin_time:
+            path += f"?begin_time={begin_time}"
+        data = await self._client.get(path)
+        return FollowerStatistics.model_validate(data)
+
+    async def get_contributions(self, begin_time: Optional[str] = None, end_time: Optional[str] = None) -> List[Contribution]:
+        """获取贡献记录"""
+        path = "/v3/users/self/contributions"
+        if begin_time and end_time:
+            path += f"?begin_time={begin_time}&end_time={end_time}"
+        data = await self._client.get(path)
+        return [Contribution.model_validate(c) for c in data.get("contributions", [])]
+
+    async def get_contribution_stats(self) -> ContributionStatistics:
+        """获取贡献统计"""
+        data = await self._client.get("/v3/users/self/contributions/statistics")
+        return ContributionStatistics.model_validate(data.get("statistics", {}))
+
+    async def get_achievements_summary(self) -> List[AchievementSummary]:
+        """获取成就摘要列表"""
+        data = await self._client.get("/v3/users/self/achievements/summaries")
+        return [AchievementSummary.model_validate(s) for s in data.get("summaries", [])]
+
+    async def get_weekly_ranking(self, group_id: int) -> WeeklyRanking:
+        """获取星球周榜排名"""
+        data = await self._client.get(f"/v3/users/self/group_weekly_rankings?group_id={group_id}")
+        return WeeklyRanking.model_validate(data)
+
+    async def get_preferences(self) -> Dict[str, Any]:
+        """获取用户偏好配置"""
+        return await self._client.get("/v3/users/self/preferences")
 
 
 class CheckinsRequest:
@@ -255,6 +452,55 @@ class CheckinsRequest:
         )
         return [Topic.model_validate(t) for t in data.get("topics", [])]
 
+    async def get_daily_statistics(self, group_id: int, checkin_id: int) -> List[DailyStatistics]:
+        """获取打卡每日统计"""
+        data = await self._client.get(
+            f"/v2/groups/{group_id}/checkins/{checkin_id}/statistics/daily"
+        )
+        return [DailyStatistics.model_validate(d) for d in data.get("daily_statistics", [])]
+
+    async def get_joined_users(
+        self, group_id: int, checkin_id: int, count: Optional[int] = None, end_time: Optional[str] = None
+    ) -> List[User]:
+        """获取打卡参与用户列表"""
+        params: Dict[str, Any] = {}
+        if count is not None:
+            params["count"] = count
+        if end_time:
+            params["end_time"] = end_time
+        data = await self._client.get(
+            f"/v2/groups/{group_id}/checkins/{checkin_id}/joined_users", params or None
+        )
+        return [User.model_validate(u) for u in data.get("users", [])]
+
+    async def get_my_checkins(
+        self, group_id: int, checkin_id: int, count: Optional[int] = None, end_time: Optional[str] = None
+    ) -> List[Topic]:
+        """获取我的打卡记录"""
+        params: Dict[str, Any] = {}
+        if count is not None:
+            params["count"] = count
+        if end_time:
+            params["end_time"] = end_time
+        data = await self._client.get(
+            f"/v2/users/self/groups/{group_id}/checkins/{checkin_id}/topics", params or None
+        )
+        return [Topic.model_validate(t) for t in data.get("topics", [])]
+
+    async def get_my_checkin_days(self, group_id: int, checkin_id: int) -> List[str]:
+        """获取我的打卡日期列表"""
+        data = await self._client.get(
+            f"/v2/users/self/groups/{group_id}/checkins/{checkin_id}/checkined_dates"
+        )
+        return data.get("dates", [])
+
+    async def get_my_statistics(self, group_id: int, checkin_id: int) -> MyCheckinStatistics:
+        """获取我的打卡统计"""
+        data = await self._client.get(
+            f"/v2/users/self/groups/{group_id}/checkins/{checkin_id}/statistics"
+        )
+        return MyCheckinStatistics.model_validate(data.get("statistics", {}))
+
 
 class DashboardRequest:
     """Dashboard 请求模块"""
@@ -285,3 +531,134 @@ class DashboardRequest:
             f"/v2/dashboard/groups/{group_id}/scoreboard/ranking_list", params or None
         )
         return [RankingItem.model_validate(r) for r in data.get("ranking_list", [])]
+
+    async def get_privileges(self, group_id: int) -> Dict[str, Any]:
+        """获取星球权限配置"""
+        data = await self._client.get(f"/v2/dashboard/groups/{group_id}/privileges")
+        return data.get("privileges", {})
+
+    async def get_invoice_stats(self) -> InvoiceStats:
+        """获取发票统计"""
+        data = await self._client.get("/v3/invoices/statistics")
+        return InvoiceStats.model_validate(data)
+
+
+class RankingRequest:
+    """排行榜请求模块"""
+
+    def __init__(self, client: HttpClient):
+        self._client = client
+
+    async def get_group_ranking(
+        self, group_id: int, options: Optional[ListRankingOptions] = None
+    ) -> List[RankingItem]:
+        """获取星球排行榜"""
+        params: Dict[str, Any] = {}
+        if options:
+            if options.type:
+                params["type"] = options.type
+            if options.index is not None:
+                params["index"] = options.index
+
+        data = await self._client.get(
+            f"/v2/groups/{group_id}/ranking_list", params or None
+        )
+        return [RankingItem.model_validate(r) for r in data.get("ranking_list", [])]
+
+    async def get_group_ranking_stats(self, group_id: int) -> RankingStatistics:
+        """获取排行统计"""
+        data = await self._client.get(f"/v2/groups/{group_id}/ranking_list/statistics")
+        return RankingStatistics.model_validate(data.get("statistics", {}))
+
+    async def get_score_ranking(
+        self, group_id: int, options: Optional[ListRankingOptions] = None
+    ) -> List[RankingItem]:
+        """获取积分排行榜"""
+        params: Dict[str, Any] = {}
+        if options:
+            if options.type:
+                params["type"] = options.type
+            if options.index is not None:
+                params["index"] = options.index
+
+        data = await self._client.get(
+            f"/v2/groups/{group_id}/scoreboard/ranking_list", params or None
+        )
+        return [RankingItem.model_validate(r) for r in data.get("ranking_list", [])]
+
+    async def get_my_score_stats(self, group_id: int) -> Dict[str, Any]:
+        """获取我的积分统计"""
+        return await self._client.get(f"/v2/groups/{group_id}/scoreboard/my_statistics")
+
+    async def get_scoreboard_settings(self, group_id: int) -> ScoreboardSettings:
+        """获取积分榜设置"""
+        data = await self._client.get(f"/v2/groups/{group_id}/scoreboard/settings")
+        return ScoreboardSettings.model_validate(data.get("settings", {}))
+
+    async def get_invitation_ranking(
+        self, group_id: int, options: Optional[ListRankingOptions] = None
+    ) -> List[RankingItem]:
+        """获取邀请排行榜"""
+        params: Dict[str, Any] = {}
+        if options:
+            if options.type:
+                params["type"] = options.type
+            if options.index is not None:
+                params["index"] = options.index
+
+        data = await self._client.get(
+            f"/v2/groups/{group_id}/invitation_ranking_list", params or None
+        )
+        return [RankingItem.model_validate(r) for r in data.get("ranking_list", [])]
+
+    async def get_contribution_ranking(
+        self, group_id: int, options: Optional[ListRankingOptions] = None
+    ) -> List[RankingItem]:
+        """获取贡献排行榜"""
+        params: Dict[str, Any] = {}
+        if options:
+            if options.type:
+                params["type"] = options.type
+            if options.index is not None:
+                params["index"] = options.index
+
+        data = await self._client.get(
+            f"/v2/groups/{group_id}/contribution_ranking_list", params or None
+        )
+        return [RankingItem.model_validate(r) for r in data.get("ranking_list", [])]
+
+
+@dataclass
+class ListActivitiesOptions:
+    """动态列表查询参数"""
+    count: Optional[int] = None
+    end_time: Optional[str] = None
+
+
+class MiscRequest:
+    """杂项请求模块"""
+
+    def __init__(self, client: HttpClient):
+        self._client = client
+
+    async def get_global_config(self) -> GlobalConfig:
+        """获取全局配置"""
+        data = await self._client.get("/v2/global/config")
+        return GlobalConfig.model_validate(data.get("config", {}))
+
+    async def get_activities(self, options: Optional[ListActivitiesOptions] = None) -> List[Activity]:
+        """获取用户动态"""
+        params: Dict[str, Any] = {}
+        if options:
+            if options.count is not None:
+                params["count"] = options.count
+            if options.end_time:
+                params["end_time"] = options.end_time
+
+        data = await self._client.get("/v2/activities", params or None)
+        return [Activity.model_validate(a) for a in data.get("activities", [])]
+
+    async def get_pk_group(self, group_id: int) -> PkGroup:
+        """获取 PK 群组信息"""
+        data = await self._client.get(f"/v2/pk/groups/{group_id}")
+        return PkGroup.model_validate(data.get("pk_group", {}))

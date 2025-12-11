@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.zsxq.sdk.http.HttpClient;
+import com.zsxq.sdk.model.InvoiceStats;
 import com.zsxq.sdk.model.RankingItem;
 
 import java.util.ArrayList;
@@ -91,6 +92,37 @@ public class DashboardRequest extends BaseRequest {
         if (rankingList == null) return new ArrayList<>();
         String json = gson.toJson(rankingList);
         return gson.fromJson(json, new TypeToken<List<RankingItem>>() {}.getType());
+    }
+
+    /**
+     * 获取星球权限配置
+     */
+    public Map<String, Object> getPrivileges(long groupId) {
+        return getPrivileges(String.valueOf(groupId));
+    }
+
+    /**
+     * 获取星球权限配置
+     */
+    public Map<String, Object> getPrivileges(String groupId) {
+        Map<String, Object> data = httpClient.get(
+                "/v2/dashboard/groups/" + groupId + "/privileges",
+                new TypeToken<Map<String, Object>>() {}.getType());
+        Object privilegesObj = data.get("privileges");
+        if (privilegesObj == null) return new java.util.HashMap<>();
+        String json = gson.toJson(privilegesObj);
+        return gson.fromJson(json, new TypeToken<Map<String, Object>>() {}.getType());
+    }
+
+    /**
+     * 获取发票统计
+     */
+    public InvoiceStats getInvoiceStats() {
+        Map<String, Object> data = httpClient.get(
+                "/v3/invoices/statistics",
+                new TypeToken<Map<String, Object>>() {}.getType());
+        String json = gson.toJson(data);
+        return gson.fromJson(json, InvoiceStats.class);
     }
 
     /**

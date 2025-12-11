@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"testing"
 	"time"
 )
@@ -171,10 +172,9 @@ func TestGetRequestWithParams(t *testing.T) {
 	config.BaseURL = server.URL
 	client := NewClient(config)
 
-	params := map[string]interface{}{
-		"count": 10,
-		"scope": "all",
-	}
+	params := url.Values{}
+	params.Set("count", "10")
+	params.Set("scope", "all")
 
 	var result map[string]interface{}
 	err := client.Get(context.Background(), "/v2/topics", params, &result)

@@ -185,7 +185,11 @@ ZSXQ_RETRY_COUNT=3          # 重试次数
 
 ## 自定义命令
 
-- `/commit` - 智能分析变更并自动生成 Git 提交（使用 Conventional Commits 格式）
+- `/commit` - 智能分析变更并自动生成 Git 提交（使用 Conventional Commits 格式，自动推送）
+
+## API 测试状态
+
+查看 `docs/TESTING_STATUS.md` 了解各接口的测试覆盖情况。当前覆盖率约 14%，已测试 7 个核心接口。
 
 ## 跨语言开发注意事项
 

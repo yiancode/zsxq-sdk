@@ -6,6 +6,8 @@ import {
   UsersRequest,
   CheckinsRequest,
   DashboardRequest,
+  RankingRequest,
+  MiscRequest,
 } from '../request';
 
 /**
@@ -40,6 +42,12 @@ export class ZsxqClient {
   /** 数据面板 */
   readonly dashboard: DashboardRequest;
 
+  /** 排行榜管理 */
+  readonly ranking: RankingRequest;
+
+  /** 杂项功能 */
+  readonly misc: MiscRequest;
+
   private readonly httpClient: HttpClient;
 
   constructor(config: ZsxqConfig) {
@@ -51,5 +59,7 @@ export class ZsxqClient {
     this.users = new UsersRequest(this.httpClient);
     this.checkins = new CheckinsRequest(this.httpClient);
     this.dashboard = new DashboardRequest(this.httpClient);
+    this.ranking = new RankingRequest(this.httpClient);
+    this.misc = new MiscRequest(this.httpClient);
   }
 }

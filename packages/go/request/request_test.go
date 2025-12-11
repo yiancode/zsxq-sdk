@@ -185,8 +185,8 @@ func TestGroupsRequest_GetMember(t *testing.T) {
 		t.Errorf("Expected user name '测试用户', got '%s'", user.Name)
 	}
 
-	if user.UserID != 999 {
-		t.Errorf("Expected user ID 999, got %d", user.UserID)
+	if user.UserID != "999" {
+		t.Errorf("Expected user ID '999', got '%s'", user.UserID)
 	}
 }
 

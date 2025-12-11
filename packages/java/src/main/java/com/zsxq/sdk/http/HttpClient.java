@@ -133,6 +133,26 @@ public class HttpClient {
     }
 
     /**
+     * PUT 请求
+     */
+    public <T> T put(String path, Object data, Type responseType) {
+        String body = data != null ? gson.toJson(data) : null;
+        String requestId = UUID.randomUUID().toString();
+
+        RequestBody requestBody = body != null
+                ? RequestBody.create(body, JSON)
+                : RequestBody.create("", JSON);
+
+        Request request = new Request.Builder()
+                .url(config.getBaseUrl() + path)
+                .headers(buildHeaders("PUT", path, body, requestId))
+                .put(requestBody)
+                .build();
+
+        return executeWithRetry(request, responseType, requestId, 0);
+    }
+
+    /**
      * 构建请求头
      */
     private Headers buildHeaders(String method, String path, String body, String requestId) {

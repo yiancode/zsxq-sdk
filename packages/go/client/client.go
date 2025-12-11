@@ -35,6 +35,8 @@ type Client struct {
 	users     *request.UsersRequest
 	checkins  *request.CheckinsRequest
 	dashboard *request.DashboardRequest
+	ranking   *request.RankingRequest
+	misc      *request.MiscRequest
 }
 
 // NewClient 创建客户端
@@ -57,6 +59,8 @@ func NewClient(config Config) *Client {
 		users:     request.NewUsersRequest(httpClient),
 		checkins:  request.NewCheckinsRequest(httpClient),
 		dashboard: request.NewDashboardRequest(httpClient),
+		ranking:   request.NewRankingRequest(httpClient),
+		misc:      request.NewMiscRequest(httpClient),
 	}
 }
 
@@ -83,6 +87,16 @@ func (c *Client) Checkins() *request.CheckinsRequest {
 // Dashboard 数据面板
 func (c *Client) Dashboard() *request.DashboardRequest {
 	return c.dashboard
+}
+
+// Ranking 排行榜
+func (c *Client) Ranking() *request.RankingRequest {
+	return c.ranking
+}
+
+// Misc 杂项功能
+func (c *Client) Misc() *request.MiscRequest {
+	return c.misc
 }
 
 // Builder 客户端构建器

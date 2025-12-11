@@ -26,6 +26,8 @@ public class ZsxqClient {
     private final UsersRequest users;
     private final CheckinsRequest checkins;
     private final DashboardRequest dashboard;
+    private final RankingRequest ranking;
+    private final MiscRequest misc;
 
     ZsxqClient(ZsxqConfig config) {
         HttpClient httpClient = new HttpClient(config);
@@ -35,6 +37,8 @@ public class ZsxqClient {
         this.users = new UsersRequest(httpClient);
         this.checkins = new CheckinsRequest(httpClient);
         this.dashboard = new DashboardRequest(httpClient);
+        this.ranking = new RankingRequest(httpClient);
+        this.misc = new MiscRequest(httpClient);
     }
 
     /**
@@ -70,5 +74,19 @@ public class ZsxqClient {
      */
     public DashboardRequest dashboard() {
         return dashboard;
+    }
+
+    /**
+     * 排行榜
+     */
+    public RankingRequest ranking() {
+        return ranking;
+    }
+
+    /**
+     * 杂项功能
+     */
+    public MiscRequest misc() {
+        return misc;
     }
 }

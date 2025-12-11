@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.zsxq.sdk.http.HttpClient;
 import com.zsxq.sdk.model.Comment;
+import com.zsxq.sdk.model.Reward;
 import com.zsxq.sdk.model.Topic;
 
 import java.util.ArrayList;
@@ -52,6 +53,10 @@ public class TopicsRequest extends BaseRequest {
      */
     public List<Topic> list(String groupId, ListTopicsOptions options) {
         Map<String, Object> params = options != null ? options.toMap() : new HashMap<>();
+        // API 要求必须有 count 参数，默认 20
+        if (!params.containsKey("count")) {
+            params.put("count", 20);
+        }
         Map<String, Object> data = httpClient.get(
                 "/v2/groups/" + groupId + "/topics",
                 params,
@@ -192,6 +197,103 @@ public class TopicsRequest extends BaseRequest {
         if (obj == null) return null;
         String json = gson.toJson(obj);
         return gson.fromJson(json, Topic.class);
+    }
+
+    /**
+     * 获取话题基础信息（轻量级）
+     *
+     * @param topicId 话题ID
+     * @return 话题对象
+     */
+    public Topic getInfo(long topicId) {
+        return getInfo(String.valueOf(topicId));
+    }
+
+    /**
+     * 获取话题基础信息（轻量级）
+     *
+     * @param topicId 话题ID
+     * @return 话题对象
+     */
+    public Topic getInfo(String topicId) {
+        Map<String, Object> data = httpClient.get("/v2/topics/" + topicId + "/info",
+                new TypeToken<Map<String, Object>>() {}.getType());
+        return convertToTopic(data.get("topic"));
+    }
+
+    /**
+     * 获取话题打赏列表
+     *
+     * @param topicId 话题ID
+     * @return 打赏列表
+     */
+    public List<Reward> getRewards(long topicId) {
+        return getRewards(String.valueOf(topicId));
+    }
+
+    /**
+     * 获取话题打赏列表
+     *
+     * @param topicId 话题ID
+     * @return 打赏列表
+     */
+    public List<Reward> getRewards(String topicId) {
+        Map<String, Object> data = httpClient.get("/v2/topics/" + topicId + "/rewards",
+                new TypeToken<Map<String, Object>>() {}.getType());
+        Object rewardsObj = data.get("rewards");
+        if (rewardsObj == null) return new ArrayList<>();
+        String json = gson.toJson(rewardsObj);
+        return gson.fromJson(json, new TypeToken<List<Reward>>() {}.getType());
+    }
+
+    /**
+     * 获取相关推荐话题
+     *
+     * @param topicId 话题ID
+     * @return 推荐话题列表
+     */
+    public List<Topic> getRecommendations(long topicId) {
+        return getRecommendations(String.valueOf(topicId));
+    }
+
+    /**
+     * 获取相关推荐话题
+     *
+     * @param topicId 话题ID
+     * @return 推荐话题列表
+     */
+    public List<Topic> getRecommendations(String topicId) {
+        Map<String, Object> data = httpClient.get("/v2/topics/" + topicId + "/recommendations",
+                new TypeToken<Map<String, Object>>() {}.getType());
+        Object topicsObj = data.get("topics");
+        if (topicsObj == null) return new ArrayList<>();
+        String json = gson.toJson(topicsObj);
+        return gson.fromJson(json, new TypeToken<List<Topic>>() {}.getType());
+    }
+
+    /**
+     * 获取置顶话题列表
+     *
+     * @param groupId 星球ID
+     * @return 置顶话题列表
+     */
+    public List<Topic> listSticky(long groupId) {
+        return listSticky(String.valueOf(groupId));
+    }
+
+    /**
+     * 获取置顶话题列表
+     *
+     * @param groupId 星球ID
+     * @return 置顶话题列表
+     */
+    public List<Topic> listSticky(String groupId) {
+        Map<String, Object> data = httpClient.get("/v2/groups/" + groupId + "/topics/sticky",
+                new TypeToken<Map<String, Object>>() {}.getType());
+        Object topicsObj = data.get("topics");
+        if (topicsObj == null) return new ArrayList<>();
+        String json = gson.toJson(topicsObj);
+        return gson.fromJson(json, new TypeToken<List<Topic>>() {}.getType());
     }
 
     /**
