@@ -34,9 +34,9 @@
     </scm>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <maven.compiler.release>21</maven.compiler.release>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.release>11</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Dependencies versions -->
@@ -108,7 +108,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
-                    <release>21</release>
+                    <release>11</release>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -149,7 +149,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- GPG Signing -->
+            <!-- GPG Signing - 仅在发布时使用
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
@@ -164,7 +164,8 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Central Publishing -->
+            -->
+            <!-- Central Publishing - 仅在发布时使用
             <plugin>
                 <groupId>org.sonatype.central</groupId>
                 <artifactId>central-publishing-maven-plugin</artifactId>
@@ -175,6 +176,7 @@
                     <autoPublish>true</autoPublish>
                 </configuration>
             </plugin>
+            -->
         </plugins>
     </build>
 </project>

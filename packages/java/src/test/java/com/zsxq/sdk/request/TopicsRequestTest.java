@@ -52,8 +52,8 @@ class TopicsRequestTest {
     void testList() {
         Map<String, Object> respData = new HashMap<>();
         respData.put("topics", List.of(
-            createTopicMap(1L, "话题1"),
-            createTopicMap(2L, "话题2")
+                createTopicMap(1L, "话题1"),
+                createTopicMap(2L, "话题2")
         ));
 
         mockServer.enqueue(new MockResponse()
@@ -65,26 +65,6 @@ class TopicsRequestTest {
 
         assertNotNull(topics);
         assertEquals(2, topics.size());
-    }
-
-    @Test
-    void testListWithOptions() {
-        Map<String, Object> respData = new HashMap<>();
-        respData.put("topics", List.of(createTopicMap(1L, "话题1")));
-
-        mockServer.enqueue(new MockResponse()
-            .setResponseCode(200)
-            .setBody(gson.toJson(createSuccessResponse(respData)))
-            .setHeader("Content-Type", "application/json"));
-
-        Map<String, Object> options = new HashMap<>();
-        options.put("count", 20);
-        options.put("scope", "digests");
-
-        List<Topic> topics = topicsRequest.list(123L, options);
-
-        assertNotNull(topics);
-        assertEquals(1, topics.size());
     }
 
     @Test
@@ -103,17 +83,62 @@ class TopicsRequestTest {
     }
 
     @Test
+    void testGetWithStringId() throws InterruptedException {
+        Map<String, Object> respData = new HashMap<>();
+        respData.put("topic", createTopicMap(123L, "测试话题"));
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
+
+        Topic topic = topicsRequest.get("123");
+
+        assertNotNull(topic);
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.startsWith("/v2/topics/123"));
+    }
+
+    @Test
+    void testListWithOptions() throws InterruptedException {
+        Map<String, Object> respData = new HashMap<>();
+        respData.put("topics", List.of(createTopicMap(1L, "话题1")));
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
+
+        TopicsRequest.ListTopicsOptions options = new TopicsRequest.ListTopicsOptions()
+                .count(20)
+                .scope("digests")
+                .direction("forward")
+                .withInvisibles(true);
+
+        List<Topic> topics = topicsRequest.list(123L, options);
+
+        assertNotNull(topics);
+        assertEquals(1, topics.size());
+
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.contains("count=20"));
+        assertTrue(path.contains("scope=digests"));
+        assertTrue(path.contains("direction=forward"));
+        assertTrue(path.contains("with_invisibles=true"));
+    }
+
+    @Test
     void testGetComments() {
         Map<String, Object> respData = new HashMap<>();
         respData.put("comments", List.of(
-            createCommentMap(1L, "评论1"),
-            createCommentMap(2L, "评论2")
+                createCommentMap(1L, "评论1"),
+                createCommentMap(2L, "评论2")
         ));
 
         mockServer.enqueue(new MockResponse()
-            .setResponseCode(200)
-            .setBody(gson.toJson(createSuccessResponse(respData)))
-            .setHeader("Content-Type", "application/json"));
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
 
         List<Comment> comments = topicsRequest.getComments(123L);
 
@@ -122,58 +147,87 @@ class TopicsRequestTest {
     }
 
     @Test
-    void testGetCommentsWithOptions() {
+    void testGetCommentsWithOptions() throws InterruptedException {
         Map<String, Object> respData = new HashMap<>();
         respData.put("comments", List.of());
 
         mockServer.enqueue(new MockResponse()
-            .setResponseCode(200)
-            .setBody(gson.toJson(createSuccessResponse(respData)))
-            .setHeader("Content-Type", "application/json"));
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
 
-        Map<String, Object> options = new HashMap<>();
-        options.put("count", 50);
-        options.put("sort", "asc");
+        TopicsRequest.ListCommentsOptions options = new TopicsRequest.ListCommentsOptions()
+                .count(50)
+                .sort("asc")
+                .withSticky(true);
 
         List<Comment> comments = topicsRequest.getComments(123L, options);
 
         assertNotNull(comments);
         assertTrue(comments.isEmpty());
+
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.contains("count=50"));
+        assertTrue(path.contains("sort=asc"));
+        assertTrue(path.contains("with_sticky=true"));
     }
 
     @Test
-    void testListByHashtag() {
+    void testListByHashtag() throws InterruptedException {
         Map<String, Object> respData = new HashMap<>();
         respData.put("topics", List.of(createTopicMap(1L, "话题1")));
 
         mockServer.enqueue(new MockResponse()
-            .setResponseCode(200)
-            .setBody(gson.toJson(createSuccessResponse(respData)))
-            .setHeader("Content-Type", "application/json"));
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
 
         List<Topic> topics = topicsRequest.listByHashtag(100L);
 
         assertNotNull(topics);
         assertEquals(1, topics.size());
+
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.startsWith("/v2/hashtags/100/topics"));
     }
 
     @Test
-    void testListByColumn() {
+    void testListByColumn() throws InterruptedException {
         Map<String, Object> respData = new HashMap<>();
         respData.put("topics", List.of(
-            createTopicMap(1L, "专栏话题1"),
-            createTopicMap(2L, "专栏话题2")
+                createTopicMap(1L, "专栏话题1"),
+                createTopicMap(2L, "专栏话题2")
         ));
 
         mockServer.enqueue(new MockResponse()
-            .setResponseCode(200)
-            .setBody(gson.toJson(createSuccessResponse(respData)))
-            .setHeader("Content-Type", "application/json"));
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
 
         List<Topic> topics = topicsRequest.listByColumn(123L, 200L);
 
         assertNotNull(topics);
         assertEquals(2, topics.size());
+
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.startsWith("/v2/groups/123/columns/200/topics"));
+    }
+
+    @Test
+    void testListByColumnWithStringIds() throws InterruptedException {
+        Map<String, Object> respData = new HashMap<>();
+        respData.put("topics", List.of());
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
+
+        List<Topic> topics = topicsRequest.listByColumn("123", "200");
+
+        assertNotNull(topics);
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.startsWith("/v2/groups/123/columns/200/topics"));
     }
 
     // Helper methods

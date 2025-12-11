@@ -14,6 +14,10 @@ public final class ExceptionFactory {
                 return new TokenInvalidException(message, requestId);
             case 10002:
                 return new TokenExpiredException(message, requestId);
+            case 10003:
+                return new AuthException(code, message, requestId);
+            case 40001:
+                return new RateLimitException(message, requestId);
             default:
                 return new ZsxqException(code, message, requestId);
         }

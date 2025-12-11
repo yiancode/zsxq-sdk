@@ -33,6 +33,15 @@ class ExceptionFactoryTest {
     }
 
     @Test
+    void testCreateRateLimitException() {
+        ZsxqException ex = ExceptionFactory.create(40001, "请求过于频繁", "req-limit");
+
+        assertInstanceOf(RateLimitException.class, ex);
+        assertEquals(40001, ex.getCode());
+        assertEquals("req-limit", ex.getRequestId());
+    }
+
+    @Test
     void testCreateGenericZsxqException() {
         ZsxqException ex = ExceptionFactory.create(99999, "未知错误", "req-unknown");
 

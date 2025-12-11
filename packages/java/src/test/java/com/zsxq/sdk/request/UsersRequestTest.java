@@ -117,6 +117,23 @@ class UsersRequestTest {
     }
 
     @Test
+    void testGetStatisticsWithStringId() throws InterruptedException {
+        Map<String, Object> stats = new HashMap<>();
+        stats.put("topic_count", 10);
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(stats)))
+                .setHeader("Content-Type", "application/json"));
+
+        Map<String, Object> result = usersRequest.getStatistics("456");
+
+        assertNotNull(result);
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.startsWith("/v3/users/456/statistics"));
+    }
+
+    @Test
     void testGetFootprints() {
         Map<String, Object> respData = new HashMap<>();
         respData.put("topics", List.of(
@@ -184,6 +201,23 @@ class UsersRequestTest {
 
         assertNotNull(groups);
         assertTrue(groups.isEmpty());
+    }
+
+    @Test
+    void testGetCreatedGroupsWithStringId() throws InterruptedException {
+        Map<String, Object> respData = new HashMap<>();
+        respData.put("groups", List.of());
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
+
+        List<Group> groups = usersRequest.getCreatedGroups("456");
+
+        assertNotNull(groups);
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.startsWith("/v2/users/456/created_groups"));
     }
 
     // Helper methods

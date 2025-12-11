@@ -6,8 +6,10 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.zsxq.sdk.http.HttpClient;
 import com.zsxq.sdk.model.Group;
+import com.zsxq.sdk.model.Topic;
 import com.zsxq.sdk.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +39,13 @@ public class UsersRequest extends BaseRequest {
      * 获取指定用户信息
      */
     public User get(long userId) {
+        return get(String.valueOf(userId));
+    }
+
+    /**
+     * 获取指定用户信息
+     */
+    public User get(String userId) {
         Map<String, Object> data = httpClient.get("/v3/users/" + userId,
                 new TypeToken<Map<String, Object>>() {}.getType());
         return convertToUser(data.get("user"));
@@ -46,6 +55,13 @@ public class UsersRequest extends BaseRequest {
      * 获取用户统计
      */
     public Map<String, Object> getStatistics(long userId) {
+        return getStatistics(String.valueOf(userId));
+    }
+
+    /**
+     * 获取用户统计
+     */
+    public Map<String, Object> getStatistics(String userId) {
         return httpClient.get("/v3/users/" + userId + "/statistics",
                 new TypeToken<Map<String, Object>>() {}.getType());
     }
@@ -54,10 +70,37 @@ public class UsersRequest extends BaseRequest {
      * 获取用户创建的星球
      */
     public List<Group> getCreatedGroups(long userId) {
+        return getCreatedGroups(String.valueOf(userId));
+    }
+
+    /**
+     * 获取用户创建的星球
+     */
+    public List<Group> getCreatedGroups(String userId) {
         Map<String, List<Group>> data = httpClient.get(
                 "/v2/users/" + userId + "/created_groups",
                 new TypeToken<Map<String, List<Group>>>() {}.getType());
-        return data.get("groups");
+        return data.getOrDefault("groups", new ArrayList<>());
+    }
+
+    /**
+     * 获取用户动态足迹
+     */
+    public List<Topic> getFootprints(long userId) {
+        return getFootprints(String.valueOf(userId));
+    }
+
+    /**
+     * 获取用户动态足迹
+     */
+    public List<Topic> getFootprints(String userId) {
+        Map<String, Object> data = httpClient.get(
+                "/v2/users/" + userId + "/footprints",
+                new TypeToken<Map<String, Object>>() {}.getType());
+        Object topicsObj = data.get("topics");
+        if (topicsObj == null) return new ArrayList<>();
+        String json = gson.toJson(topicsObj);
+        return gson.fromJson(json, new TypeToken<List<Topic>>() {}.getType());
     }
 
     /**

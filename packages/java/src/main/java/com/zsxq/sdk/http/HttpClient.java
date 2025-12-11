@@ -189,6 +189,21 @@ public class HttpClient {
                 String responseBody = response.body() != null ? response.body().string() : "";
 
                 if (!response.isSuccessful()) {
+                    // 优先尝试解析业务错误（例如限流）
+                    try {
+                        return handleResponse(responseBody, responseType, requestId);
+                    } catch (ZsxqException e) {
+                        throw e;
+                    } catch (Exception ignore) {
+                        // fall through to network handling
+                    }
+
+                    // 5xx 视为可重试的网络错误
+                    if (response.code() >= 500 && retryCount < config.getRetryCount()) {
+                        sleepBeforeRetry(retryCount);
+                        return executeWithRetry(request, responseType, requestId, retryCount + 1);
+                    }
+
                     throw new NetworkException("HTTP " + response.code() + ": " + response.message(), null, requestId);
                 }
 
@@ -196,15 +211,19 @@ public class HttpClient {
             }
         } catch (IOException e) {
             if (retryCount < config.getRetryCount()) {
-                try {
-                    long delay = config.getRetryDelay() * (long) Math.pow(2, retryCount);
-                    Thread.sleep(delay);
-                } catch (InterruptedException ie) {
-                    Thread.currentThread().interrupt();
-                }
+                sleepBeforeRetry(retryCount);
                 return executeWithRetry(request, responseType, requestId, retryCount + 1);
             }
             throw new NetworkException(e.getMessage(), e, requestId);
+        }
+    }
+
+    private void sleepBeforeRetry(int retryCount) {
+        try {
+            long delay = config.getRetryDelay() * (long) Math.pow(2, retryCount);
+            Thread.sleep(delay);
+        } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt();
         }
     }
 

@@ -138,7 +138,7 @@ class DashboardRequestTest {
     }
 
     @Test
-    void testGetScoreboardRankingWithOptions() {
+    void testGetScoreboardRankingWithOptions() throws InterruptedException {
         Map<String, Object> respData = new HashMap<>();
         respData.put("ranking_list", List.of());
 
@@ -147,14 +147,18 @@ class DashboardRequestTest {
             .setBody(gson.toJson(createSuccessResponse(respData)))
             .setHeader("Content-Type", "application/json"));
 
-        Map<String, Object> options = new HashMap<>();
-        options.put("type", "continuous");
-        options.put("index", 2);
+        DashboardRequest.RankingListOptions options = new DashboardRequest.RankingListOptions()
+                .type("continuous")
+                .index(2);
 
         List<RankingItem> ranking = dashboardRequest.getScoreboardRanking(123L, options);
 
         assertNotNull(ranking);
         assertTrue(ranking.isEmpty());
+
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.contains("type=continuous"));
+        assertTrue(path.contains("index=2"));
     }
 
     @Test
@@ -171,6 +175,23 @@ class DashboardRequestTest {
 
         assertNotNull(ranking);
         assertTrue(ranking.isEmpty());
+    }
+
+    @Test
+    void testGetScoreboardRankingWithStringId() throws InterruptedException {
+        Map<String, Object> respData = new HashMap<>();
+        respData.put("ranking_list", List.of());
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
+
+        List<RankingItem> ranking = dashboardRequest.getScoreboardRanking("123");
+
+        assertNotNull(ranking);
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.startsWith("/v2/dashboard/groups/123/scoreboard/ranking_list"));
     }
 
     // Helper methods

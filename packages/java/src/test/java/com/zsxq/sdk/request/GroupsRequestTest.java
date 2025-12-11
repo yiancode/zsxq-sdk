@@ -3,6 +3,7 @@ package com.zsxq.sdk.request;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.zsxq.sdk.http.HttpClient;
+import com.zsxq.sdk.model.Hashtag;
 import com.zsxq.sdk.model.Group;
 import com.zsxq.sdk.model.User;
 import okhttp3.mockwebserver.MockResponse;
@@ -139,6 +140,23 @@ class GroupsRequestTest {
     }
 
     @Test
+    void testGetStatisticsWithStringId() throws InterruptedException {
+        Map<String, Object> stats = new HashMap<>();
+        stats.put("members_count", 10);
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(stats)))
+                .setHeader("Content-Type", "application/json"));
+
+        Map<String, Object> result = groupsRequest.getStatistics("123");
+
+        assertNotNull(result);
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.startsWith("/v2/groups/123/statistics"));
+    }
+
+    @Test
     void testGetMember() {
         Map<String, Object> respData = new HashMap<>();
         respData.put("user", createUserMap(999L, "测试用户"));
@@ -169,6 +187,77 @@ class GroupsRequestTest {
         assertNull(user);
     }
 
+    @Test
+    void testGetMemberWithStringIds() throws InterruptedException {
+        Map<String, Object> respData = new HashMap<>();
+        respData.put("user", createUserMap(999L, "测试用户"));
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
+
+        User user = groupsRequest.getMember("123", "999");
+
+        assertNotNull(user);
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.startsWith("/v2/groups/123/members/999"));
+    }
+
+    @Test
+    void testGetHashtags() {
+        Map<String, Object> respData = new HashMap<>();
+        respData.put("hashtags", List.of(
+                createHashtagMap(1L, "标签1"),
+                createHashtagMap(2L, "标签2")
+        ));
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
+
+        List<Hashtag> hashtags = groupsRequest.getHashtags(123L);
+
+        assertNotNull(hashtags);
+        assertEquals(2, hashtags.size());
+        assertEquals("标签1", hashtags.get(0).getName());
+    }
+
+    @Test
+    void testGetHashtagsEmpty() {
+        Map<String, Object> respData = new HashMap<>();
+        respData.put("hashtags", List.of());
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
+
+        List<Hashtag> hashtags = groupsRequest.getHashtags(123L);
+
+        assertNotNull(hashtags);
+        assertTrue(hashtags.isEmpty());
+    }
+
+    @Test
+    void testGetUnreadCount() {
+        Map<String, Object> counts = new HashMap<>();
+        counts.put("123", 5);
+        counts.put("456", 2);
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(counts)))
+                .setHeader("Content-Type", "application/json"));
+
+        Map<String, Integer> result = groupsRequest.getUnreadCount();
+
+        assertNotNull(result);
+        assertEquals(5, result.get("123"));
+        assertEquals(2, result.get("456"));
+    }
+
     // Helper methods
     private Map<String, Object> createSuccessResponse(Object respData) {
         Map<String, Object> response = new HashMap<>();
@@ -190,5 +279,12 @@ class GroupsRequestTest {
         user.put("user_id", id);
         user.put("name", name);
         return user;
+    }
+
+    private Map<String, Object> createHashtagMap(Long id, String name) {
+        Map<String, Object> hashtag = new HashMap<>();
+        hashtag.put("hashtag_id", id);
+        hashtag.put("name", name);
+        return hashtag;
     }
 }

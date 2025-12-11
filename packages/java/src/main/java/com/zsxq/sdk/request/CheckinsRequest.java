@@ -8,6 +8,7 @@ import com.zsxq.sdk.http.HttpClient;
 import com.zsxq.sdk.model.Checkin;
 import com.zsxq.sdk.model.CheckinStatistics;
 import com.zsxq.sdk.model.RankingItem;
+import com.zsxq.sdk.model.Topic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,9 +36,23 @@ public class CheckinsRequest extends BaseRequest {
     }
 
     /**
+     * 获取打卡项目列表
+     */
+    public List<Checkin> list(String groupId) {
+        return list(groupId, null);
+    }
+
+    /**
      * 获取打卡项目列表（带参数）
      */
     public List<Checkin> list(long groupId, ListCheckinsOptions options) {
+        return list(String.valueOf(groupId), options);
+    }
+
+    /**
+     * 获取打卡项目列表（带参数）
+     */
+    public List<Checkin> list(String groupId, ListCheckinsOptions options) {
         Map<String, Object> params = options != null ? options.toMap() : null;
         Map<String, Object> data = httpClient.get(
                 "/v2/groups/" + groupId + "/checkins",
@@ -53,6 +68,13 @@ public class CheckinsRequest extends BaseRequest {
      * 获取打卡项目详情
      */
     public Checkin get(long groupId, long checkinId) {
+        return get(String.valueOf(groupId), String.valueOf(checkinId));
+    }
+
+    /**
+     * 获取打卡项目详情
+     */
+    public Checkin get(String groupId, String checkinId) {
         Map<String, Object> data = httpClient.get(
                 "/v2/groups/" + groupId + "/checkins/" + checkinId,
                 new TypeToken<Map<String, Object>>() {}.getType());
@@ -66,6 +88,13 @@ public class CheckinsRequest extends BaseRequest {
      * 获取打卡统计
      */
     public CheckinStatistics getStatistics(long groupId, long checkinId) {
+        return getStatistics(String.valueOf(groupId), String.valueOf(checkinId));
+    }
+
+    /**
+     * 获取打卡统计
+     */
+    public CheckinStatistics getStatistics(String groupId, String checkinId) {
         Map<String, Object> data = httpClient.get(
                 "/v2/groups/" + groupId + "/checkins/" + checkinId + "/statistics",
                 new TypeToken<Map<String, Object>>() {}.getType());
@@ -81,9 +110,23 @@ public class CheckinsRequest extends BaseRequest {
     }
 
     /**
+     * 获取打卡排行榜
+     */
+    public List<RankingItem> getRankingList(String groupId, String checkinId) {
+        return getRankingList(groupId, checkinId, null);
+    }
+
+    /**
      * 获取打卡排行榜（带参数）
      */
     public List<RankingItem> getRankingList(long groupId, long checkinId, RankingListOptions options) {
+        return getRankingList(String.valueOf(groupId), String.valueOf(checkinId), options);
+    }
+
+    /**
+     * 获取打卡排行榜（带参数）
+     */
+    public List<RankingItem> getRankingList(String groupId, String checkinId, RankingListOptions options) {
         Map<String, Object> params = options != null ? options.toMap() : null;
         Map<String, Object> data = httpClient.get(
                 "/v2/groups/" + groupId + "/checkins/" + checkinId + "/ranking_list",
@@ -96,19 +139,62 @@ public class CheckinsRequest extends BaseRequest {
     }
 
     /**
+     * 获取打卡话题列表
+     */
+    public List<Topic> getTopics(long groupId, long checkinId) {
+        return getTopics(String.valueOf(groupId), String.valueOf(checkinId), null);
+    }
+
+    /**
+     * 获取打卡话题列表
+     */
+    public List<Topic> getTopics(String groupId, String checkinId) {
+        return getTopics(groupId, checkinId, null);
+    }
+
+    /**
+     * 获取打卡话题列表（带参数）
+     */
+    public List<Topic> getTopics(long groupId, long checkinId, TopicsRequest.ListTopicsOptions options) {
+        return getTopics(String.valueOf(groupId), String.valueOf(checkinId), options);
+    }
+
+    /**
+     * 获取打卡话题列表（带参数）
+     */
+    public List<Topic> getTopics(String groupId, String checkinId, TopicsRequest.ListTopicsOptions options) {
+        Map<String, Object> params = options != null ? options.toMap() : null;
+        Map<String, Object> data = httpClient.get(
+                "/v2/groups/" + groupId + "/checkins/" + checkinId + "/topics",
+                params,
+                new TypeToken<Map<String, Object>>() {}.getType());
+        Object topicsObj = data.get("topics");
+        if (topicsObj == null) return new ArrayList<>();
+        String json = gson.toJson(topicsObj);
+        return gson.fromJson(json, new TypeToken<List<Topic>>() {}.getType());
+    }
+
+    /**
      * 打卡列表查询参数
      */
     public static class ListCheckinsOptions {
         private String scope;  // "ongoing" | "closed" | "over"
+        private Integer count;
 
         public ListCheckinsOptions scope(String scope) {
             this.scope = scope;
             return this;
         }
 
+        public ListCheckinsOptions count(int count) {
+            this.count = count;
+            return this;
+        }
+
         Map<String, Object> toMap() {
             Map<String, Object> map = new HashMap<>();
             if (scope != null) map.put("scope", scope);
+            if (count != null) map.put("count", count);
             return map;
         }
     }

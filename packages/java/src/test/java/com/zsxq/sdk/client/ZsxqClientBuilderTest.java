@@ -149,13 +149,10 @@ class ZsxqClientBuilderTest {
 
     @Test
     void testBuildWithNegativeTimeout() {
-        // Builder 不验证参数，由底层库处理
-        ZsxqClient client = new ZsxqClientBuilder()
+        assertThrows(IllegalStateException.class, () -> new ZsxqClientBuilder()
             .token("test-token")
             .timeout(-1000)
-            .build();
-
-        assertNotNull(client);
+            .build());
     }
 
     @Test

@@ -70,7 +70,7 @@ class CheckinsRequestTest {
     }
 
     @Test
-    void testListWithOptions() {
+    void testListWithOptions() throws InterruptedException {
         Map<String, Object> respData = new HashMap<>();
         respData.put("checkins", List.of());
 
@@ -79,14 +79,18 @@ class CheckinsRequestTest {
             .setBody(gson.toJson(createSuccessResponse(respData)))
             .setHeader("Content-Type", "application/json"));
 
-        Map<String, Object> options = new HashMap<>();
-        options.put("scope", "ongoing");
-        options.put("count", 20);
+        CheckinsRequest.ListCheckinsOptions options = new CheckinsRequest.ListCheckinsOptions()
+                .scope("ongoing")
+                .count(20);
 
         List<Checkin> checkins = checkinsRequest.list(123L, options);
 
         assertNotNull(checkins);
         assertTrue(checkins.isEmpty());
+
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.contains("scope=ongoing"));
+        assertTrue(path.contains("count=20"));
     }
 
     @Test
@@ -105,6 +109,23 @@ class CheckinsRequestTest {
     }
 
     @Test
+    void testGetWithStringIds() throws InterruptedException {
+        Map<String, Object> respData = new HashMap<>();
+        respData.put("checkin", createCheckinMap(100L, "每日打卡"));
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
+
+        Checkin checkin = checkinsRequest.get("123", "100");
+
+        assertNotNull(checkin);
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.startsWith("/v2/groups/123/checkins/100"));
+    }
+
+    @Test
     void testGetStatistics() {
         Map<String, Object> stats = new HashMap<>();
         stats.put("total_count", 1000);
@@ -119,6 +140,23 @@ class CheckinsRequestTest {
         CheckinStatistics result = checkinsRequest.getStatistics(123L, 100L);
 
         assertNotNull(result);
+    }
+
+    @Test
+    void testGetStatisticsWithStringIds() throws InterruptedException {
+        Map<String, Object> stats = new HashMap<>();
+        stats.put("total_count", 10);
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(stats)))
+                .setHeader("Content-Type", "application/json"));
+
+        CheckinStatistics result = checkinsRequest.getStatistics("123", "100");
+
+        assertNotNull(result);
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.startsWith("/v2/groups/123/checkins/100/statistics"));
     }
 
     @Test
@@ -141,7 +179,7 @@ class CheckinsRequestTest {
     }
 
     @Test
-    void testGetRankingListWithOptions() {
+    void testGetRankingListWithOptions() throws InterruptedException {
         Map<String, Object> respData = new HashMap<>();
         respData.put("ranking_list", List.of());
 
@@ -150,14 +188,35 @@ class CheckinsRequestTest {
             .setBody(gson.toJson(createSuccessResponse(respData)))
             .setHeader("Content-Type", "application/json"));
 
-        Map<String, Object> options = new HashMap<>();
-        options.put("type", "continuous");
-        options.put("index", 2);
+        CheckinsRequest.RankingListOptions options = new CheckinsRequest.RankingListOptions()
+                .type("continuous")
+                .index(2);
 
         List<RankingItem> ranking = checkinsRequest.getRankingList(123L, 100L, options);
 
         assertNotNull(ranking);
         assertTrue(ranking.isEmpty());
+
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.contains("type=continuous"));
+        assertTrue(path.contains("index=2"));
+    }
+
+    @Test
+    void testGetRankingListWithStringIds() throws InterruptedException {
+        Map<String, Object> respData = new HashMap<>();
+        respData.put("ranking_list", List.of());
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
+
+        List<RankingItem> ranking = checkinsRequest.getRankingList("123", "100");
+
+        assertNotNull(ranking);
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.startsWith("/v2/groups/123/checkins/100/ranking_list"));
     }
 
     @Test
@@ -193,6 +252,49 @@ class CheckinsRequestTest {
 
         assertNotNull(topics);
         assertTrue(topics.isEmpty());
+    }
+
+    @Test
+    void testGetTopicsWithOptions() throws InterruptedException {
+        Map<String, Object> respData = new HashMap<>();
+        respData.put("topics", List.of(createTopicMap(1L, "打卡话题")));
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
+
+        TopicsRequest.ListTopicsOptions options = new TopicsRequest.ListTopicsOptions()
+                .count(30)
+                .scope("all")
+                .direction("forward");
+
+        List<Topic> topics = checkinsRequest.getTopics(123L, 100L, options);
+
+        assertNotNull(topics);
+        assertEquals(1, topics.size());
+
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.contains("count=30"));
+        assertTrue(path.contains("scope=all"));
+        assertTrue(path.contains("direction=forward"));
+    }
+
+    @Test
+    void testGetTopicsWithStringIds() throws InterruptedException {
+        Map<String, Object> respData = new HashMap<>();
+        respData.put("topics", List.of());
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
+
+        List<Topic> topics = checkinsRequest.getTopics("123", "100");
+
+        assertNotNull(topics);
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.startsWith("/v2/groups/123/checkins/100/topics"));
     }
 
     // Helper methods
