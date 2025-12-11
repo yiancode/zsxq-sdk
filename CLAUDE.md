@@ -28,6 +28,9 @@ mvn test                              # 运行所有测试
 mvn test -Dtest=GroupsRequestTest     # 运行单个测试类
 mvn test -Dtest=GroupsRequestTest#testList  # 运行单个测试方法
 mvn package                           # 打包
+
+# 集成测试（需要真实 Token）
+ZSXQ_TOKEN="your-token" ZSXQ_GROUP_ID="group-id" mvn test -Dtest=IntegrationTest
 ```
 
 ### Go SDK
@@ -39,6 +42,9 @@ go build ./...                        # 构建
 go test ./...                         # 运行所有测试
 go test ./client -run TestNewClient   # 运行单个测试
 go test ./request -v                  # 详细输出运行 request 包测试
+
+# 集成测试
+ZSXQ_TOKEN="your-token" ZSXQ_GROUP_ID="group-id" go test ./... -v
 ```
 
 ### Python SDK
@@ -71,6 +77,17 @@ ZsxqClient (门面)
 - **ZsxqClientBuilder** - Builder 模式构建客户端
 - **HttpClient** - 底层 HTTP 客户端（重试、签名）
 - **Request 模块** - 各功能域的 API 封装
+
+### 各语言包结构对应
+
+| 组件 | TypeScript | Java | Go | Python |
+|------|-----------|------|-----|--------|
+| 入口 | `src/index.ts` | `com.zsxq.sdk.client` | `zsxq.go` | `zsxq/__init__.py` |
+| 客户端 | `src/client/` | `com.zsxq.sdk.client/` | `client/` | `zsxq/client.py` |
+| 请求模块 | `src/request/` | `com.zsxq.sdk.request/` | `request/` | `zsxq/request.py` |
+| 模型 | `src/model/` | `com.zsxq.sdk.model/` | `model/` | `zsxq/model.py` |
+| 异常 | `src/exception/` | `com.zsxq.sdk.exception/` | `exception/` | `zsxq/exception.py` |
+| HTTP | `src/http/` | `com.zsxq.sdk.http/` | `http/` | `zsxq/http.py` |
 
 ### 异常层次
 
@@ -169,3 +186,10 @@ ZSXQ_RETRY_COUNT=3          # 重试次数
 ## 自定义命令
 
 - `/commit` - 智能分析变更并自动生成 Git 提交（使用 Conventional Commits 格式）
+
+## 跨语言开发注意事项
+
+- 新增 API 时，需同步更新所有语言 SDK 实现
+- 方法命名保持一致：`list()`, `get()`, `create()`, `update()`, `delete()`
+- 各语言 ID 参数统一用 `groupId`, `topicId` 等驼峰式命名
+- 异常类型需与 `spec/errors/error-codes.yaml` 定义一致
