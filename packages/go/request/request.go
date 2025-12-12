@@ -522,10 +522,15 @@ func (r *UsersRequest) GetAvatarURL(ctx context.Context, userID string) (string,
 }
 
 // GetGroupFootprints 获取用户星球足迹
-func (r *UsersRequest) GetGroupFootprints(ctx context.Context, userID string) ([]model.Group, error) {
+func (r *UsersRequest) GetGroupFootprints(ctx context.Context, userID string, groupID ...int64) ([]model.Group, error) {
+	path := fmt.Sprintf("/v2/users/%s/footprints/groups", userID)
+	params := url.Values{}
+	if len(groupID) > 0 && groupID[0] > 0 {
+		params.Set("group_id", strconv.FormatInt(groupID[0], 10))
+	}
+
 	var resp groupsResponse
-	path := fmt.Sprintf("/v2/users/%s/group_footprints", userID)
-	if err := r.client.Get(ctx, path, nil, &resp); err != nil {
+	if err := r.client.Get(ctx, path, params, &resp); err != nil {
 		return nil, err
 	}
 	return resp.Groups, nil
@@ -548,7 +553,7 @@ type inviterResponse struct {
 // GetInviter 获取星球邀请人信息
 func (r *UsersRequest) GetInviter(ctx context.Context, groupID int64) (*model.Inviter, error) {
 	var resp inviterResponse
-	path := fmt.Sprintf("/v2/groups/%d/inviter", groupID)
+	path := fmt.Sprintf("/v2/users/self/groups/%d/inviter", groupID)
 	if err := r.client.Get(ctx, path, nil, &resp); err != nil {
 		return nil, err
 	}
@@ -563,7 +568,7 @@ type couponsResponse struct {
 // GetCoupons 获取我的优惠券列表
 func (r *UsersRequest) GetCoupons(ctx context.Context) ([]model.Coupon, error) {
 	var resp couponsResponse
-	if err := r.client.Get(ctx, "/v2/coupons", nil, &resp); err != nil {
+	if err := r.client.Get(ctx, "/v2/users/self/merchant_coupons", nil, &resp); err != nil {
 		return nil, err
 	}
 	return resp.Coupons, nil
@@ -575,9 +580,16 @@ type remarksResponse struct {
 }
 
 // GetRemarks 获取我的备注列表
-func (r *UsersRequest) GetRemarks(ctx context.Context) ([]model.Remark, error) {
+func (r *UsersRequest) GetRemarks(ctx context.Context, beginTime ...string) ([]model.Remark, error) {
+	path := "/v3/users/self/remarks"
+	if len(beginTime) > 0 && beginTime[0] != "" {
+		path = path + "?begin_time=" + url.QueryEscape(beginTime[0])
+	} else {
+		// 默认从1970年开始获取所有备注
+		path = path + "?begin_time=1970-01-01T08:00:00.001%2B0800"
+	}
 	var resp remarksResponse
-	if err := r.client.Get(ctx, "/v2/remarks", nil, &resp); err != nil {
+	if err := r.client.Get(ctx, path, nil, &resp); err != nil {
 		return nil, err
 	}
 	return resp.Remarks, nil
@@ -729,7 +741,7 @@ func NewCheckinsRequest(client *http.Client) *CheckinsRequest {
 
 // ListCheckinsOptions 打卡列表查询参数
 type ListCheckinsOptions struct {
-	Scope string // 状态: ongoing/closed/over
+	Type  string // 类型: all/ongoing/closed
 	Count int    // 返回数量
 }
 
@@ -752,8 +764,8 @@ type rankingResponse struct {
 func (r *CheckinsRequest) List(ctx context.Context, groupID int64, opts *ListCheckinsOptions) ([]model.Checkin, error) {
 	params := url.Values{}
 	if opts != nil {
-		if opts.Scope != "" {
-			params.Set("scope", opts.Scope)
+		if opts.Type != "" {
+			params.Set("type", opts.Type)
 		}
 		if opts.Count > 0 {
 			params.Set("count", strconv.Itoa(opts.Count))

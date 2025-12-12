@@ -27,10 +27,13 @@ mvn compile                           # 编译
 mvn test                              # 运行所有测试
 mvn test -Dtest=GroupsRequestTest     # 运行单个测试类
 mvn test -Dtest=GroupsRequestTest#testList  # 运行单个测试方法
-mvn package                           # 打包
+mvn clean package                     # 清理并打包
+mvn javadoc:javadoc                   # 生成 JavaDoc
 
 # 集成测试（需要真实 Token）
 ZSXQ_TOKEN="your-token" ZSXQ_GROUP_ID="group-id" mvn test -Dtest=IntegrationTest
+
+# 注意：Java SDK 要求 Java 11+，使用 OkHttp、Gson、Lombok
 ```
 
 ### Go SDK
@@ -42,9 +45,12 @@ go build ./...                        # 构建
 go test ./...                         # 运行所有测试
 go test ./client -run TestNewClient   # 运行单个测试
 go test ./request -v                  # 详细输出运行 request 包测试
+go test -race ./...                   # 竞态检测
 
 # 集成测试
 ZSXQ_TOKEN="your-token" ZSXQ_GROUP_ID="group-id" go test ./... -v
+
+# 注意：Go SDK 要求 Go 1.21+
 ```
 
 ### Python SDK
@@ -54,8 +60,12 @@ cd packages/python
 pip install -e ".[dev]"               # 安装开发依赖
 pytest                                # 运行所有测试
 pytest tests/test_client.py -k test_list  # 运行单个测试
+pytest --cov=zsxq --cov-report=html   # 运行测试并生成覆盖率报告
 black zsxq                            # 格式化
+isort zsxq                            # 导入排序
 mypy zsxq                             # 类型检查
+
+# 注意：Python SDK 要求 Python 3.8+，使用 httpx、pydantic
 ```
 
 ## SDK 统一架构
@@ -68,7 +78,8 @@ ZsxqClient (门面)
 ├── topics      → 话题管理 (/v2/topics/*)
 ├── users       → 用户管理 (/v3/users/*)
 ├── checkins    → 打卡管理 (/v2/groups/*/checkins/*)
-└── dashboard   → 数据面板 (/v2/dashboard/*)
+├── dashboard   → 数据面板 (/v2/dashboard/*)
+└── ranking     → 排行榜系统 (/v2/groups/*/ranking/*)
 ```
 
 ### 核心组件

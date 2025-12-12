@@ -133,9 +133,25 @@ func (c *Client) doRequest(ctx context.Context, method, path string, params url.
 		return nil, requestID, exception.NewNetworkError("读取响应失败", requestID, err)
 	}
 
+	// 检测是否返回了 HTML (404页面)
+	contentType := resp.Header.Get("Content-Type")
+	if strings.Contains(contentType, "text/html") || strings.HasPrefix(string(respBody), "<!DOCTYPE html>") {
+		// API 端点已废弃或不存在
+		return nil, requestID, exception.NewNetworkError(
+			fmt.Sprintf("API 端点不存在或已废弃 (HTTP %d): %s", resp.StatusCode, path),
+			requestID,
+			fmt.Errorf("received HTML response instead of JSON"),
+		)
+	}
+
 	var response Response
 	if err := json.Unmarshal(respBody, &response); err != nil {
-		return nil, requestID, exception.NewNetworkError("解析响应失败", requestID, err)
+		// 提供更详细的错误信息
+		return nil, requestID, exception.NewNetworkError(
+			fmt.Sprintf("解析响应失败 (HTTP %d): %s", resp.StatusCode, err.Error()),
+			requestID,
+			err,
+		)
 	}
 
 	return &response, requestID, nil

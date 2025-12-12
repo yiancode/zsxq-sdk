@@ -14,6 +14,7 @@ import (
 	"testing"
 
 	"github.com/zsxq-sdk/zsxq-sdk-go/client"
+	"github.com/zsxq-sdk/zsxq-sdk-go/request"
 )
 
 var (
@@ -562,7 +563,10 @@ func TestIntegration_GetCheckinList(t *testing.T) {
 	skipIfNeeded(t)
 	ctx := context.Background()
 
-	checkins, err := testClient.Checkins().List(ctx, testGroupID, nil)
+	checkins, err := testClient.Checkins().List(ctx, testGroupID, &request.ListCheckinsOptions{
+		Type:  "all",
+		Count: 20,
+	})
 	if err != nil {
 		t.Logf("⚠️ 打卡功能未开启: %v", err)
 		return
@@ -574,7 +578,10 @@ func TestIntegration_GetCheckinDetail(t *testing.T) {
 	skipIfNeeded(t)
 	ctx := context.Background()
 
-	checkins, err := testClient.Checkins().List(ctx, testGroupID, nil)
+	checkins, err := testClient.Checkins().List(ctx, testGroupID, &request.ListCheckinsOptions{
+		Type:  "all",
+		Count: 20,
+	})
 	if err != nil || len(checkins) == 0 {
 		t.Skip("没有打卡项目可测试")
 	}
@@ -591,7 +598,10 @@ func TestIntegration_GetCheckinStatistics(t *testing.T) {
 	skipIfNeeded(t)
 	ctx := context.Background()
 
-	checkins, err := testClient.Checkins().List(ctx, testGroupID, nil)
+	checkins, err := testClient.Checkins().List(ctx, testGroupID, &request.ListCheckinsOptions{
+		Type:  "all",
+		Count: 20,
+	})
 	if err != nil || len(checkins) == 0 {
 		t.Skip("没有打卡项目可测试")
 	}
@@ -608,7 +618,10 @@ func TestIntegration_GetCheckinRankingList(t *testing.T) {
 	skipIfNeeded(t)
 	ctx := context.Background()
 
-	checkins, err := testClient.Checkins().List(ctx, testGroupID, nil)
+	checkins, err := testClient.Checkins().List(ctx, testGroupID, &request.ListCheckinsOptions{
+		Type:  "all",
+		Count: 20,
+	})
 	if err != nil || len(checkins) == 0 {
 		t.Skip("没有打卡项目可测试")
 	}
@@ -625,7 +638,10 @@ func TestIntegration_GetCheckinDailyStatistics(t *testing.T) {
 	skipIfNeeded(t)
 	ctx := context.Background()
 
-	checkins, err := testClient.Checkins().List(ctx, testGroupID, nil)
+	checkins, err := testClient.Checkins().List(ctx, testGroupID, &request.ListCheckinsOptions{
+		Type:  "all",
+		Count: 20,
+	})
 	if err != nil || len(checkins) == 0 {
 		t.Skip("没有打卡项目可测试")
 	}
@@ -642,7 +658,10 @@ func TestIntegration_GetCheckinJoinedUsers(t *testing.T) {
 	skipIfNeeded(t)
 	ctx := context.Background()
 
-	checkins, err := testClient.Checkins().List(ctx, testGroupID, nil)
+	checkins, err := testClient.Checkins().List(ctx, testGroupID, &request.ListCheckinsOptions{
+		Type:  "all",
+		Count: 20,
+	})
 	if err != nil || len(checkins) == 0 {
 		t.Skip("没有打卡项目可测试")
 	}
@@ -659,7 +678,10 @@ func TestIntegration_GetMyCheckins(t *testing.T) {
 	skipIfNeeded(t)
 	ctx := context.Background()
 
-	checkins, err := testClient.Checkins().List(ctx, testGroupID, nil)
+	checkins, err := testClient.Checkins().List(ctx, testGroupID, &request.ListCheckinsOptions{
+		Type:  "all",
+		Count: 20,
+	})
 	if err != nil || len(checkins) == 0 {
 		t.Skip("没有打卡项目可测试")
 	}
@@ -676,7 +698,10 @@ func TestIntegration_GetMyCheckinDays(t *testing.T) {
 	skipIfNeeded(t)
 	ctx := context.Background()
 
-	checkins, err := testClient.Checkins().List(ctx, testGroupID, nil)
+	checkins, err := testClient.Checkins().List(ctx, testGroupID, &request.ListCheckinsOptions{
+		Type:  "all",
+		Count: 20,
+	})
 	if err != nil || len(checkins) == 0 {
 		t.Skip("没有打卡项目可测试")
 	}
@@ -693,7 +718,10 @@ func TestIntegration_GetMyCheckinStatistics(t *testing.T) {
 	skipIfNeeded(t)
 	ctx := context.Background()
 
-	checkins, err := testClient.Checkins().List(ctx, testGroupID, nil)
+	checkins, err := testClient.Checkins().List(ctx, testGroupID, &request.ListCheckinsOptions{
+		Type:  "all",
+		Count: 20,
+	})
 	if err != nil || len(checkins) == 0 {
 		t.Skip("没有打卡项目可测试")
 	}

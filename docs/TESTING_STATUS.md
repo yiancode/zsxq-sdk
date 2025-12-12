@@ -1,6 +1,6 @@
 # API 测试状态追踪
 
-> 最后更新: 2025-12-12
+> 最后更新: 2025-12-13
 
 ## 多语言 SDK 测试覆盖
 
@@ -43,36 +43,41 @@ ZSXQ_TOKEN="your-token" ZSXQ_GROUP_ID="group-id" pytest tests/test_integration.p
 
 - ✅ **已测试通过** - 接口已在集成测试中验证通过
 - 🔶 **SDK已实现** - SDK 已实现此接口，可能因星球未开启功能而跳过测试
+- ❌ **已废弃** - API 端点已被官方废弃，返回 HTTP 404 错误
 - ⚪ **未实现** - SDK 尚未实现此接口
 
 ## 测试覆盖率概览
 
-| API 模块 | 总接口数 | 已测试 | SDK已实现 | 覆盖率 |
-|---------|---------|-------|----------|--------|
-| 用户系统 | 22 | 18 ✅ | 4 🔶 | 81.8% |
-| 星球管理 | 18 | 16 ✅ | 2 🔶 | 88.9% |
-| 话题管理 | 8 | 6 ✅ | 2 🔶 | 75.0% |
-| 打卡系统 | 12 | 10 ✅ | 2 🔶 | 83.3% |
-| 排行榜系统 | 8 | 8 ✅ | 0 🔶 | 100% |
-| 数据面板 | 4 | 4 ✅ | 0 🔶 | 100% |
-| 杂项功能 | 4 | 4 ✅ | 0 🔶 | 100% |
-| **总计** | **76** | **66** | **10** | **86.8%** |
+| API 模块 | 总接口数 | 已测试 | 已废弃 | 有效覆盖率 |
+|---------|---------|-------|-------|-----------|
+| 用户系统 | 22 | 16 ✅ | 2 ❌ | 80.0% (16/20) |
+| 星球管理 | 18 | 16 ✅ | 0 ❌ | 88.9% (16/18) |
+| 话题管理 | 8 | 6 ✅ | 0 ❌ | 75.0% (6/8) |
+| 打卡系统 | 12 | 10 ✅ | 0 ❌ | 83.3% (10/12) |
+| 排行榜系统 | 8 | 6 ✅ | 2 ❌ | 100% (6/6) |
+| 数据面板 | 4 | 4 ✅ | 0 ❌ | 100% (4/4) |
+| 杂项功能 | 4 | 1 ✅ | 3 ❌ | 100% (1/1) |
+| **总计** | **76** | **59** | **7** | **85.5%** (59/69) |
 
-## 已测试通过的接口 (66个) ✅
+**说明**:
+- **有效覆盖率** = 已测试接口数 / (总接口数 - 已废弃接口数)
+- 7 个 API 已确认废弃，不计入有效覆盖率统计
+- 4 个 API 路径已修复 (2025-12-13)
+- 详见 [已修复和废弃 API 列表](#已修复和废弃-api-说明)
 
-### 用户系统 (18个)
+## 已测试通过的接口 (59个) ✅
+
+### 用户系统 (16个)
 - [x] 获取当前用户信息 `GET /v3/users/self`
 - [x] 获取指定用户信息 `GET /v3/users/{user_id}`
 - [x] 获取用户统计数据 `GET /v3/users/{user_id}/statistics`
 - [x] 获取用户创建的星球 `GET /v2/users/{user_id}/created_groups`
 - [x] 获取用户动态足迹 `GET /v2/users/{user_id}/footprints`
 - [x] 获取用户头像URL `GET /v3/users/{user_id}/avatar_url`
-- [x] 获取用户星球足迹 `GET /v2/users/{user_id}/group_footprints`
-- [x] 获取申请中星球列表 `GET /v2/groups/applying`
-- [x] 获取星球邀请人信息 `GET /v2/groups/{group_id}/inviter`
-- [x] 获取优惠券列表 `GET /v2/coupons`
-- [x] 获取备注列表 `GET /v2/remarks`
-- [x] 获取推荐关注用户 `GET /v2/users/recommended_follows`
+- [x] 获取用户星球足迹 `GET /v2/users/{user_id}/footprints/groups` ✨ **已修复**
+- [x] 获取星球邀请人信息 `GET /v2/users/self/groups/{group_id}/inviter` ✨ **已修复**
+- [x] 获取优惠券列表 `GET /v2/users/self/merchant_coupons` ✨ **已修复**
+- [x] 获取备注列表 `GET /v3/users/self/remarks` ✨ **已修复**
 - [x] 获取屏蔽用户列表 `GET /v2/users/block_users`
 - [x] 获取推荐偏好分类 `GET /v2/users/self/recommendations/preference_categories`
 - [x] 获取未回答问题摘要 `GET /v2/users/self/unanswered_questions/brief`
@@ -118,14 +123,12 @@ ZSXQ_TOKEN="your-token" ZSXQ_GROUP_ID="group-id" pytest tests/test_integration.p
 - [x] 获取我的打卡日期 `GET /v2/users/self/groups/{group_id}/checkins/{checkin_id}/checkined_dates`
 - [x] 获取我的打卡统计 `GET /v2/users/self/groups/{group_id}/checkins/{checkin_id}/statistics`
 
-### 排行榜系统 (8个)
-- [x] 获取星球排行榜 `GET /v2/groups/{group_id}/ranking_list`
+### 排行榜系统 (6个)
 - [x] 获取排行统计 `GET /v3/groups/{group_id}/ranking_list/statistics`
 - [x] 获取积分排行榜 `GET /v2/dashboard/groups/{group_id}/scoreboard/ranking_list`
 - [x] 获取我的积分统计 `GET /v2/dashboard/groups/{group_id}/scoreboard/statistics/self`
 - [x] 获取积分榜设置 `GET /v2/dashboard/groups/{group_id}/scoreboard/settings`
 - [x] 获取邀请排行榜 `GET /v2/groups/{group_id}/invitations/ranking_list`
-- [x] 获取贡献排行榜 `GET /v2/groups/{group_id}/contribution_ranking_list`
 - [x] 获取全局星球排行榜 `GET /v3/groups/ranking_list`
 
 ### 数据面板 (4个)
@@ -134,11 +137,39 @@ ZSXQ_TOKEN="your-token" ZSXQ_GROUP_ID="group-id" pytest tests/test_integration.p
 - [x] 获取积分排行 `GET /v2/dashboard/groups/{group_id}/scoreboard/ranking_list`
 - [x] 获取发票统计 `GET /v3/invoices/statistics`
 
-### 杂项功能 (4个)
-- [x] 获取全局配置 `GET /v2/global/config`
-- [x] 获取用户动态 `GET /v2/activities`
-- [x] 获取PK群组信息 `GET /v2/pk/groups/{group_id}`
+### 杂项功能 (1个)
 - [x] 上报推送通道 `POST /v2/users/self/push_channel`
+
+## 已修复和废弃 API 说明
+
+### ✅ 已修复的 API (4个)
+
+以下 API 之前使用了错误的路径,现已修复并测试通过:
+
+**用户系统 (4个已修复)**:
+- ✅ 获取备注列表: `GET /v2/remarks` → `GET /v3/users/self/remarks`
+- ✅ 获取优惠券: `GET /v2/coupons` → `GET /v2/users/self/merchant_coupons`
+- ✅ 获取邀请人: `GET /v2/groups/{group_id}/inviter` → `GET /v2/users/self/groups/{group_id}/inviter`
+- ✅ 获取用户足迹: `GET /v2/users/{user_id}/group_footprints` → `GET /v2/users/{user_id}/footprints/groups`
+
+### ❌ 确认已废弃的 API (7个)
+
+知识星球官方已废弃以下 API 端点，这些端点返回 HTTP 404 错误。SDK 保留了相应方法以保持向后兼容性，但调用时会返回明确的错误信息。
+
+详细说明请参考: [packages/go/DEPRECATED_APIS.md](../packages/go/DEPRECATED_APIS.md)
+
+**用户系统 (2个已废弃)**:
+- ❌ 获取申请中星球列表 `GET /v2/groups/applying`
+- ❌ 获取推荐关注用户 `GET /v2/users/recommended_follows`
+
+**排行榜系统 (2个已废弃)**:
+- ❌ 获取星球排行榜 `GET /v2/groups/{group_id}/ranking_list`
+- ❌ 获取贡献排行榜 `GET /v2/groups/{group_id}/contribution_ranking_list`
+
+**杂项功能 (3个已废弃)**:
+- ❌ 获取全局配置 `GET /v2/global/config`
+- ❌ 获取用户动态 `GET /v2/activities`
+- ❌ 获取PK群组信息 `GET /v2/pk/groups/{group_id}`
 
 ## SDK已实现但因功能限制跳过 (10个) 🔶
 

@@ -162,8 +162,22 @@ public class UsersRequest extends BaseRequest {
      * @return 星球列表
      */
     public List<Group> getGroupFootprints(String userId) {
-        Map<String, Object> data = httpClient.get(
-                "/v2/users/" + userId + "/group_footprints",
+        return getGroupFootprints(userId, null);
+    }
+
+    /**
+     * 获取用户星球足迹
+     *
+     * @param userId 用户ID
+     * @param groupId 可选的星球ID过滤
+     * @return 星球列表
+     */
+    public List<Group> getGroupFootprints(String userId, Long groupId) {
+        String path = "/v2/users/" + userId + "/footprints/groups";
+        if (groupId != null) {
+            path += "?group_id=" + groupId;
+        }
+        Map<String, Object> data = httpClient.get(path,
                 new TypeToken<Map<String, Object>>() {}.getType());
         Object groupsObj = data.get("groups");
         if (groupsObj == null) return new ArrayList<>();
@@ -202,7 +216,7 @@ public class UsersRequest extends BaseRequest {
      * @return 邀请人信息
      */
     public Inviter getInviter(String groupId) {
-        Map<String, Object> data = httpClient.get("/v2/groups/" + groupId + "/inviter",
+        Map<String, Object> data = httpClient.get("/v2/users/self/groups/" + groupId + "/inviter",
                 new TypeToken<Map<String, Object>>() {}.getType());
         Object inviterObj = data.get("inviter");
         if (inviterObj == null) return null;
@@ -216,7 +230,7 @@ public class UsersRequest extends BaseRequest {
      * @return 优惠券列表
      */
     public List<Coupon> getCoupons() {
-        Map<String, Object> data = httpClient.get("/v2/coupons",
+        Map<String, Object> data = httpClient.get("/v2/users/self/merchant_coupons",
                 new TypeToken<Map<String, Object>>() {}.getType());
         Object couponsObj = data.get("coupons");
         if (couponsObj == null) return new ArrayList<>();
@@ -230,7 +244,19 @@ public class UsersRequest extends BaseRequest {
      * @return 备注列表
      */
     public List<Remark> getRemarks() {
-        Map<String, Object> data = httpClient.get("/v2/remarks",
+        return getRemarks("1970-01-01T08:00:00.001+0800");
+    }
+
+    /**
+     * 获取我的备注列表
+     *
+     * @param beginTime 开始时间 (ISO 8601格式)
+     * @return 备注列表
+     */
+    public List<Remark> getRemarks(String beginTime) {
+        String path = "/v3/users/self/remarks?begin_time=" +
+            java.net.URLEncoder.encode(beginTime, java.nio.charset.StandardCharsets.UTF_8);
+        Map<String, Object> data = httpClient.get(path,
                 new TypeToken<Map<String, Object>>() {}.getType());
         Object remarksObj = data.get("remarks");
         if (remarksObj == null) return new ArrayList<>();
