@@ -2,6 +2,43 @@
 
 > 最后更新: 2025-12-12
 
+## 多语言 SDK 测试覆盖
+
+| SDK 语言 | 单元测试 | 集成测试 | 测试文件 |
+|---------|---------|---------|---------|
+| Java | ✅ 12个测试类 | ✅ 完整 | `IntegrationTest.java` |
+| TypeScript | ✅ 10个测试文件 | ✅ 完整 | `integration.test.ts` |
+| Go | ✅ 3个测试文件 | ✅ 完整 | `integration_test.go` |
+| Python | ✅ 3个测试文件 | ✅ 完整 | `test_integration.py` |
+
+### 集成测试运行方式
+
+**Java SDK**:
+```bash
+cd packages/java
+ZSXQ_TOKEN="your-token" ZSXQ_GROUP_ID="group-id" mvn test -Dtest=IntegrationTest
+```
+
+**TypeScript SDK**:
+```bash
+cd packages/typescript
+ZSXQ_TOKEN="your-token" ZSXQ_GROUP_ID="group-id" npm test -- --testPathPattern="integration"
+```
+
+**Go SDK**:
+```bash
+cd packages/go
+ZSXQ_TOKEN="your-token" ZSXQ_GROUP_ID="group-id" go test -v -run Integration
+```
+
+**Python SDK**:
+```bash
+cd packages/python
+ZSXQ_TOKEN="your-token" ZSXQ_GROUP_ID="group-id" pytest tests/test_integration.py -v
+```
+
+---
+
 ## 图例说明
 
 - ✅ **已测试通过** - 接口已在集成测试中验证通过
@@ -124,26 +161,14 @@
 - [ ] 创建打卡 `POST /v2/groups/{group_id}/checkins`
 - [ ] 更新打卡 `PUT /v2/groups/{group_id}/checkins/{checkin_id}`
 
-## 运行测试
-
-```bash
-# 进入 Java SDK 目录
-cd packages/java
-
-# 配置环境变量
-export ZSXQ_TOKEN="your-token"
-export ZSXQ_GROUP_ID="your-group-id"
-
-# 运行集成测试
-mvn test -Dtest=IntegrationTest
-```
-
 ## 测试环境
 
-- **测试框架**: JUnit 5
-- **Java版本**: 11+
-- **SDK版本**: 1.0.0
-- **总测试数**: 56
+| SDK | 测试框架 | 语言版本 | 测试用例数 |
+|-----|---------|---------|----------|
+| Java | JUnit 5 | Java 11+ | 56 |
+| TypeScript | Jest | Node 18+ | 52 |
+| Go | testing | Go 1.21+ | 52 |
+| Python | pytest | Python 3.9+ | 52 |
 
 ## 参考文档
 
@@ -153,4 +178,7 @@ mvn test -Dtest=IntegrationTest
 
 ---
 
-**注意**: 部分测试因星球未开启相关功能（如打卡、排行榜、积分等）而被跳过，显示为 ⚠️ 警告而非错误。如有任何问题或建议，请提交 Issue。
+**注意**:
+- 部分测试因星球未开启相关功能（如打卡、排行榜、积分等）而被跳过，显示为 ⚠️ 警告而非错误
+- 所有语言 SDK 的集成测试覆盖相同的 API 接口
+- 测试需要有效的 `ZSXQ_TOKEN` 和 `ZSXQ_GROUP_ID` 环境变量
