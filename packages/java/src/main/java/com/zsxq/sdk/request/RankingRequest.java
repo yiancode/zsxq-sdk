@@ -78,6 +78,24 @@ public class RankingRequest extends BaseRequest {
     }
 
     /**
+     * 获取全局星球排行榜（v3接口）
+     *
+     * @param type 排行类型: group_sales_list(畅销榜), new_star_list(新星榜),
+     *             paid_group_active_list(活跃榜), group_fortune_list(财富榜)
+     * @param count 返回数量
+     * @return 排行列表
+     */
+    public Map<String, Object> getGlobalRanking(String type, int count) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("type", type);
+        params.put("count", count);
+        return httpClient.get(
+                "/v3/groups/ranking_list",
+                params,
+                new TypeToken<Map<String, Object>>() {}.getType());
+    }
+
+    /**
      * 获取星球排行统计
      *
      * @param groupId 星球ID
@@ -95,7 +113,7 @@ public class RankingRequest extends BaseRequest {
      */
     public RankingStatistics getGroupRankingStats(String groupId) {
         Map<String, Object> data = httpClient.get(
-                "/v2/groups/" + groupId + "/ranking_list/statistics",
+                "/v3/groups/" + groupId + "/ranking_list/statistics",
                 new TypeToken<Map<String, Object>>() {}.getType());
         Object statsObj = data.get("statistics");
         if (statsObj == null) return null;
@@ -144,7 +162,7 @@ public class RankingRequest extends BaseRequest {
     public List<RankingItem> getScoreRanking(String groupId, RankingOptions options) {
         Map<String, Object> params = options != null ? options.toMap() : new HashMap<>();
         Map<String, Object> data = httpClient.get(
-                "/v2/groups/" + groupId + "/scoreboard/ranking_list",
+                "/v2/dashboard/groups/" + groupId + "/scoreboard/ranking_list",
                 params,
                 new TypeToken<Map<String, Object>>() {}.getType());
         Object rankingObj = data.get("ranking_list");
@@ -219,7 +237,7 @@ public class RankingRequest extends BaseRequest {
      */
     public List<RankingItem> getInvitationRanking(String groupId) {
         Map<String, Object> data = httpClient.get(
-                "/v2/groups/" + groupId + "/invitation_ranking_list",
+                "/v2/groups/" + groupId + "/invitations/ranking_list",
                 new TypeToken<Map<String, Object>>() {}.getType());
         Object rankingObj = data.get("ranking_list");
         if (rankingObj == null) return new ArrayList<>();
