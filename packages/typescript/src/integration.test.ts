@@ -288,6 +288,17 @@ describe('Integration Tests', () => {
         console.log(`   - 贡献排行记录数: ${result.data.length}`);
       }
     });
+
+    it('获取全局星球排行榜', async () => {
+      if (SKIP_INTEGRATION) return;
+
+      const result = await safeTest('获取全局星球排行榜', () =>
+        client.ranking.getGlobalRanking('group_sales_list', 10),
+      );
+      if (result.success && result.data) {
+        console.log(`   - 全局排行数据: ${JSON.stringify(result.data).substring(0, 100)}...`);
+      }
+    });
   });
 
   // ========== 用户功能测试 ==========

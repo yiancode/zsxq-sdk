@@ -1096,7 +1096,7 @@ func (r *RankingRequest) GetGroupRanking(ctx context.Context, groupID int64, opt
 // GetGroupRankingStats 获取排行统计
 func (r *RankingRequest) GetGroupRankingStats(ctx context.Context, groupID int64) (*model.RankingStatistics, error) {
 	var resp rankingStatsResponse
-	path := fmt.Sprintf("/v2/groups/%d/ranking_list/statistics", groupID)
+	path := fmt.Sprintf("/v3/groups/%d/ranking_list/statistics", groupID)
 	if err := r.client.Get(ctx, path, nil, &resp); err != nil {
 		return nil, err
 	}
@@ -1116,7 +1116,7 @@ func (r *RankingRequest) GetScoreRanking(ctx context.Context, groupID int64, opt
 	}
 
 	var resp rankingResponse
-	path := fmt.Sprintf("/v2/groups/%d/scoreboard/ranking_list", groupID)
+	path := fmt.Sprintf("/v2/dashboard/groups/%d/scoreboard/ranking_list", groupID)
 	if err := r.client.Get(ctx, path, params, &resp); err != nil {
 		return nil, err
 	}
@@ -1125,12 +1125,17 @@ func (r *RankingRequest) GetScoreRanking(ctx context.Context, groupID int64, opt
 
 // GetMyScoreStats 获取我的积分统计
 func (r *RankingRequest) GetMyScoreStats(ctx context.Context, groupID int64) (map[string]interface{}, error) {
-	var resp map[string]interface{}
-	path := fmt.Sprintf("/v2/groups/%d/scoreboard/my_statistics", groupID)
+	var resp struct {
+		Statistics map[string]interface{} `json:"statistics"`
+	}
+	path := fmt.Sprintf("/v2/dashboard/groups/%d/scoreboard/statistics/self", groupID)
 	if err := r.client.Get(ctx, path, nil, &resp); err != nil {
 		return nil, err
 	}
-	return resp, nil
+	if resp.Statistics == nil {
+		return make(map[string]interface{}), nil
+	}
+	return resp.Statistics, nil
 }
 
 // scoreboardSettingsResponse 积分榜设置响应
@@ -1140,12 +1145,12 @@ type scoreboardSettingsResponse struct {
 
 // GetScoreboardSettings 获取积分榜设置
 func (r *RankingRequest) GetScoreboardSettings(ctx context.Context, groupID int64) (*model.ScoreboardSettings, error) {
-	var resp scoreboardSettingsResponse
-	path := fmt.Sprintf("/v2/groups/%d/scoreboard/settings", groupID)
+	var resp model.ScoreboardSettings
+	path := fmt.Sprintf("/v2/dashboard/groups/%d/scoreboard/settings", groupID)
 	if err := r.client.Get(ctx, path, nil, &resp); err != nil {
 		return nil, err
 	}
-	return &resp.Settings, nil
+	return &resp, nil
 }
 
 // GetInvitationRanking 获取邀请排行榜
@@ -1161,7 +1166,7 @@ func (r *RankingRequest) GetInvitationRanking(ctx context.Context, groupID int64
 	}
 
 	var resp rankingResponse
-	path := fmt.Sprintf("/v2/groups/%d/invitation_ranking_list", groupID)
+	path := fmt.Sprintf("/v2/groups/%d/invitations/ranking_list", groupID)
 	if err := r.client.Get(ctx, path, params, &resp); err != nil {
 		return nil, err
 	}
@@ -1186,6 +1191,20 @@ func (r *RankingRequest) GetContributionRanking(ctx context.Context, groupID int
 		return nil, err
 	}
 	return resp.RankingList, nil
+}
+
+// GetGlobalRanking 获取全局星球排行榜（v3接口）
+// type: group_sales_list(畅销榜), new_star_list(新星榜), paid_group_active_list(活跃榜), group_fortune_list(财富榜)
+func (r *RankingRequest) GetGlobalRanking(ctx context.Context, rankType string, count int) (map[string]interface{}, error) {
+	params := url.Values{}
+	params.Set("type", rankType)
+	params.Set("count", strconv.Itoa(count))
+
+	var resp map[string]interface{}
+	if err := r.client.Get(ctx, "/v3/groups/ranking_list", params, &resp); err != nil {
+		return nil, err
+	}
+	return resp, nil
 }
 
 // MiscRequest 杂项请求模块

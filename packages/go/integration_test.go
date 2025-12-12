@@ -368,6 +368,18 @@ func TestIntegration_GetContributionRanking(t *testing.T) {
 	t.Logf("✅ 获取到 %d 条贡献排行", len(ranking))
 }
 
+func TestIntegration_GetGlobalRanking(t *testing.T) {
+	skipIfNeeded(t)
+	ctx := context.Background()
+
+	ranking, err := testClient.Ranking().GetGlobalRanking(ctx, "group_sales_list", 10)
+	if err != nil {
+		t.Logf("⚠️ 全局星球排行榜功能未开启: %v", err)
+		return
+	}
+	t.Logf("✅ 全局星球排行榜数据: %v", ranking)
+}
+
 // ========== 用户功能测试 ==========
 
 func TestIntegration_GetAvatarURL(t *testing.T) {
@@ -505,7 +517,7 @@ func TestIntegration_GetUnansweredQuestionsSummary(t *testing.T) {
 		t.Logf("⚠️ 获取未回答问题摘要失败: %v", err)
 		return
 	}
-	t.Logf("✅ 未回答问题数: %d", summary.UnansweredCount)
+	t.Logf("✅ 未回答问题数: %d", summary.Count)
 }
 
 func TestIntegration_GetFollowerStats(t *testing.T) {
@@ -865,7 +877,7 @@ func TestIntegration_GetRiskWarnings(t *testing.T) {
 		t.Logf("⚠️ 获取风险预警失败: %v", err)
 		return
 	}
-	if warning.Type != "" {
+	if warning.WarningType != "" {
 		t.Logf("✅ 风险预警: %+v", warning)
 	} else {
 		t.Log("✅ 无风险预警")

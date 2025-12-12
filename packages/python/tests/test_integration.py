@@ -254,6 +254,14 @@ class TestRankingFeatures:
         if success and ranking is not None:
             print(f"   - 贡献排行记录数: {len(ranking)}")
 
+    async def test_get_global_ranking(self, client: ZsxqClient):
+        """获取全局星球排行榜"""
+        success, ranking = await safe_test(
+            "获取全局星球排行榜", client.ranking.get_global_ranking("group_sales_list", 10)
+        )
+        if success and ranking:
+            print(f"   - 全局排行数据: {str(ranking)[:100]}...")
+
 
 # ========== 用户功能测试 ==========
 

@@ -567,7 +567,7 @@ class RankingRequest:
 
     async def get_group_ranking_stats(self, group_id: int) -> RankingStatistics:
         """获取排行统计"""
-        data = await self._client.get(f"/v2/groups/{group_id}/ranking_list/statistics")
+        data = await self._client.get(f"/v3/groups/{group_id}/ranking_list/statistics")
         return RankingStatistics.model_validate(data.get("statistics", {}))
 
     async def get_score_ranking(
@@ -582,18 +582,19 @@ class RankingRequest:
                 params["index"] = options.index
 
         data = await self._client.get(
-            f"/v2/groups/{group_id}/scoreboard/ranking_list", params or None
+            f"/v2/dashboard/groups/{group_id}/scoreboard/ranking_list", params or None
         )
         return [RankingItem.model_validate(r) for r in data.get("ranking_list", [])]
 
     async def get_my_score_stats(self, group_id: int) -> Dict[str, Any]:
         """获取我的积分统计"""
-        return await self._client.get(f"/v2/groups/{group_id}/scoreboard/my_statistics")
+        data = await self._client.get(f"/v2/dashboard/groups/{group_id}/scoreboard/statistics/self")
+        return data.get("statistics", {})
 
     async def get_scoreboard_settings(self, group_id: int) -> ScoreboardSettings:
         """获取积分榜设置"""
-        data = await self._client.get(f"/v2/groups/{group_id}/scoreboard/settings")
-        return ScoreboardSettings.model_validate(data.get("settings", {}))
+        data = await self._client.get(f"/v2/dashboard/groups/{group_id}/scoreboard/settings")
+        return ScoreboardSettings.model_validate(data)
 
     async def get_invitation_ranking(
         self, group_id: int, options: Optional[ListRankingOptions] = None
@@ -607,7 +608,7 @@ class RankingRequest:
                 params["index"] = options.index
 
         data = await self._client.get(
-            f"/v2/groups/{group_id}/invitation_ranking_list", params or None
+            f"/v2/groups/{group_id}/invitations/ranking_list", params or None
         )
         return [RankingItem.model_validate(r) for r in data.get("ranking_list", [])]
 
@@ -626,6 +627,20 @@ class RankingRequest:
             f"/v2/groups/{group_id}/contribution_ranking_list", params or None
         )
         return [RankingItem.model_validate(r) for r in data.get("ranking_list", [])]
+
+    async def get_global_ranking(self, rank_type: str, count: int) -> Dict[str, Any]:
+        """获取全局星球排行榜（v3接口）
+
+        Args:
+            rank_type: 排行类型 - group_sales_list(畅销榜), new_star_list(新星榜),
+                      paid_group_active_list(活跃榜), group_fortune_list(财富榜)
+            count: 返回数量
+
+        Returns:
+            排行数据
+        """
+        params = {"type": rank_type, "count": count}
+        return await self._client.get("/v3/groups/ranking_list", params)
 
 
 @dataclass

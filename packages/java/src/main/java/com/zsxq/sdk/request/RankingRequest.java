@@ -188,9 +188,13 @@ public class RankingRequest extends BaseRequest {
      * @return 我的积分统计
      */
     public Map<String, Object> getMyScoreStats(String groupId) {
-        return httpClient.get(
-                "/v2/groups/" + groupId + "/scoreboard/my_statistics",
+        Map<String, Object> data = httpClient.get(
+                "/v2/dashboard/groups/" + groupId + "/scoreboard/statistics/self",
                 new TypeToken<Map<String, Object>>() {}.getType());
+        Object statsObj = data.get("statistics");
+        if (statsObj == null) return new HashMap<>();
+        String json = gson.toJson(statsObj);
+        return gson.fromJson(json, new TypeToken<Map<String, Object>>() {}.getType());
     }
 
     /**
@@ -211,11 +215,9 @@ public class RankingRequest extends BaseRequest {
      */
     public ScoreboardSettings getScoreboardSettings(String groupId) {
         Map<String, Object> data = httpClient.get(
-                "/v2/groups/" + groupId + "/scoreboard/settings",
+                "/v2/dashboard/groups/" + groupId + "/scoreboard/settings",
                 new TypeToken<Map<String, Object>>() {}.getType());
-        Object settingsObj = data.get("settings");
-        if (settingsObj == null) return null;
-        String json = gson.toJson(settingsObj);
+        String json = gson.toJson(data);
         return gson.fromJson(json, ScoreboardSettings.class);
     }
 

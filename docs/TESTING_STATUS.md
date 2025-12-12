@@ -7,7 +7,7 @@
 | SDK 语言 | 单元测试 | 集成测试 | 测试文件 |
 |---------|---------|---------|---------|
 | Java | ✅ 12个测试类 | ✅ 完整 | `IntegrationTest.java` |
-| TypeScript | ✅ 10个测试文件 | ✅ 完整 | `integration.test.ts` |
+| TypeScript | ✅ 10个测试文件 (154 tests) | ✅ 完整 | `integration.test.ts` |
 | Go | ✅ 3个测试文件 | ✅ 完整 | `integration_test.go` |
 | Python | ✅ 3个测试文件 | ✅ 完整 | `test_integration.py` |
 
@@ -53,12 +53,12 @@ ZSXQ_TOKEN="your-token" ZSXQ_GROUP_ID="group-id" pytest tests/test_integration.p
 | 星球管理 | 18 | 16 ✅ | 2 🔶 | 88.9% |
 | 话题管理 | 8 | 6 ✅ | 2 🔶 | 75.0% |
 | 打卡系统 | 12 | 10 ✅ | 2 🔶 | 83.3% |
-| 排行榜系统 | 7 | 7 ✅ | 0 🔶 | 100% |
+| 排行榜系统 | 8 | 8 ✅ | 0 🔶 | 100% |
 | 数据面板 | 4 | 4 ✅ | 0 🔶 | 100% |
 | 杂项功能 | 4 | 4 ✅ | 0 🔶 | 100% |
-| **总计** | **75** | **65** | **10** | **86.7%** |
+| **总计** | **76** | **66** | **10** | **86.8%** |
 
-## 已测试通过的接口 (65个) ✅
+## 已测试通过的接口 (66个) ✅
 
 ### 用户系统 (18个)
 - [x] 获取当前用户信息 `GET /v3/users/self`
@@ -118,14 +118,15 @@ ZSXQ_TOKEN="your-token" ZSXQ_GROUP_ID="group-id" pytest tests/test_integration.p
 - [x] 获取我的打卡日期 `GET /v2/users/self/groups/{group_id}/checkins/{checkin_id}/checkined_dates`
 - [x] 获取我的打卡统计 `GET /v2/users/self/groups/{group_id}/checkins/{checkin_id}/statistics`
 
-### 排行榜系统 (7个)
+### 排行榜系统 (8个)
 - [x] 获取星球排行榜 `GET /v2/groups/{group_id}/ranking_list`
-- [x] 获取排行统计 `GET /v2/groups/{group_id}/ranking_list/statistics`
-- [x] 获取积分排行榜 `GET /v2/groups/{group_id}/scoreboard/ranking_list`
-- [x] 获取我的积分统计 `GET /v2/groups/{group_id}/scoreboard/my_statistics`
-- [x] 获取积分榜设置 `GET /v2/groups/{group_id}/scoreboard/settings`
-- [x] 获取邀请排行榜 `GET /v2/groups/{group_id}/invitation_ranking_list`
+- [x] 获取排行统计 `GET /v3/groups/{group_id}/ranking_list/statistics`
+- [x] 获取积分排行榜 `GET /v2/dashboard/groups/{group_id}/scoreboard/ranking_list`
+- [x] 获取我的积分统计 `GET /v2/dashboard/groups/{group_id}/scoreboard/statistics/self`
+- [x] 获取积分榜设置 `GET /v2/dashboard/groups/{group_id}/scoreboard/settings`
+- [x] 获取邀请排行榜 `GET /v2/groups/{group_id}/invitations/ranking_list`
 - [x] 获取贡献排行榜 `GET /v2/groups/{group_id}/contribution_ranking_list`
+- [x] 获取全局星球排行榜 `GET /v3/groups/ranking_list`
 
 ### 数据面板 (4个)
 - [x] 获取星球数据概览 `GET /v2/dashboard/groups/{group_id}/overview`

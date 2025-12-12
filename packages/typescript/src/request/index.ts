@@ -841,7 +841,7 @@ export class RankingRequest extends BaseRequest {
    */
   async getGroupRankingStats(groupId: number | string): Promise<RankingStatistics> {
     const data = await this.httpClient.get<{ statistics: RankingStatistics }>(
-      `/v2/groups/${groupId}/ranking_list/statistics`,
+      `/v3/groups/${groupId}/ranking_list/statistics`,
     );
     return data.statistics;
   }
@@ -854,7 +854,7 @@ export class RankingRequest extends BaseRequest {
     options?: ListRankingOptions,
   ): Promise<RankingItem[]> {
     const data = await this.httpClient.get<{ ranking_list: RankingItem[] }>(
-      `/v2/groups/${groupId}/scoreboard/ranking_list`,
+      `/v2/dashboard/groups/${groupId}/scoreboard/ranking_list`,
       options as Record<string, unknown>,
     );
     return data.ranking_list;
@@ -864,17 +864,20 @@ export class RankingRequest extends BaseRequest {
    * 获取我的积分统计
    */
   async getMyScoreStats(groupId: number | string): Promise<Record<string, unknown>> {
-    return this.httpClient.get(`/v2/groups/${groupId}/scoreboard/my_statistics`);
+    const data = await this.httpClient.get<{ statistics: Record<string, unknown> }>(
+      `/v2/dashboard/groups/${groupId}/scoreboard/statistics/self`,
+    );
+    return data.statistics || {};
   }
 
   /**
    * 获取积分榜设置
    */
   async getScoreboardSettings(groupId: number | string): Promise<ScoreboardSettings> {
-    const data = await this.httpClient.get<{ settings: ScoreboardSettings }>(
-      `/v2/groups/${groupId}/scoreboard/settings`,
+    const data = await this.httpClient.get<ScoreboardSettings>(
+      `/v2/dashboard/groups/${groupId}/scoreboard/settings`,
     );
-    return data.settings;
+    return data;
   }
 
   /**
@@ -882,7 +885,7 @@ export class RankingRequest extends BaseRequest {
    */
   async getInvitationRanking(groupId: number | string): Promise<RankingItem[]> {
     const data = await this.httpClient.get<{ ranking_list: RankingItem[] }>(
-      `/v2/groups/${groupId}/invitation_ranking_list`,
+      `/v2/groups/${groupId}/invitations/ranking_list`,
     );
     return data.ranking_list;
   }
@@ -895,6 +898,18 @@ export class RankingRequest extends BaseRequest {
       `/v2/groups/${groupId}/contribution_ranking_list`,
     );
     return data.ranking_list;
+  }
+
+  /**
+   * 获取全局星球排行榜（v3接口）
+   *
+   * @param type 排行类型: group_sales_list(畅销榜), new_star_list(新星榜),
+   *             paid_group_active_list(活跃榜), group_fortune_list(财富榜)
+   * @param count 返回数量
+   * @returns 排行数据
+   */
+  async getGlobalRanking(type: string, count: number): Promise<Record<string, unknown>> {
+    return this.httpClient.get('/v3/groups/ranking_list', { type, count });
   }
 }
 
