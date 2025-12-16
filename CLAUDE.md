@@ -17,6 +17,9 @@ npm run build                         # 构建
 npm run test                          # 运行所有测试
 npm run test -- --testPathPattern="GroupsRequest"  # 运行单个测试
 npm run lint                          # 代码检查
+
+# 集成测试
+ZSXQ_TOKEN="your-token" ZSXQ_GROUP_ID="group-id" npm test -- --testPathPattern="integration"
 ```
 
 ### Java SDK
@@ -200,7 +203,7 @@ ZSXQ_RETRY_COUNT=3          # 重试次数
 
 ## API 测试状态
 
-查看 `docs/TESTING_STATUS.md` 了解各接口的测试覆盖情况。当前覆盖率 **86.7%**（65/75 接口已测试）。
+查看 `docs/TESTING_STATUS.md` 了解各接口的测试覆盖情况。当前有效覆盖率 **85.5%**（59/69 接口已测试，7 个 API 已废弃不计入）。
 
 ## 跨语言开发注意事项
 
@@ -208,3 +211,17 @@ ZSXQ_RETRY_COUNT=3          # 重试次数
 - 方法命名保持一致：`list()`, `get()`, `create()`, `update()`, `delete()`
 - 各语言 ID 参数统一用 `groupId`, `topicId` 等驼峰式命名
 - 异常类型需与 `spec/errors/error-codes.yaml` 定义一致
+
+## 已知废弃 API
+
+以下 API 已被知识星球官方废弃（返回 404），SDK 保留方法以保持兼容性：
+
+- `GET /v2/groups/applying` - 获取申请中星球列表
+- `GET /v2/users/recommended_follows` - 获取推荐关注用户
+- `GET /v2/groups/{group_id}/ranking_list` - 获取星球排行榜
+- `GET /v2/groups/{group_id}/contribution_ranking_list` - 获取贡献排行榜
+- `GET /v2/global/config` - 获取全局配置
+- `GET /v2/activities` - 获取用户动态
+- `GET /v2/pk/groups/{group_id}` - 获取PK群组信息
+
+详细说明见 `packages/go/DEPRECATED_APIS.md`
