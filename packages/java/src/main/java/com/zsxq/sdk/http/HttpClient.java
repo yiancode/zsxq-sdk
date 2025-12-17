@@ -32,11 +32,12 @@ public class HttpClient {
 
     private static final Logger log = LoggerFactory.getLogger(HttpClient.class);
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    private static final String SECRET_KEY = "zsxq-sdk-secret";
+    private static final String DEFAULT_SECRET_KEY = "zsxq-sdk-secret";
 
     private final OkHttpClient client;
     private final ZsxqConfig config;
     private final Gson gson;
+    private final String secretKey;
 
     public HttpClient(ZsxqConfig config) {
         this.config = config;
@@ -44,6 +45,8 @@ public class HttpClient {
         this.gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create();
+        // 使用自定义签名密钥或默认值
+        this.secretKey = config.getSignatureKey() != null ? config.getSignatureKey() : DEFAULT_SECRET_KEY;
     }
 
     /**
@@ -157,18 +160,23 @@ public class HttpClient {
      */
     private Headers buildHeaders(String method, String path, String body, String requestId) {
         String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
-        String signature = generateSignature(timestamp, method, path, body);
 
-        return new Headers.Builder()
+        Headers.Builder headersBuilder = new Headers.Builder()
                 .add("Content-Type", "application/json; charset=utf-8")
                 .add("User-Agent", "xiaomiquan/" + config.getAppVersion() + " SDK/1.0.0")
                 .add("authorization", config.getToken())
-                .add("x-timestamp", timestamp)
-                .add("x-signature", signature)
                 .add("x-request-id", requestId)
                 .add("x-version", config.getAppVersion())
-                .add("x-aduid", config.getDeviceId())
-                .build();
+                .add("x-aduid", config.getDeviceId());
+
+        // 只有启用签名时才添加签名相关头
+        if (config.isSignatureEnabled()) {
+            String signature = generateSignature(timestamp, method, path, body);
+            headersBuilder.add("x-timestamp", timestamp);
+            headersBuilder.add("x-signature", signature);
+        }
+
+        return headersBuilder.build();
     }
 
     /**
@@ -185,7 +193,7 @@ public class HttpClient {
             }
 
             Mac mac = Mac.getInstance("HmacSHA1");
-            mac.init(new SecretKeySpec(SECRET_KEY.getBytes(StandardCharsets.UTF_8), "HmacSHA1"));
+            mac.init(new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8), "HmacSHA1"));
             byte[] hash = mac.doFinal(signData.toString().getBytes(StandardCharsets.UTF_8));
 
             StringBuilder hexString = new StringBuilder();

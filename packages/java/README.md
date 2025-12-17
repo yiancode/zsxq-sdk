@@ -11,6 +11,7 @@
 - **Builder 模式** - 灵活的客户端配置
 - **模块化设计** - 按需使用各功能模块
 - **自动重试** - 内置网络错误重试机制
+- **签名认证** - 内置 HMAC-SHA1 请求签名
 
 ## 安装
 
@@ -86,6 +87,62 @@ List<Topic> topics = client.topics().list(groupId,
 Topic topic = client.topics().get(topicId);
 ```
 
+### 训练营（打卡）
+
+```java
+// 获取打卡项目列表
+List<Checkin> checkins = client.checkins().list(groupId);
+
+// 创建训练营
+CheckinsRequest.CreateCheckinParams params = new CheckinsRequest.CreateCheckinParams()
+    .title("7天打卡挑战")           // 训练营标题
+    .text("每天完成一个任务")        // 训练营描述
+    .checkinDays(7)                // 打卡天数
+    .type("accumulated")           // 打卡类型: accumulated(累计) / continuous(连续)
+    .showTopicsOnTimeline(false)   // 是否在时间线展示
+    .expirationTime("2025-12-31T23:59:59.000+0800");  // 截止时间
+
+Checkin checkin = client.checkins().create(groupId, params);
+System.out.println("创建成功: " + checkin.getCheckinId());
+
+// 长期有效的训练营
+CheckinsRequest.CreateCheckinParams longTermParams = new CheckinsRequest.CreateCheckinParams()
+    .title("每日学习打卡")
+    .text("持续学习，每天进步")
+    .checkinDays(21)
+    .type("accumulated")
+    .longPeriod();  // 设置为长期有效
+
+Checkin longTermCheckin = client.checkins().create(groupId, longTermParams);
+```
+
+## 高级配置
+
+```java
+// 自定义签名密钥
+ZsxqClient client = new ZsxqClientBuilder()
+    .token("your-token")
+    .signatureKey("custom-secret-key")  // 自定义签名密钥
+    .build();
+
+// 禁用签名（仅用于测试）
+ZsxqClient testClient = new ZsxqClientBuilder()
+    .token("your-token")
+    .disableSignature()  // 禁用签名
+    .build();
+
+// 完整配置示例
+ZsxqClient client = new ZsxqClientBuilder()
+    .token("your-token")
+    .baseUrl("https://api.zsxq.com")
+    .timeout(15000)
+    .retryCount(3)
+    .retryDelay(1000)
+    .deviceId("custom-device-id")
+    .appVersion("2.83.0")
+    .build();
+```
+
 ## 错误处理
 
 ```java
@@ -110,6 +167,9 @@ mvn compile
 
 # 测试
 mvn test
+
+# 集成测试
+ZSXQ_TOKEN="your-token" ZSXQ_GROUP_ID="group-id" mvn test -Dtest=IntegrationTest
 
 # 打包
 mvn package

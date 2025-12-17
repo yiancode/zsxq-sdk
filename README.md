@@ -198,8 +198,78 @@ groups = await client.groups.list()
 | `groups` | 星球管理 | `list()`, `get()`, `getStatistics()`, `getHashtags()` |
 | `topics` | 话题管理 | `list()`, `get()`, `getComments()`, `getRewards()` |
 | `users` | 用户管理 | `self()`, `get()`, `getStatistics()` |
-| `checkins` | 打卡管理 | `list()`, `get()`, `getRankingList()`, `getStatistics()` |
+| `checkins` | 打卡管理 | `list()`, `get()`, `create()`, `update()`, `getRankingList()` |
 | `dashboard` | 数据面板 | `getOverview()`, `getIncomes()`, `getPrivileges()` |
+
+## 训练营创建示例
+
+创建训练营（打卡项目）是各 SDK 的核心功能之一：
+
+<details>
+<summary>TypeScript</summary>
+
+```typescript
+const checkin = await client.checkins.create(groupId, {
+  title: '7天打卡挑战',
+  text: '每天完成一个任务',
+  checkin_days: 7,
+  type: 'accumulated',  // 累计打卡
+  validity: {
+    long_period: false,
+    expiration_time: '2025-12-31T23:59:59.000+0800'
+  }
+});
+```
+</details>
+
+<details>
+<summary>Java</summary>
+
+```java
+CheckinsRequest.CreateCheckinParams params = new CheckinsRequest.CreateCheckinParams()
+    .title("7天打卡挑战")
+    .text("每天完成一个任务")
+    .checkinDays(7)
+    .type("accumulated")
+    .expirationTime("2025-12-31T23:59:59.000+0800");
+
+Checkin checkin = client.checkins().create(groupId, params);
+```
+</details>
+
+<details>
+<summary>Go</summary>
+
+```go
+params := request.CreateCheckinParams{
+    Title:       "7天打卡挑战",
+    Text:        "每天完成一个任务",
+    CheckinDays: 7,
+    Type:        "accumulated",
+    Validity: &request.CheckinValidity{
+        ExpirationTime: "2025-12-31T23:59:59.000+0800",
+    },
+}
+checkin, err := client.Checkins().Create(ctx, groupID, params)
+```
+</details>
+
+<details>
+<summary>Python</summary>
+
+```python
+params = CreateCheckinParams(
+    title="7天打卡挑战",
+    text="每天完成一个任务",
+    checkin_days=7,
+    type="accumulated",
+    validity=CheckinValidity(
+        expiration_time="2025-12-31T23:59:59.000+0800"
+    )
+)
+checkin = await client.checkins.create(group_id, params)
+```
+</details>
 
 ## Token 获取
 

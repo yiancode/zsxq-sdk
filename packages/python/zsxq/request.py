@@ -77,6 +77,96 @@ class ListRankingOptions:
     index: Optional[int] = None
 
 
+@dataclass
+class CheckinValidity:
+    """打卡项目有效期配置"""
+    long_period: Optional[bool] = None  # 是否长期有效
+    expiration_time: Optional[str] = None  # 截止时间 (ISO 8601 格式)
+
+
+@dataclass
+class CreateCheckinParams:
+    """创建打卡项目参数
+
+    基于实际 API 结构:
+    {
+      "req_data": {
+        "title": "训练营标题",
+        "text": "训练营描述",
+        "checkin_days": 7,
+        "type": "accumulated",
+        "show_topics_on_timeline": false,
+        "validity": {
+          "long_period": false,
+          "expiration_time": "2025-12-24T23:59:59.798+0800"
+        }
+      }
+    }
+    """
+    title: str  # 训练营标题
+    checkin_days: int  # 打卡天数
+    type: str  # 打卡类型: accumulated(累计打卡) / continuous(连续打卡)
+    text: Optional[str] = None  # 训练营描述
+    show_topics_on_timeline: Optional[bool] = None  # 是否在时间线展示
+    validity: Optional[CheckinValidity] = None  # 有效期配置
+
+    def to_dict(self) -> Dict[str, Any]:
+        """转换为 API 请求字典"""
+        result: Dict[str, Any] = {
+            "title": self.title,
+            "checkin_days": self.checkin_days,
+            "type": self.type,
+        }
+        if self.text is not None:
+            result["text"] = self.text
+        if self.show_topics_on_timeline is not None:
+            result["show_topics_on_timeline"] = self.show_topics_on_timeline
+        if self.validity is not None:
+            validity_dict: Dict[str, Any] = {}
+            if self.validity.long_period is not None:
+                validity_dict["long_period"] = self.validity.long_period
+            if self.validity.expiration_time is not None:
+                validity_dict["expiration_time"] = self.validity.expiration_time
+            result["validity"] = validity_dict
+        return result
+
+
+@dataclass
+class UpdateCheckinParams:
+    """更新打卡项目参数"""
+    title: Optional[str] = None
+    text: Optional[str] = None
+    checkin_days: Optional[int] = None
+    type: Optional[str] = None
+    show_topics_on_timeline: Optional[bool] = None
+    validity: Optional[CheckinValidity] = None
+    status: Optional[str] = None
+
+    def to_dict(self) -> Dict[str, Any]:
+        """转换为 API 请求字典"""
+        result: Dict[str, Any] = {}
+        if self.title is not None:
+            result["title"] = self.title
+        if self.text is not None:
+            result["text"] = self.text
+        if self.checkin_days is not None:
+            result["checkin_days"] = self.checkin_days
+        if self.type is not None:
+            result["type"] = self.type
+        if self.show_topics_on_timeline is not None:
+            result["show_topics_on_timeline"] = self.show_topics_on_timeline
+        if self.validity is not None:
+            validity_dict: Dict[str, Any] = {}
+            if self.validity.long_period is not None:
+                validity_dict["long_period"] = self.validity.long_period
+            if self.validity.expiration_time is not None:
+                validity_dict["expiration_time"] = self.validity.expiration_time
+            result["validity"] = validity_dict
+        if self.status is not None:
+            result["status"] = self.status
+        return result
+
+
 class GroupsRequest:
     """星球请求模块"""
 
@@ -500,6 +590,64 @@ class CheckinsRequest:
             f"/v2/users/self/groups/{group_id}/checkins/{checkin_id}/statistics"
         )
         return MyCheckinStatistics.model_validate(data.get("statistics", {}))
+
+    async def create(self, group_id: int, params: CreateCheckinParams) -> Checkin:
+        """创建打卡项目（训练营）
+
+        示例 - 创建有截止时间的训练营::
+
+            params = CreateCheckinParams(
+                title="7天打卡挑战",
+                text="每天完成一个任务",
+                checkin_days=7,
+                type="accumulated",
+                show_topics_on_timeline=False,
+                validity=CheckinValidity(
+                    long_period=False,
+                    expiration_time="2025-12-31T23:59:59.000+0800"
+                )
+            )
+            checkin = await client.checkins.create(group_id, params)
+            print(f"创建成功: {checkin.checkin_id}")
+
+        示例 - 创建长期有效的训练营::
+
+            params = CreateCheckinParams(
+                title="每日学习打卡",
+                text="持续学习，每天进步",
+                checkin_days=21,
+                type="accumulated",
+                validity=CheckinValidity(long_period=True)
+            )
+            checkin = await client.checkins.create(group_id, params)
+
+        Args:
+            group_id: 星球ID
+            params: 创建打卡项目参数
+
+        Returns:
+            创建的打卡项目
+        """
+        body = {"req_data": params.to_dict()}
+        data = await self._client.post(f"/v2/groups/{group_id}/checkins", body)
+        return Checkin.model_validate(data["checkin"])
+
+    async def update(
+        self, group_id: int, checkin_id: int, params: UpdateCheckinParams
+    ) -> Checkin:
+        """更新打卡项目
+
+        Args:
+            group_id: 星球ID
+            checkin_id: 打卡项目ID
+            params: 更新参数
+
+        Returns:
+            更新后的打卡项目
+        """
+        body = {"req_data": params.to_dict()}
+        data = await self._client.put(f"/v2/groups/{group_id}/checkins/{checkin_id}", body)
+        return Checkin.model_validate(data["checkin"])
 
 
 class DashboardRequest:

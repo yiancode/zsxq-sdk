@@ -940,18 +940,76 @@ func (r *CheckinsRequest) GetMyStatistics(ctx context.Context, groupID, checkinI
 	return &resp.Statistics, nil
 }
 
-// CreateCheckinParams 创建打卡项目参数
-type CreateCheckinParams struct {
-	Name        string `json:"name"`
-	Description string `json:"description,omitempty"`
-	EndTime     string `json:"end_time,omitempty"`
-	Rules       string `json:"rules,omitempty"`
+// CheckinValidity 打卡项目有效期配置
+type CheckinValidity struct {
+	// LongPeriod 是否长期有效
+	LongPeriod bool `json:"long_period,omitempty"`
+	// ExpirationTime 截止时间 (ISO 8601 格式，如 "2025-12-31T23:59:59.000+0800")
+	ExpirationTime string `json:"expiration_time,omitempty"`
 }
 
-// Create 创建打卡项目
+// CreateCheckinParams 创建打卡项目参数
+//
+// 基于实际 API 结构:
+//
+//	{
+//	  "req_data": {
+//	    "title": "训练营标题",
+//	    "text": "训练营描述",
+//	    "checkin_days": 7,
+//	    "type": "accumulated",
+//	    "show_topics_on_timeline": false,
+//	    "validity": {
+//	      "long_period": false,
+//	      "expiration_time": "2025-12-24T23:59:59.798+0800"
+//	    }
+//	  }
+//	}
+type CreateCheckinParams struct {
+	// Title 训练营标题
+	Title string `json:"title"`
+	// Text 训练营描述
+	Text string `json:"text,omitempty"`
+	// CheckinDays 打卡天数
+	CheckinDays int `json:"checkin_days"`
+	// Type 打卡类型: accumulated(累计打卡) / continuous(连续打卡)
+	Type string `json:"type"`
+	// ShowTopicsOnTimeline 是否在时间线展示
+	ShowTopicsOnTimeline bool `json:"show_topics_on_timeline,omitempty"`
+	// Validity 有效期配置
+	Validity *CheckinValidity `json:"validity,omitempty"`
+}
+
+// Create 创建打卡项目（训练营）
+//
+// 示例 - 创建有截止时间的训练营:
+//
+//	params := request.CreateCheckinParams{
+//	    Title:                "7天打卡挑战",
+//	    Text:                 "每天完成一个任务",
+//	    CheckinDays:          7,
+//	    Type:                 "accumulated",
+//	    ShowTopicsOnTimeline: false,
+//	    Validity: &request.CheckinValidity{
+//	        LongPeriod:     false,
+//	        ExpirationTime: "2025-12-31T23:59:59.000+0800",
+//	    },
+//	}
+//	checkin, err := client.Checkins().Create(ctx, groupID, params)
+//
+// 示例 - 创建长期有效的训练营:
+//
+//	params := request.CreateCheckinParams{
+//	    Title:       "每日学习打卡",
+//	    Text:        "持续学习，每天进步",
+//	    CheckinDays: 21,
+//	    Type:        "accumulated",
+//	    Validity:    &request.CheckinValidity{LongPeriod: true},
+//	}
+//	checkin, err := client.Checkins().Create(ctx, groupID, params)
 func (r *CheckinsRequest) Create(ctx context.Context, groupID int64, params CreateCheckinParams) (*model.Checkin, error) {
 	body := map[string]interface{}{
-		"checkin": params,
+		"req_data": params,
 	}
 	var resp checkinResponse
 	path := fmt.Sprintf("/v2/groups/%d/checkins", groupID)
@@ -963,17 +1021,26 @@ func (r *CheckinsRequest) Create(ctx context.Context, groupID int64, params Crea
 
 // UpdateCheckinParams 更新打卡项目参数
 type UpdateCheckinParams struct {
-	Name        string `json:"name,omitempty"`
-	Description string `json:"description,omitempty"`
-	EndTime     string `json:"end_time,omitempty"`
-	Rules       string `json:"rules,omitempty"`
-	Status      string `json:"status,omitempty"`
+	// Title 训练营标题
+	Title string `json:"title,omitempty"`
+	// Text 训练营描述
+	Text string `json:"text,omitempty"`
+	// CheckinDays 打卡天数
+	CheckinDays int `json:"checkin_days,omitempty"`
+	// Type 打卡类型
+	Type string `json:"type,omitempty"`
+	// ShowTopicsOnTimeline 是否在时间线展示
+	ShowTopicsOnTimeline *bool `json:"show_topics_on_timeline,omitempty"`
+	// Validity 有效期配置
+	Validity *CheckinValidity `json:"validity,omitempty"`
+	// Status 打卡状态
+	Status string `json:"status,omitempty"`
 }
 
 // Update 更新打卡项目
 func (r *CheckinsRequest) Update(ctx context.Context, groupID, checkinID int64, params UpdateCheckinParams) (*model.Checkin, error) {
 	body := map[string]interface{}{
-		"checkin": params,
+		"req_data": params,
 	}
 	var resp checkinResponse
 	path := fmt.Sprintf("/v2/groups/%d/checkins/%d", groupID, checkinID)

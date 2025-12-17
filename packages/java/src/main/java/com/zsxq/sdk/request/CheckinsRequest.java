@@ -321,7 +321,7 @@ public class CheckinsRequest extends BaseRequest {
     }
 
     /**
-     * 创建打卡项目
+     * 创建打卡项目（训练营）
      *
      * @param groupId 星球ID
      * @param params 创建参数
@@ -329,7 +329,7 @@ public class CheckinsRequest extends BaseRequest {
      */
     public Checkin create(String groupId, CreateCheckinParams params) {
         Map<String, Object> body = new HashMap<>();
-        body.put("checkin", params.toMap());
+        body.put("req_data", params.toMap());
         Map<String, Object> data = httpClient.post(
                 "/v2/groups/" + groupId + "/checkins",
                 body,
@@ -475,39 +475,142 @@ public class CheckinsRequest extends BaseRequest {
 
     /**
      * 创建打卡项目参数
+     *
+     * 基于 HAR 抓包分析的实际 API 结构:
+     * {
+     *   "req_data": {
+     *     "title": "训练营标题",
+     *     "text": "训练营描述",
+     *     "checkin_days": 7,
+     *     "type": "accumulated",
+     *     "show_topics_on_timeline": false,
+     *     "validity": {
+     *       "long_period": false,
+     *       "expiration_time": "2025-12-24T23:59:59.798+0800"
+     *     }
+     *   }
+     * }
      */
     public static class CreateCheckinParams {
-        private String name;
-        private String description;
-        private String endTime;
-        private String rules;
+        private String title;
+        private String text;
+        private Integer checkinDays;
+        private String type;  // "accumulated" (累计打卡) | "continuous" (连续打卡)
+        private Boolean showTopicsOnTimeline;
+        private Validity validity;
 
-        public CreateCheckinParams name(String name) {
-            this.name = name;
+        /**
+         * 设置训练营标题
+         */
+        public CreateCheckinParams title(String title) {
+            this.title = title;
             return this;
         }
 
-        public CreateCheckinParams description(String description) {
-            this.description = description;
+        /**
+         * 设置训练营描述
+         */
+        public CreateCheckinParams text(String text) {
+            this.text = text;
             return this;
         }
 
-        public CreateCheckinParams endTime(String endTime) {
-            this.endTime = endTime;
+        /**
+         * 设置打卡天数
+         */
+        public CreateCheckinParams checkinDays(int checkinDays) {
+            this.checkinDays = checkinDays;
             return this;
         }
 
-        public CreateCheckinParams rules(String rules) {
-            this.rules = rules;
+        /**
+         * 设置打卡类型
+         * @param type "accumulated" (累计打卡) 或 "continuous" (连续打卡)
+         */
+        public CreateCheckinParams type(String type) {
+            this.type = type;
             return this;
         }
 
-        Map<String, Object> toMap() {
+        /**
+         * 设置是否在时间线展示打卡话题
+         */
+        public CreateCheckinParams showTopicsOnTimeline(boolean show) {
+            this.showTopicsOnTimeline = show;
+            return this;
+        }
+
+        /**
+         * 设置有效期
+         */
+        public CreateCheckinParams validity(Validity validity) {
+            this.validity = validity;
+            return this;
+        }
+
+        /**
+         * 设置有效期（便捷方法：设置过期时间）
+         * @param expirationTime 过期时间，格式如 "2025-12-24T23:59:59.798+0800"
+         */
+        public CreateCheckinParams expirationTime(String expirationTime) {
+            this.validity = new Validity().longPeriod(false).expirationTime(expirationTime);
+            return this;
+        }
+
+        /**
+         * 设置为长期有效
+         */
+        public CreateCheckinParams longPeriod() {
+            this.validity = new Validity().longPeriod(true);
+            return this;
+        }
+
+        /**
+         * 转换为请求 Map（用于序列化为 JSON）
+         */
+        public Map<String, Object> toMap() {
             Map<String, Object> map = new HashMap<>();
-            if (name != null) map.put("name", name);
-            if (description != null) map.put("description", description);
-            if (endTime != null) map.put("end_time", endTime);
-            if (rules != null) map.put("rules", rules);
+            if (title != null) map.put("title", title);
+            if (text != null) map.put("text", text);
+            if (checkinDays != null) map.put("checkin_days", checkinDays);
+            if (type != null) map.put("type", type);
+            if (showTopicsOnTimeline != null) map.put("show_topics_on_timeline", showTopicsOnTimeline);
+            if (validity != null) map.put("validity", validity.toMap());
+            return map;
+        }
+    }
+
+    /**
+     * 打卡有效期配置
+     */
+    public static class Validity {
+        private Boolean longPeriod;
+        private String expirationTime;
+
+        /**
+         * 设置是否长期有效
+         */
+        public Validity longPeriod(boolean longPeriod) {
+            this.longPeriod = longPeriod;
+            return this;
+        }
+
+        /**
+         * 设置过期时间
+         * @param expirationTime 格式如 "2025-12-24T23:59:59.798+0800"
+         */
+        public Validity expirationTime(String expirationTime) {
+            this.expirationTime = expirationTime;
+            return this;
+        }
+
+        /**
+         * 转换为请求 Map（用于序列化为 JSON）
+         */
+        public Map<String, Object> toMap() {
+            Map<String, Object> map = new HashMap<>();
+            if (longPeriod != null) map.put("long_period", longPeriod);
+            if (expirationTime != null) map.put("expiration_time", expirationTime);
             return map;
         }
     }

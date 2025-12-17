@@ -98,6 +98,44 @@ stats = await client.checkins.get_statistics(group_id, checkin_id)
 ranking = await client.checkins.get_ranking_list(group_id, checkin_id)
 ```
 
+### 训练营（打卡）
+
+```python
+from zsxq.request import CreateCheckinParams, UpdateCheckinParams, CheckinValidity
+
+# 创建训练营（有截止时间）
+params = CreateCheckinParams(
+    title="7天打卡挑战",            # 训练营标题
+    text="每天完成一个任务",         # 训练营描述
+    checkin_days=7,               # 打卡天数
+    type="accumulated",           # 打卡类型: accumulated(累计) / continuous(连续)
+    show_topics_on_timeline=False, # 是否在时间线展示
+    validity=CheckinValidity(
+        long_period=False,
+        expiration_time="2025-12-31T23:59:59.000+0800"  # 截止时间
+    )
+)
+checkin = await client.checkins.create(group_id, params)
+print(f"创建成功: {checkin.checkin_id}")
+
+# 创建长期有效的训练营
+long_term_params = CreateCheckinParams(
+    title="每日学习打卡",
+    text="持续学习，每天进步",
+    checkin_days=21,
+    type="accumulated",
+    validity=CheckinValidity(long_period=True)  # 长期有效
+)
+long_term_checkin = await client.checkins.create(group_id, long_term_params)
+
+# 更新训练营
+update_params = UpdateCheckinParams(
+    title="新标题",
+    text="更新后的描述"
+)
+updated = await client.checkins.update(group_id, checkin_id, update_params)
+```
+
 ### 排行榜
 
 ```python

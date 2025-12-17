@@ -112,6 +112,47 @@ stats, err := client.Checkins().GetStatistics(ctx, groupID, checkinID)
 ranking, err := client.Checkins().GetRankingList(ctx, groupID, checkinID, nil)
 ```
 
+### 训练营（打卡）
+
+```go
+import "github.com/zsxq-sdk/zsxq-sdk-go/request"
+
+// 创建训练营（有截止时间）
+params := request.CreateCheckinParams{
+    Title:                "7天打卡挑战",           // 训练营标题
+    Text:                 "每天完成一个任务",        // 训练营描述
+    CheckinDays:          7,                     // 打卡天数
+    Type:                 "accumulated",         // 打卡类型: accumulated(累计) / continuous(连续)
+    ShowTopicsOnTimeline: false,                 // 是否在时间线展示
+    Validity: &request.CheckinValidity{
+        LongPeriod:     false,
+        ExpirationTime: "2025-12-31T23:59:59.000+0800",  // 截止时间
+    },
+}
+checkin, err := client.Checkins().Create(ctx, groupID, params)
+if err != nil {
+    panic(err)
+}
+fmt.Printf("创建成功: %d\n", checkin.CheckinID)
+
+// 创建长期有效的训练营
+longTermParams := request.CreateCheckinParams{
+    Title:       "每日学习打卡",
+    Text:        "持续学习，每天进步",
+    CheckinDays: 21,
+    Type:        "accumulated",
+    Validity:    &request.CheckinValidity{LongPeriod: true},  // 长期有效
+}
+longTermCheckin, err := client.Checkins().Create(ctx, groupID, longTermParams)
+
+// 更新训练营
+updateParams := request.UpdateCheckinParams{
+    Title: "新标题",
+    Text:  "更新后的描述",
+}
+updated, err := client.Checkins().Update(ctx, groupID, checkinID, updateParams)
+```
+
 ## 错误处理
 
 ```go

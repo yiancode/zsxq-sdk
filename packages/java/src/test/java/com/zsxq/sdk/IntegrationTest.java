@@ -880,4 +880,57 @@ public class IntegrationTest {
             System.out.println("⚠️ 风险预警功能不可用: " + e.getMessage());
         }
     }
+
+    // ========== 打卡创建测试（写操作，默认跳过）==========
+
+    /**
+     * 测试创建打卡项目（训练营）
+     *
+     * 注意：这是一个写操作，会真实创建打卡项目！
+     * 需要设置 ZSXQ_TEST_CREATE=true 环境变量才会执行
+     *
+     * 基于 HAR 抓包分析的参数:
+     * - title: "测试训练营"
+     * - text: "完成7天打卡"
+     * - checkin_days: 7
+     * - type: "accumulated"
+     * - show_topics_on_timeline: false
+     * - validity.long_period: false
+     * - validity.expiration_time: "2025-12-24T23:59:59.798+0800"
+     */
+    @Test
+    @EnabledIfEnvironmentVariable(named = "ZSXQ_TEST_CREATE", matches = "true")
+    void testCreateCheckin() {
+        try {
+            com.zsxq.sdk.request.CheckinsRequest.CreateCheckinParams params =
+                new com.zsxq.sdk.request.CheckinsRequest.CreateCheckinParams()
+                    .title("SDK测试训练营")
+                    .text("完成7天打卡测试")
+                    .checkinDays(7)
+                    .type("accumulated")  // 累计打卡
+                    .showTopicsOnTimeline(false)
+                    .expirationTime("2025-12-24T23:59:59.798+0800");
+
+            System.out.println("📝 创建打卡项目参数:");
+            System.out.println("   - 标题: SDK测试训练营");
+            System.out.println("   - 描述: 完成7天打卡测试");
+            System.out.println("   - 天数: 7");
+            System.out.println("   - 类型: accumulated (累计打卡)");
+
+            Checkin checkin = client.checkins().create(groupId, params);
+
+            if (checkin != null) {
+                System.out.println("✅ 打卡项目创建成功!");
+                System.out.println("   - ID: " + checkin.getCheckinId());
+                System.out.println("   - 名称: " + checkin.getName());
+                System.out.println("   - 状态: " + checkin.getStatus());
+            } else {
+                System.out.println("⚠️ 创建返回空值");
+            }
+        } catch (ZsxqException e) {
+            System.out.println("❌ 创建打卡项目失败: " + e.getMessage());
+            System.out.println("   错误码: " + e.getCode());
+        }
+    }
+
 }

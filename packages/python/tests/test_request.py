@@ -405,7 +405,7 @@ async def test_ranking_get_group_ranking_stats(ranking_request, mock_http_client
 
     await ranking_request.get_group_ranking_stats(123)
 
-    mock_http_client.get.assert_called_once_with("/v2/groups/123/ranking_list/statistics")
+    mock_http_client.get.assert_called_once_with("/v3/groups/123/ranking_list/statistics")
 
 
 @pytest.mark.asyncio
@@ -420,7 +420,7 @@ async def test_ranking_get_score_ranking(ranking_request, mock_http_client):
     ranking = await ranking_request.get_score_ranking(123)
 
     mock_http_client.get.assert_called_once_with(
-        "/v2/groups/123/scoreboard/ranking_list", None
+        "/v2/dashboard/groups/123/scoreboard/ranking_list", None
     )
     assert len(ranking) == 1
 
@@ -428,11 +428,11 @@ async def test_ranking_get_score_ranking(ranking_request, mock_http_client):
 @pytest.mark.asyncio
 async def test_ranking_get_my_score_stats(ranking_request, mock_http_client):
     """测试获取我的积分统计"""
-    mock_http_client.get.return_value = {"my_score": 500, "rank": 10}
+    mock_http_client.get.return_value = {"statistics": {"my_score": 500, "rank": 10}}
 
     stats = await ranking_request.get_my_score_stats(123)
 
-    mock_http_client.get.assert_called_once_with("/v2/groups/123/scoreboard/my_statistics")
+    mock_http_client.get.assert_called_once_with("/v2/dashboard/groups/123/scoreboard/statistics/self")
     assert stats["my_score"] == 500
 
 
@@ -445,7 +445,7 @@ async def test_ranking_get_scoreboard_settings(ranking_request, mock_http_client
 
     await ranking_request.get_scoreboard_settings(123)
 
-    mock_http_client.get.assert_called_once_with("/v2/groups/123/scoreboard/settings")
+    mock_http_client.get.assert_called_once_with("/v2/dashboard/groups/123/scoreboard/settings")
 
 
 @pytest.mark.asyncio
@@ -458,7 +458,7 @@ async def test_ranking_get_invitation_ranking(ranking_request, mock_http_client)
     ranking = await ranking_request.get_invitation_ranking(123)
 
     mock_http_client.get.assert_called_once_with(
-        "/v2/groups/123/invitation_ranking_list", None
+        "/v2/groups/123/invitations/ranking_list", None
     )
     assert len(ranking) == 1
 

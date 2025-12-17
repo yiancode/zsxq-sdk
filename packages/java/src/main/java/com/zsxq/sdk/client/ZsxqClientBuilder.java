@@ -21,6 +21,8 @@ public class ZsxqClientBuilder {
     private int retryDelay = 1000;
     private String deviceId;
     private String appVersion = "2.83.0";
+    private String signatureKey;
+    private boolean signatureEnabled = true;
 
     /**
      * 设置认证 Token（必需）
@@ -96,6 +98,32 @@ public class ZsxqClientBuilder {
     }
 
     /**
+     * 设置签名密钥（可选）
+     * 如果不设置，将使用默认密钥
+     */
+    public ZsxqClientBuilder signatureKey(String signatureKey) {
+        this.signatureKey = signatureKey;
+        return this;
+    }
+
+    /**
+     * 启用或禁用签名
+     * 默认启用，设置为 false 可禁用签名（用于测试）
+     */
+    public ZsxqClientBuilder signatureEnabled(boolean enabled) {
+        this.signatureEnabled = enabled;
+        return this;
+    }
+
+    /**
+     * 禁用签名（便捷方法）
+     */
+    public ZsxqClientBuilder disableSignature() {
+        this.signatureEnabled = false;
+        return this;
+    }
+
+    /**
      * 构建 ZsxqClient 实例
      *
      * @throws IllegalArgumentException 如果 Token 未设置
@@ -117,6 +145,8 @@ public class ZsxqClientBuilder {
                 .retryDelay(retryDelay)
                 .deviceId(deviceId)
                 .appVersion(appVersion)
+                .signatureKey(signatureKey)
+                .signatureEnabled(signatureEnabled)
                 .build();
 
         return new ZsxqClient(config);

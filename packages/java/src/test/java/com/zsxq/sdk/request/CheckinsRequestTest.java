@@ -297,6 +297,111 @@ class CheckinsRequestTest {
         assertTrue(path.startsWith("/v2/groups/123/checkins/100/topics"));
     }
 
+    // ========== CreateCheckinParams 参数测试 ==========
+
+    @Test
+    void testCreateCheckinParamsBasic() {
+        // 基于 HAR 抓包分析的参数结构
+        CheckinsRequest.CreateCheckinParams params = new CheckinsRequest.CreateCheckinParams()
+                .title("测试训练营")
+                .text("完成7天打卡")
+                .checkinDays(7)
+                .type("accumulated")
+                .showTopicsOnTimeline(false)
+                .expirationTime("2025-12-24T23:59:59.798+0800");
+
+        Map<String, Object> map = params.toMap();
+
+        assertEquals("测试训练营", map.get("title"));
+        assertEquals("完成7天打卡", map.get("text"));
+        assertEquals(7, map.get("checkin_days"));
+        assertEquals("accumulated", map.get("type"));
+        assertEquals(false, map.get("show_topics_on_timeline"));
+
+        @SuppressWarnings("unchecked")
+        Map<String, Object> validity = (Map<String, Object>) map.get("validity");
+        assertNotNull(validity, "validity should not be null");
+        assertEquals(false, validity.get("long_period"));
+        assertEquals("2025-12-24T23:59:59.798+0800", validity.get("expiration_time"));
+    }
+
+    @Test
+    void testCreateCheckinParamsLongPeriod() {
+        CheckinsRequest.CreateCheckinParams params = new CheckinsRequest.CreateCheckinParams()
+                .title("长期训练营")
+                .text("持续打卡")
+                .checkinDays(30)
+                .type("continuous")
+                .showTopicsOnTimeline(true)
+                .longPeriod();  // 长期有效
+
+        Map<String, Object> map = params.toMap();
+
+        assertEquals("长期训练营", map.get("title"));
+        assertEquals("持续打卡", map.get("text"));
+        assertEquals(30, map.get("checkin_days"));
+        assertEquals("continuous", map.get("type"));
+        assertEquals(true, map.get("show_topics_on_timeline"));
+
+        @SuppressWarnings("unchecked")
+        Map<String, Object> validity = (Map<String, Object>) map.get("validity");
+        assertNotNull(validity);
+        assertEquals(true, validity.get("long_period"));
+        assertNull(validity.get("expiration_time"));
+    }
+
+    @Test
+    void testCreateCheckinParamsWithValidity() {
+        CheckinsRequest.Validity customValidity = new CheckinsRequest.Validity()
+                .longPeriod(false)
+                .expirationTime("2026-01-01T00:00:00.000+0800");
+
+        CheckinsRequest.CreateCheckinParams params = new CheckinsRequest.CreateCheckinParams()
+                .title("自定义有效期")
+                .validity(customValidity);
+
+        Map<String, Object> map = params.toMap();
+
+        @SuppressWarnings("unchecked")
+        Map<String, Object> validity = (Map<String, Object>) map.get("validity");
+        assertNotNull(validity);
+        assertEquals(false, validity.get("long_period"));
+        assertEquals("2026-01-01T00:00:00.000+0800", validity.get("expiration_time"));
+    }
+
+    @Test
+    void testCreateCheckinRequest() throws InterruptedException {
+        // Mock API 响应
+        Map<String, Object> checkinResp = new HashMap<>();
+        checkinResp.put("checkin_id", 12345L);
+        checkinResp.put("name", "SDK测试训练营");
+        checkinResp.put("status", "ongoing");
+
+        Map<String, Object> respData = new HashMap<>();
+        respData.put("checkin", checkinResp);
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
+
+        CheckinsRequest.CreateCheckinParams params = new CheckinsRequest.CreateCheckinParams()
+                .title("SDK测试训练营")
+                .text("完成7天打卡测试")
+                .checkinDays(7)
+                .type("accumulated")
+                .showTopicsOnTimeline(false)
+                .expirationTime("2025-12-24T23:59:59.798+0800");
+
+        Checkin checkin = checkinsRequest.create(123L, params);
+
+        assertNotNull(checkin);
+
+        // 验证请求路径
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.startsWith("/v2/groups/123/checkins"));
+    }
+
     // Helper methods
     private Map<String, Object> createSuccessResponse(Object respData) {
         Map<String, Object> response = new HashMap<>();

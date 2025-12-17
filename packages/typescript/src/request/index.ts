@@ -120,31 +120,64 @@ export interface MyCheckinsOptions {
 }
 
 /**
+ * 打卡项目有效期配置
+ */
+export interface CheckinValidity {
+  /** 是否长期有效 */
+  long_period?: boolean;
+  /** 截止时间 (ISO 8601 格式，如 "2025-12-31T23:59:59.000+0800") */
+  expiration_time?: string;
+}
+
+/**
  * 创建打卡项目参数
+ *
+ * 基于实际 API 结构:
+ * {
+ *   "req_data": {
+ *     "title": "训练营标题",
+ *     "text": "训练营描述",
+ *     "checkin_days": 7,
+ *     "type": "accumulated",
+ *     "show_topics_on_timeline": false,
+ *     "validity": {
+ *       "long_period": false,
+ *       "expiration_time": "2025-12-24T23:59:59.798+0800"
+ *     }
+ *   }
+ * }
  */
 export interface CreateCheckinParams {
-  /** 打卡名称 */
-  name: string;
-  /** 打卡描述 */
-  description?: string;
-  /** 结束时间 */
-  end_time?: string;
-  /** 打卡规则 */
-  rules?: string;
+  /** 训练营标题 */
+  title: string;
+  /** 训练营描述 */
+  text?: string;
+  /** 打卡天数 */
+  checkin_days: number;
+  /** 打卡类型: accumulated(累计打卡) / continuous(连续打卡) */
+  type: 'accumulated' | 'continuous';
+  /** 是否在时间线展示 */
+  show_topics_on_timeline?: boolean;
+  /** 有效期配置 */
+  validity?: CheckinValidity;
 }
 
 /**
  * 更新打卡项目参数
  */
 export interface UpdateCheckinParams {
-  /** 打卡名称 */
-  name?: string;
-  /** 打卡描述 */
-  description?: string;
-  /** 结束时间 */
-  end_time?: string;
-  /** 打卡规则 */
-  rules?: string;
+  /** 训练营标题 */
+  title?: string;
+  /** 训练营描述 */
+  text?: string;
+  /** 打卡天数 */
+  checkin_days?: number;
+  /** 打卡类型 */
+  type?: 'accumulated' | 'continuous';
+  /** 是否在时间线展示 */
+  show_topics_on_timeline?: boolean;
+  /** 有效期配置 */
+  validity?: CheckinValidity;
   /** 打卡状态 */
   status?: string;
 }
@@ -742,12 +775,36 @@ export class CheckinsRequest extends BaseRequest {
   }
 
   /**
-   * 创建打卡项目
+   * 创建打卡项目（训练营）
+   *
+   * @example
+   * // 创建有截止时间的训练营
+   * const checkin = await client.checkins.create(groupId, {
+   *   title: '7天打卡挑战',
+   *   text: '每天完成一个任务',
+   *   checkin_days: 7,
+   *   type: 'accumulated',
+   *   show_topics_on_timeline: false,
+   *   validity: {
+   *     long_period: false,
+   *     expiration_time: '2025-12-31T23:59:59.000+0800'
+   *   }
+   * });
+   *
+   * @example
+   * // 创建长期有效的训练营
+   * const checkin = await client.checkins.create(groupId, {
+   *   title: '每日学习打卡',
+   *   text: '持续学习，每天进步',
+   *   checkin_days: 21,
+   *   type: 'accumulated',
+   *   validity: { long_period: true }
+   * });
    */
   async create(groupId: number | string, params: CreateCheckinParams): Promise<Checkin> {
     const data = await this.httpClient.post<{ checkin: Checkin }>(
       `/v2/groups/${groupId}/checkins`,
-      { checkin: params },
+      { req_data: params },
     );
     return data.checkin;
   }
@@ -762,7 +819,7 @@ export class CheckinsRequest extends BaseRequest {
   ): Promise<Checkin> {
     const data = await this.httpClient.put<{ checkin: Checkin }>(
       `/v2/groups/${groupId}/checkins/${checkinId}`,
-      { checkin: params },
+      { req_data: params },
     );
     return data.checkin;
   }

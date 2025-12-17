@@ -50,4 +50,17 @@ public class ZsxqConfig {
      */
     @Builder.Default
     private final String appVersion = "2.83.0";
+
+    /**
+     * 签名密钥（可选）
+     * 如果不提供，将使用默认密钥
+     */
+    private final String signatureKey;
+
+    /**
+     * 是否启用签名
+     * 设置为 false 可禁用签名（用于测试）
+     */
+    @Builder.Default
+    private final boolean signatureEnabled = true;
 }

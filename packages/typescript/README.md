@@ -94,6 +94,39 @@ const stats = await client.checkins.getStatistics(groupId, checkinId);
 const ranking = await client.checkins.getRankingList(groupId, checkinId);
 ```
 
+### 训练营（打卡）
+
+```typescript
+// 创建训练营（有截止时间）
+const checkin = await client.checkins.create(groupId, {
+  title: '7天打卡挑战',           // 训练营标题
+  text: '每天完成一个任务',        // 训练营描述
+  checkin_days: 7,               // 打卡天数
+  type: 'accumulated',           // 打卡类型: accumulated(累计) / continuous(连续)
+  show_topics_on_timeline: false, // 是否在时间线展示
+  validity: {
+    long_period: false,
+    expiration_time: '2025-12-31T23:59:59.000+0800'  // 截止时间
+  }
+});
+console.log('创建成功:', checkin.checkin_id);
+
+// 创建长期有效的训练营
+const longTermCheckin = await client.checkins.create(groupId, {
+  title: '每日学习打卡',
+  text: '持续学习，每天进步',
+  checkin_days: 21,
+  type: 'accumulated',
+  validity: { long_period: true }  // 长期有效
+});
+
+// 更新训练营
+const updated = await client.checkins.update(groupId, checkinId, {
+  title: '新标题',
+  text: '更新后的描述'
+});
+```
+
 ### 排行榜
 
 ```typescript
