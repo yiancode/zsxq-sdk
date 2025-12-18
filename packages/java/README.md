@@ -19,16 +19,16 @@
 
 ```xml
 <dependency>
-    <groupId>com.zsxq</groupId>
+    <groupId>io.github.yiancode</groupId>
     <artifactId>zsxq-sdk</artifactId>
-    <version>1.0.0</version>
+    <version>1.2.1</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```groovy
-implementation 'com.zsxq:zsxq-sdk:1.0.0'
+implementation 'io.github.yiancode:zsxq-sdk:1.2.1'
 ```
 
 ## 快速开始
