@@ -162,12 +162,16 @@ public class HttpClient {
         String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
 
         Headers.Builder headersBuilder = new Headers.Builder()
-                .add("Content-Type", "application/json; charset=utf-8")
                 .add("User-Agent", "xiaomiquan/" + config.getAppVersion() + " SDK/1.0.0")
                 .add("authorization", config.getToken())
                 .add("x-request-id", requestId)
                 .add("x-version", config.getAppVersion())
                 .add("x-aduid", config.getDeviceId());
+
+        // 只有 POST/PUT 请求才添加 Content-Type
+        if ("POST".equals(method) || "PUT".equals(method)) {
+            headersBuilder.add("Content-Type", "application/json; charset=utf-8");
+        }
 
         // 只有启用签名时才添加签名相关头
         if (config.isSignatureEnabled()) {

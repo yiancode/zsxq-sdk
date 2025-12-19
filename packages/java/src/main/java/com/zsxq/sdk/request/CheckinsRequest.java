@@ -33,6 +33,7 @@ public class CheckinsRequest extends BaseRequest {
 
     /**
      * 获取打卡项目列表
+     * 默认查询所有状态的打卡项目
      */
     public List<Checkin> list(long groupId) {
         return list(groupId, null);
@@ -40,6 +41,7 @@ public class CheckinsRequest extends BaseRequest {
 
     /**
      * 获取打卡项目列表
+     * 默认查询所有状态的打卡项目
      */
     public List<Checkin> list(String groupId) {
         return list(groupId, null);
@@ -56,7 +58,18 @@ public class CheckinsRequest extends BaseRequest {
      * 获取打卡项目列表（带参数）
      */
     public List<Checkin> list(String groupId, ListCheckinsOptions options) {
-        Map<String, Object> params = options != null ? options.toMap() : null;
+        Map<String, Object> params = options != null ? options.toMap() : new HashMap<>();
+
+        // API 要求必须有 scope 参数，默认查询所有状态
+        if (!params.containsKey("scope")) {
+            params.put("scope", "all");
+        }
+        // API 要求必须有 count 参数，默认 100
+        // 注意：经测试 count 上限可能为 100-200 之间，过大会报参数错误
+        if (!params.containsKey("count")) {
+            params.put("count", 100);
+        }
+
         Map<String, Object> data = httpClient.get(
                 "/v2/groups/" + groupId + "/checkins",
                 params,
@@ -475,7 +488,6 @@ public class CheckinsRequest extends BaseRequest {
 
     /**
      * 创建打卡项目参数
-     *
      * 基于 HAR 抓包分析的实际 API 结构:
      * {
      *   "req_data": {

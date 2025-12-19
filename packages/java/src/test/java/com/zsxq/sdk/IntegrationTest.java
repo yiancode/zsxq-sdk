@@ -464,7 +464,7 @@ public class IntegrationTest {
             assertNotNull(checkins);
             System.out.println("✅ 获取到 " + checkins.size() + " 个打卡项目");
             for (Checkin checkin : checkins) {
-                System.out.println("   - " + checkin.getName() + " (ID: " + checkin.getCheckinId() + ", 状态: " + checkin.getStatus() + ")");
+                System.out.println("   - " + checkin.getTitle() + " (ID: " + checkin.getCheckinId() + ", 状态: " + checkin.getStatus() + ")");
             }
         } catch (ZsxqException e) {
             System.out.println("⚠️ 打卡功能未开启或无权限: " + e.getMessage());
@@ -922,7 +922,7 @@ public class IntegrationTest {
             if (checkin != null) {
                 System.out.println("✅ 打卡项目创建成功!");
                 System.out.println("   - ID: " + checkin.getCheckinId());
-                System.out.println("   - 名称: " + checkin.getName());
+                System.out.println("   - 名称: " + checkin.getTitle());
                 System.out.println("   - 状态: " + checkin.getStatus());
             } else {
                 System.out.println("⚠️ 创建返回空值");
