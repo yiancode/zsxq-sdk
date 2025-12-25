@@ -375,7 +375,7 @@ public class CheckinsRequest extends BaseRequest {
      */
     public Checkin update(String groupId, String checkinId, UpdateCheckinParams params) {
         Map<String, Object> body = new HashMap<>();
-        body.put("checkin", params.toMap());
+        body.put("req_data", params.toMap());
         Map<String, Object> data = httpClient.put(
                 "/v2/groups/" + groupId + "/checkins/" + checkinId,
                 body,

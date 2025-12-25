@@ -402,6 +402,78 @@ class CheckinsRequestTest {
         assertTrue(path.startsWith("/v2/groups/123/checkins"));
     }
 
+    @Test
+    void testUpdateCheckin() throws InterruptedException {
+        // Mock API 响应
+        Map<String, Object> checkinResp = new HashMap<>();
+        checkinResp.put("checkin_id", 5454884814L);
+        checkinResp.put("name", "测试训练营");
+        checkinResp.put("status", "closed");
+
+        Map<String, Object> respData = new HashMap<>();
+        respData.put("checkin", checkinResp);
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
+
+        CheckinsRequest.UpdateCheckinParams params = new CheckinsRequest.UpdateCheckinParams()
+                .status("closed");
+
+        Checkin checkin = checkinsRequest.update("51115214421144", "5454884814", params);
+
+        assertNotNull(checkin);
+
+        // 验证请求路径
+        var request = mockServer.takeRequest();
+        String path = request.getPath();
+        assertTrue(path.startsWith("/v2/groups/51115214421144/checkins/5454884814"));
+
+        // 验证请求体结构：应该是 {"req_data": {"status": "closed"}}
+        String requestBody = request.getBody().readUtf8();
+        assertTrue(requestBody.contains("\"req_data\""), "请求体应包含 req_data 字段");
+        assertTrue(requestBody.contains("\"status\":\"closed\""), "请求体应包含 status 字段");
+        assertFalse(requestBody.contains("\"checkin\""), "请求体不应包含 checkin 字段");
+    }
+
+    @Test
+    void testUpdateCheckinWithAllParams() throws InterruptedException {
+        // Mock API 响应
+        Map<String, Object> checkinResp = new HashMap<>();
+        checkinResp.put("checkin_id", 100L);
+        checkinResp.put("name", "更新后的训练营");
+        checkinResp.put("description", "新的描述");
+        checkinResp.put("status", "ongoing");
+
+        Map<String, Object> respData = new HashMap<>();
+        respData.put("checkin", checkinResp);
+
+        mockServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(gson.toJson(createSuccessResponse(respData)))
+                .setHeader("Content-Type", "application/json"));
+
+        CheckinsRequest.UpdateCheckinParams params = new CheckinsRequest.UpdateCheckinParams()
+                .name("更新后的训练营")
+                .description("新的描述")
+                .status("ongoing")
+                .rules("打卡规则更新")
+                .endTime("2025-12-31T23:59:59+0800");
+
+        Checkin checkin = checkinsRequest.update(123L, 100L, params);
+
+        assertNotNull(checkin);
+
+        // 验证请求
+        var request = mockServer.takeRequest();
+        String requestBody = request.getBody().readUtf8();
+
+        // 验证请求体使用 req_data 而不是 checkin
+        assertTrue(requestBody.contains("\"req_data\""), "请求体应包含 req_data 字段");
+        assertFalse(requestBody.contains("\"checkin\":{"), "请求体不应包含 checkin 对象");
+    }
+
     // Helper methods
     private Map<String, Object> createSuccessResponse(Object respData) {
         Map<String, Object> response = new HashMap<>();
