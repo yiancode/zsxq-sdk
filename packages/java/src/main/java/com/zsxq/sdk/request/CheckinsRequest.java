@@ -179,7 +179,17 @@ public class CheckinsRequest extends BaseRequest {
      * 获取打卡话题列表（带参数）
      */
     public List<Topic> getTopics(String groupId, String checkinId, TopicsRequest.ListTopicsOptions options) {
-        Map<String, Object> params = options != null ? options.toMap() : null;
+        Map<String, Object> params = options != null ? options.toMap() : new HashMap<>();
+
+        // API 要求必须有 scope 参数，默认查询所有话题
+        if (!params.containsKey("scope")) {
+            params.put("scope", "all");
+        }
+        // API 要求必须有 count 参数，默认 20
+        if (!params.containsKey("count")) {
+            params.put("count", 20);
+        }
+
         Map<String, Object> data = httpClient.get(
                 "/v2/groups/" + groupId + "/checkins/" + checkinId + "/topics",
                 params,
