@@ -143,7 +143,13 @@ public class CheckinsRequest extends BaseRequest {
      * 获取打卡排行榜（带参数）
      */
     public List<RankingItem> getRankingList(String groupId, String checkinId, RankingListOptions options) {
-        Map<String, Object> params = options != null ? options.toMap() : null;
+        Map<String, Object> params = options != null ? options.toMap() : new HashMap<>();
+
+        // API 要求必须有 type 参数，默认查询累计打卡排行
+        if (!params.containsKey("type")) {
+            params.put("type", "accumulated");
+        }
+
         Map<String, Object> data = httpClient.get(
                 "/v2/groups/" + groupId + "/checkins/" + checkinId + "/ranking_list",
                 params,
