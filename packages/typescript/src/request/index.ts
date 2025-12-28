@@ -683,9 +683,15 @@ export class CheckinsRequest extends BaseRequest {
     checkinId: number | string,
     options?: ListRankingOptions,
   ): Promise<RankingItem[]> {
+    // 自动注入必需参数
+    const params: Record<string, unknown> = { ...(options || {}) };
+    if (!params.type) {
+      params.type = 'accumulated'; // API 要求必须有 type 参数，默认查询累计打卡排行
+    }
+
     const data = await this.httpClient.get<{ ranking_list: RankingItem[] }>(
       `/v2/groups/${groupId}/checkins/${checkinId}/ranking_list`,
-      options as Record<string, unknown>,
+      params,
     );
     return data.ranking_list;
   }
@@ -698,9 +704,18 @@ export class CheckinsRequest extends BaseRequest {
     checkinId: number | string,
     options?: ListTopicsOptions,
   ): Promise<Topic[]> {
+    // 自动注入必需参数
+    const params: Record<string, unknown> = { ...(options || {}) };
+    if (!params.scope) {
+      params.scope = 'all'; // API 要求必须有 scope 参数，默认查询所有话题
+    }
+    if (!params.count) {
+      params.count = 20; // API 要求必须有 count 参数，默认 20
+    }
+
     const data = await this.httpClient.get<{ topics: Topic[] }>(
       `/v2/groups/${groupId}/checkins/${checkinId}/topics`,
-      options as Record<string, unknown>,
+      params,
     );
     return data.topics;
   }

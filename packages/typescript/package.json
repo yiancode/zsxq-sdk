@@ -1,6 +1,6 @@
 {
   "name": "zsxq-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "知识星球 TypeScript SDK - 轻量级、类型安全的 API 客户端",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

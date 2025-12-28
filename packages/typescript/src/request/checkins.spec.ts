@@ -131,7 +131,7 @@ describe('CheckinsRequest', () => {
       expect(result).toEqual(mockRanking);
       expect(mockHttpClient.get).toHaveBeenCalledWith(
         '/v2/groups/12345/checkins/100/ranking_list',
-        undefined,
+        { type: 'accumulated' }, // 应自动注入默认 type 参数
       );
     });
 
@@ -153,7 +153,7 @@ describe('CheckinsRequest', () => {
 
       expect(mockHttpClient.get).toHaveBeenCalledWith(
         '/v2/groups/12345/checkins/100/ranking_list',
-        { index: 2 },
+        { index: 2, type: 'accumulated' }, // 应自动注入 type 参数
       );
     });
 
@@ -189,7 +189,7 @@ describe('CheckinsRequest', () => {
       expect(result).toEqual(mockTopics);
       expect(mockHttpClient.get).toHaveBeenCalledWith(
         '/v2/groups/12345/checkins/100/topics',
-        undefined,
+        { scope: 'all', count: 20 }, // 应自动注入默认参数
       );
     });
 
