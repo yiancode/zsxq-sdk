@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.2.3] - 2025-12-28
+## [1.2.4] - 2025-12-28
 
 ### Fixed
 - `CheckinsRequest.getTopics()` - 修复缺少必需的 `scope` 和 `count` 参数导致 1059 错误
@@ -17,6 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - 添加多个测试示例类用于验证修复
 - 添加参数默认值自动注入机制
+
+## [1.2.3] - 2025-12-26
+
+### Fixed
+- 训练营相关功能优化
 
 ## [1.2.1] - 2025-12-26
 
