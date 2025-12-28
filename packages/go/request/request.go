@@ -818,6 +818,11 @@ func (r *CheckinsRequest) GetRankingList(ctx context.Context, groupID, checkinID
 		}
 	}
 
+	// API 要求必须有 type 参数，默认查询累计打卡排行
+	if params.Get("type") == "" {
+		params.Set("type", "accumulated")
+	}
+
 	var resp rankingResponse
 	path := fmt.Sprintf("/v2/groups/%d/checkins/%d/ranking_list", groupID, checkinID)
 	if err := r.client.Get(ctx, path, params, &resp); err != nil {
@@ -833,6 +838,13 @@ func (r *CheckinsRequest) GetTopics(ctx context.Context, groupID, checkinID int6
 		if opts.Count > 0 {
 			params.Set("count", strconv.Itoa(opts.Count))
 		}
+	}
+
+	// API 要求必须有 scope 参数，默认查询所有话题
+	params.Set("scope", "all")
+	// API 要求必须有 count 参数，默认 20
+	if params.Get("count") == "" {
+		params.Set("count", "20")
 	}
 
 	var resp topicsResponse
