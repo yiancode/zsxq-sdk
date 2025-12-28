@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "zsxq-sdk"
-version = "1.0.0"
+version = "1.0.1"
 description = "知识星球 Python SDK"
 readme = "README.md"
 license = {text = "MIT"}

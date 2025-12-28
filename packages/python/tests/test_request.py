@@ -316,7 +316,7 @@ async def test_checkins_get_ranking_list(checkins_request, mock_http_client):
     ranking = await checkins_request.get_ranking_list(123, 1)
 
     mock_http_client.get.assert_called_once_with(
-        "/v2/groups/123/checkins/1/ranking_list", None
+        "/v2/groups/123/checkins/1/ranking_list", {"type": "accumulated"}  # 应自动注入 type 参数
     )
     assert len(ranking) == 2
 

@@ -523,6 +523,10 @@ class CheckinsRequest:
             if options.index is not None:
                 params["index"] = options.index
 
+        # API 要求必须有 type 参数，默认查询累计打卡排行
+        if "type" not in params:
+            params["type"] = "accumulated"
+
         data = await self._client.get(
             f"/v2/groups/{group_id}/checkins/{checkin_id}/ranking_list", params or None
         )
@@ -536,6 +540,13 @@ class CheckinsRequest:
         if options:
             if options.count is not None:
                 params["count"] = options.count
+
+        # API 要求必须有 scope 参数，默认查询所有话题
+        if "scope" not in params:
+            params["scope"] = "all"
+        # API 要求必须有 count 参数，默认 20
+        if "count" not in params:
+            params["count"] = 20
 
         data = await self._client.get(
             f"/v2/groups/{group_id}/checkins/{checkin_id}/topics", params or None
