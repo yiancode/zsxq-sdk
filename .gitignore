@@ -62,3 +62,6 @@ dump.rdb
 
 # Charles Session Files
 *.chls
+docs/archive/v0.1/checkinCreate.har
+**/__pycache__/
+**/*.egg-info/

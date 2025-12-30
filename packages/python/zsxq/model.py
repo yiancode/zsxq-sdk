@@ -408,3 +408,25 @@ class PkGroup(BaseModel):
     pk_group_id: Optional[int] = None
     name: Optional[str] = None
     power: Optional[int] = None
+
+
+class PkBattle(BaseModel):
+    """PK对战记录"""
+    id: Optional[int] = None
+    pk_group_id: Optional[int] = None
+    title: Optional[str] = None
+    status: Optional[str] = None
+    start_time: Optional[str] = None
+    end_time: Optional[str] = None
+    result: Optional[dict] = None
+    participants: Optional[list] = None
+
+
+class UrlDetail(BaseModel):
+    """URL详情"""
+    url: str
+    title: Optional[str] = None
+    description: Optional[str] = None
+    image_url: Optional[str] = None
+    site_name: Optional[str] = None
+    type: Optional[str] = None

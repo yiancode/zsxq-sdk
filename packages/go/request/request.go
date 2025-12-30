@@ -1366,3 +1366,45 @@ func (r *MiscRequest) GetPkGroup(ctx context.Context, groupID int64) (*model.PkG
 	}
 	return &resp.PkGroup, nil
 }
+
+// pkBattlesResponse PK对战记录响应
+type pkBattlesResponse struct {
+	Records []model.PkBattle `json:"records"`
+}
+
+// ListPkBattlesOptions PK对战记录查询参数
+type ListPkBattlesOptions struct {
+	Count int // 返回数量
+}
+
+// GetPkBattles 获取 PK 对战记录
+func (r *MiscRequest) GetPkBattles(ctx context.Context, pkGroupID int64, opts *ListPkBattlesOptions) ([]model.PkBattle, error) {
+	params := url.Values{}
+	if opts != nil && opts.Count > 0 {
+		params.Set("count", strconv.Itoa(opts.Count))
+	}
+
+	var resp pkBattlesResponse
+	path := fmt.Sprintf("/v2/pk_groups/%d/records", pkGroupID)
+	if err := r.client.Get(ctx, path, params, &resp); err != nil {
+		return nil, err
+	}
+	return resp.Records, nil
+}
+
+// urlDetailResponse URL详情响应
+type urlDetailResponse struct {
+	UrlDetail model.UrlDetail `json:"url_detail"`
+}
+
+// ParseUrl 解析 URL 详情
+func (r *MiscRequest) ParseUrl(ctx context.Context, urlStr string) (*model.UrlDetail, error) {
+	params := url.Values{}
+	params.Set("url", urlStr)
+
+	var resp urlDetailResponse
+	if err := r.client.Get(ctx, "/v2/url_details", params, &resp); err != nil {
+		return nil, err
+	}
+	return &resp.UrlDetail, nil
+}

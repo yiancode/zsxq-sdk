@@ -478,3 +478,29 @@ export interface PkGroup {
   start_time?: string;
   end_time?: string;
 }
+
+/**
+ * PK对战记录模型
+ */
+export interface PkBattle {
+  id: number;
+  pk_group_id: number;
+  title?: string;
+  status?: string;
+  start_time?: string;
+  end_time?: string;
+  result?: Record<string, unknown>;
+  participants?: Record<string, unknown>[];
+}
+
+/**
+ * URL详情模型
+ */
+export interface UrlDetail {
+  url: string;
+  title?: string;
+  description?: string;
+  image_url?: string;
+  site_name?: string;
+  type?: string;
+}

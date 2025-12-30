@@ -269,3 +269,128 @@ func TestGroupsRequest_GetUnreadCount(t *testing.T) {
 		t.Errorf("Expected count 10 for group 456, got %d", counts["456"])
 	}
 }
+
+func TestMiscRequest_GetPkBattles(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/v2/pk_groups/123/records" {
+			t.Errorf("Expected path /v2/pk_groups/123/records, got %s", r.URL.Path)
+		}
+
+		// 验证查询参数
+		count := r.URL.Query().Get("count")
+		if count != "10" {
+			t.Errorf("Expected count=10, got count=%s", count)
+		}
+
+		response := map[string]interface{}{
+			"succeeded": true,
+			"resp_data": map[string]interface{}{
+				"records": []map[string]interface{}{
+					{
+						"battle_id":  1,
+						"group_a":    map[string]interface{}{"pk_group_id": 123, "name": "群组A", "status": "active", "create_time": "2024-01-01T00:00:00Z"},
+						"group_b":    map[string]interface{}{"pk_group_id": 456, "name": "群组B", "status": "active", "create_time": "2024-01-01T00:00:00Z"},
+						"score_a":    100,
+						"score_b":    80,
+						"start_time": "2024-01-01T00:00:00Z",
+						"status":     "finished",
+					},
+					{
+						"battle_id":  2,
+						"group_a":    map[string]interface{}{"pk_group_id": 123, "name": "群组A", "status": "active", "create_time": "2024-01-01T00:00:00Z"},
+						"group_b":    map[string]interface{}{"pk_group_id": 789, "name": "群组C", "status": "active", "create_time": "2024-01-01T00:00:00Z"},
+						"score_a":    50,
+						"score_b":    60,
+						"start_time": "2024-01-02T00:00:00Z",
+						"status":     "ongoing",
+					},
+				},
+			},
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(response)
+	}))
+	defer server.Close()
+
+	client := httpclient.NewClient(httpclient.Config{
+		BaseURL: server.URL,
+		Token:   "test-token",
+		Timeout: 5 * time.Second,
+	})
+
+	miscReq := request.NewMiscRequest(client)
+
+	ctx := context.Background()
+	opts := &request.ListPkBattlesOptions{Count: 10}
+	battles, err := miscReq.GetPkBattles(ctx, 123, opts)
+
+	if err != nil {
+		t.Fatalf("Expected no error, got %v", err)
+	}
+
+	if len(battles) != 2 {
+		t.Fatalf("Expected 2 battles, got %d", len(battles))
+	}
+
+	if battles[0].BattleID != 1 {
+		t.Errorf("Expected battle ID 1, got %d", battles[0].BattleID)
+	}
+
+	if battles[0].Status != "finished" {
+		t.Errorf("Expected battle status 'finished', got '%s'", battles[0].Status)
+	}
+}
+
+func TestMiscRequest_ParseUrl(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/v2/url_details" {
+			t.Errorf("Expected path /v2/url_details, got %s", r.URL.Path)
+		}
+
+		// 验证查询参数
+		url := r.URL.Query().Get("url")
+		if url != "https://example.com" {
+			t.Errorf("Expected url=https://example.com, got url=%s", url)
+		}
+
+		response := map[string]interface{}{
+			"succeeded": true,
+			"resp_data": map[string]interface{}{
+				"url_detail": map[string]interface{}{
+					"url":         "https://example.com",
+					"title":       "Example Domain",
+					"description": "Example description",
+					"site_name":   "Example",
+				},
+			},
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(response)
+	}))
+	defer server.Close()
+
+	client := httpclient.NewClient(httpclient.Config{
+		BaseURL: server.URL,
+		Token:   "test-token",
+		Timeout: 5 * time.Second,
+	})
+
+	miscReq := request.NewMiscRequest(client)
+
+	ctx := context.Background()
+	detail, err := miscReq.ParseUrl(ctx, "https://example.com")
+
+	if err != nil {
+		t.Fatalf("Expected no error, got %v", err)
+	}
+
+	if detail.URL != "https://example.com" {
+		t.Errorf("Expected URL 'https://example.com', got '%s'", detail.URL)
+	}
+
+	if detail.Title != "Example Domain" {
+		t.Errorf("Expected title 'Example Domain', got '%s'", detail.Title)
+	}
+}

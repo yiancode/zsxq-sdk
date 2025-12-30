@@ -41,6 +41,8 @@ from zsxq.model import (
     GlobalConfig,
     Activity,
     PkGroup,
+    PkBattle,
+    UrlDetail,
 )
 
 
@@ -394,9 +396,19 @@ class UsersRequest:
         data = await self._client.get(f"/v3/users/{user_id}/avatar_url")
         return data.get("avatar_url", "")
 
-    async def get_group_footprints(self, user_id: int) -> List[Group]:
-        """获取用户星球足迹"""
-        data = await self._client.get(f"/v2/users/{user_id}/group_footprints")
+    async def get_group_footprints(
+        self, user_id: int, group_id: Optional[int] = None
+    ) -> List[Group]:
+        """获取用户星球足迹
+
+        Args:
+            user_id: 用户ID
+            group_id: 可选的星球ID过滤
+        """
+        path = f"/v2/users/{user_id}/footprints/groups"
+        if group_id is not None:
+            path += f"?group_id={group_id}"
+        data = await self._client.get(path)
         return [Group.model_validate(g) for g in data.get("groups", [])]
 
     async def get_applying_groups(self) -> List[Group]:
@@ -809,6 +821,12 @@ class ListActivitiesOptions:
     end_time: Optional[str] = None
 
 
+@dataclass
+class ListPkBattlesOptions:
+    """PK对战记录查询参数"""
+    count: Optional[int] = None
+
+
 class MiscRequest:
     """杂项请求模块"""
 
@@ -836,3 +854,35 @@ class MiscRequest:
         """获取 PK 群组信息"""
         data = await self._client.get(f"/v2/pk/groups/{group_id}")
         return PkGroup.model_validate(data.get("pk_group", {}))
+
+    async def get_pk_battles(
+        self, pk_group_id: int, options: Optional[ListPkBattlesOptions] = None
+    ) -> List[PkBattle]:
+        """获取 PK 对战记录
+
+        Args:
+            pk_group_id: PK群组ID
+            options: 查询参数 (count: 返回数量)
+        """
+        params: Dict[str, Any] = {}
+        if options and options.count is not None:
+            params["count"] = options.count
+
+        data = await self._client.get(
+            f"/v2/pk_groups/{pk_group_id}/records",
+            params or None
+        )
+        return [PkBattle.model_validate(b) for b in data.get("records", [])]
+
+    async def parse_url(self, url: str) -> UrlDetail:
+        """解析URL详情
+
+        Args:
+            url: 需要解析的URL
+
+        Returns:
+            URL详细信息
+        """
+        params = {"url": url}
+        data = await self._client.get("/v2/url_details", params)
+        return UrlDetail.model_validate(data.get("url_detail", {}))

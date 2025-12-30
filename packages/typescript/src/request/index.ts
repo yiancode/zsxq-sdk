@@ -36,6 +36,8 @@ import {
   GlobalConfig,
   Activity,
   PkGroup,
+  PkBattle,
+  UrlDetail,
 } from '../model';
 
 /**
@@ -504,11 +506,15 @@ export class UsersRequest extends BaseRequest {
 
   /**
    * 获取用户星球足迹
+   * @param userId 用户ID
+   * @param groupId 可选的星球ID过滤
    */
-  async getGroupFootprints(userId: number | string): Promise<Group[]> {
-    const data = await this.httpClient.get<{ groups: Group[] }>(
-      `/v2/users/${userId}/group_footprints`,
-    );
+  async getGroupFootprints(userId: number | string, groupId?: number | string): Promise<Group[]> {
+    let url = `/v2/users/${userId}/footprints/groups`;
+    if (groupId !== undefined) {
+      url += `?group_id=${groupId}`;
+    }
+    const data = await this.httpClient.get<{ groups: Group[] }>(url);
     return data.groups;
   }
 
@@ -525,7 +531,7 @@ export class UsersRequest extends BaseRequest {
    */
   async getInviter(groupId: number | string): Promise<Inviter> {
     const data = await this.httpClient.get<{ inviter: Inviter }>(
-      `/v2/groups/${groupId}/inviter`,
+      `/v2/users/self/groups/${groupId}/inviter`,
     );
     return data.inviter;
   }
@@ -534,15 +540,20 @@ export class UsersRequest extends BaseRequest {
    * 获取我的优惠券列表
    */
   async getCoupons(): Promise<Coupon[]> {
-    const data = await this.httpClient.get<{ coupons: Coupon[] }>('/v2/coupons');
+    const data = await this.httpClient.get<{ coupons: Coupon[] }>('/v2/users/self/merchant_coupons');
     return data.coupons;
   }
 
   /**
    * 获取我的备注列表
+   * @param beginTime 可选的起始时间过滤
    */
-  async getRemarks(): Promise<Remark[]> {
-    const data = await this.httpClient.get<{ remarks: Remark[] }>('/v2/remarks');
+  async getRemarks(beginTime?: string): Promise<Remark[]> {
+    let url = '/v3/users/self/remarks';
+    if (beginTime) {
+      url += `?begin_time=${beginTime}`;
+    }
+    const data = await this.httpClient.get<{ remarks: Remark[] }>(url);
     return data.remarks;
   }
 
@@ -637,6 +648,18 @@ export class UsersRequest extends BaseRequest {
    */
   async getPreferences(): Promise<Record<string, unknown>> {
     return this.httpClient.get('/v3/users/self/preferences');
+  }
+
+  /**
+   * 上报推送通道
+   * @param channel 推送通道类型 (如 'jpush')
+   * @param deviceToken 设备Token
+   */
+  async reportPushChannel(channel: string, deviceToken: string): Promise<void> {
+    await this.httpClient.post('/v2/users/self/push_channel', {
+      channel,
+      device_token: deviceToken,
+    });
   }
 }
 
@@ -998,6 +1021,14 @@ export interface ActivitiesOptions {
 }
 
 /**
+ * PK对战记录查询参数
+ */
+export interface PkBattlesOptions {
+  /** 返回数量 */
+  count?: number;
+}
+
+/**
  * 杂项请求模块
  */
 export class MiscRequest extends BaseRequest {
@@ -1025,5 +1056,33 @@ export class MiscRequest extends BaseRequest {
   async getPkGroup(pkGroupId: number | string): Promise<PkGroup> {
     const data = await this.httpClient.get<{ group: PkGroup }>(`/v2/pk_groups/${pkGroupId}`);
     return data.group;
+  }
+
+  /**
+   * 获取PK对战记录
+   * @param pkGroupId PK群组ID
+   * @param options 查询参数
+   */
+  async getPkBattles(
+    pkGroupId: number | string,
+    options?: PkBattlesOptions,
+  ): Promise<PkBattle[]> {
+    const data = await this.httpClient.get<{ records: PkBattle[] }>(
+      `/v2/pk_groups/${pkGroupId}/records`,
+      options as Record<string, unknown>,
+    );
+    return data.records;
+  }
+
+  /**
+   * 解析URL详情
+   * @param url 待解析的URL
+   */
+  async parseUrl(url: string): Promise<UrlDetail> {
+    const data = await this.httpClient.get<{ url_detail: UrlDetail }>(
+      '/v2/url_details',
+      { url },
+    );
+    return data.url_detail;
   }
 }

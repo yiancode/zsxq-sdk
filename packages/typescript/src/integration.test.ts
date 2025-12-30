@@ -328,6 +328,18 @@ describe('Integration Tests', () => {
       }
     });
 
+    it('获取指定星球的用户足迹', async () => {
+      if (SKIP_INTEGRATION) return;
+
+      const user = await client.users.self();
+      const result = await safeTest('获取指定星球的用户足迹', () =>
+        client.users.getGroupFootprints(user.user_id, groupId),
+      );
+      if (result.success && result.data) {
+        console.log(`   - 指定星球足迹数: ${result.data.length}`);
+      }
+    });
+
     it('获取申请中星球列表', async () => {
       if (SKIP_INTEGRATION) return;
 
@@ -430,6 +442,17 @@ describe('Integration Tests', () => {
       );
       if (result.success && result.data) {
         console.log(`   - 周榜数据: ${JSON.stringify(result.data)}`);
+      }
+    });
+
+    it('上报推送渠道', async () => {
+      if (SKIP_INTEGRATION) return;
+
+      const result = await safeTest('上报推送渠道', () =>
+        client.users.reportPushChannel('apns', 'test-device-token'),
+      );
+      if (result.success) {
+        console.log(`   - 推送渠道上报成功`);
       }
     });
   });
@@ -629,6 +652,26 @@ describe('Integration Tests', () => {
       const result = await safeTest('获取PK群组信息', () => client.misc.getPkGroup(groupId));
       if (result.success && result.data) {
         console.log(`   - PK群组: ${result.data.name}`);
+      }
+    });
+
+    it('获取PK对战记录', async () => {
+      if (SKIP_INTEGRATION) return;
+
+      const result = await safeTest('获取PK对战记录', () => client.misc.getPkBattles(123, { count: 10 }));
+      if (result.success && result.data) {
+        console.log(`   - PK对战记录数: ${result.data.length}`);
+      }
+    });
+
+    it('解析URL详情', async () => {
+      if (SKIP_INTEGRATION) return;
+
+      const result = await safeTest('解析URL详情', () =>
+        client.misc.parseUrl('https://www.example.com'),
+      );
+      if (result.success && result.data) {
+        console.log(`   - URL标题: ${result.data.title || '无'}`);
       }
     });
   });

@@ -364,6 +364,39 @@ async def test_users_get_statistics(users_request, mock_http_client):
     assert stats["topics_count"] == 100
 
 
+@pytest.mark.asyncio
+async def test_users_get_group_footprints(users_request, mock_http_client):
+    """测试获取用户星球足迹"""
+    mock_http_client.get.return_value = {
+        "groups": [
+            {"group_id": 123, "name": "星球1", "type": "free", "description": "描述1", "background_url": "url1", "create_time": "2024-01-01T00:00:00Z"},
+            {"group_id": 456, "name": "星球2", "type": "pay", "description": "描述2", "background_url": "url2", "create_time": "2024-01-01T00:00:00Z"},
+        ]
+    }
+
+    groups = await users_request.get_group_footprints(999)
+
+    mock_http_client.get.assert_called_once_with("/v2/users/999/footprints/groups")
+    assert len(groups) == 2
+    assert groups[0].name == "星球1"
+
+
+@pytest.mark.asyncio
+async def test_users_get_group_footprints_with_filter(users_request, mock_http_client):
+    """测试获取指定星球的用户足迹"""
+    mock_http_client.get.return_value = {
+        "groups": [
+            {"group_id": 123, "name": "星球1", "type": "free", "description": "描述1", "background_url": "url1", "create_time": "2024-01-01T00:00:00Z"},
+        ]
+    }
+
+    groups = await users_request.get_group_footprints(999, 123)
+
+    mock_http_client.get.assert_called_once_with("/v2/users/999/footprints/groups?group_id=123")
+    assert len(groups) == 1
+    assert groups[0].group_id == 123
+
+
 # ==================== RankingRequest Tests ====================
 
 
@@ -532,3 +565,41 @@ async def test_misc_get_pk_group(misc_request, mock_http_client):
     await misc_request.get_pk_group(1)
 
     mock_http_client.get.assert_called_once_with("/v2/pk/groups/1")
+
+
+@pytest.mark.asyncio
+async def test_misc_get_pk_battles(misc_request, mock_http_client):
+    """测试获取PK对战记录"""
+    mock_http_client.get.return_value = {
+        "records": [
+            {"id": 1, "pk_group_id": 123, "title": "PK对战1", "status": "finished"},
+            {"id": 2, "pk_group_id": 123, "title": "PK对战2", "status": "ongoing"},
+        ]
+    }
+
+    from zsxq.request import ListPkBattlesOptions
+    options = ListPkBattlesOptions(count=10)
+    battles = await misc_request.get_pk_battles(123, options)
+
+    mock_http_client.get.assert_called_once_with("/v2/pk_groups/123/records", {"count": 10})
+    assert len(battles) == 2
+    assert battles[0].id == 1
+
+
+@pytest.mark.asyncio
+async def test_misc_parse_url(misc_request, mock_http_client):
+    """测试解析URL详情"""
+    mock_http_client.get.return_value = {
+        "url_detail": {
+            "url": "https://example.com",
+            "title": "Example Domain",
+            "description": "Example description",
+            "site_name": "Example",
+        }
+    }
+
+    detail = await misc_request.parse_url("https://example.com")
+
+    mock_http_client.get.assert_called_once_with("/v2/url_details", {"url": "https://example.com"})
+    assert detail.url == "https://example.com"
+    assert detail.title == "Example Domain"

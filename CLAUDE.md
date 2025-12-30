@@ -35,6 +35,14 @@ mvn javadoc:javadoc                   # 生成 JavaDoc
 
 # 集成测试（需要真实 Token）
 ZSXQ_TOKEN="your-token" ZSXQ_GROUP_ID="group-id" mvn test -Dtest=IntegrationTest
+# 或在单个测试中使用
+ZSXQ_TOKEN="your-token" ZSXQ_GROUP_ID="group-id" JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home mvn test
+
+# 发布到 Maven Central（需要 GPG 密钥）
+MAVEN_GPG_PASSPHRASE='your-passphrase' JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home mvn clean deploy
+
+# 运行示例代码
+ZSXQ_TOKEN="your-token" ZSXQ_GROUP_ID="group-id" JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home mvn exec:java -Dexec.mainClass="com.zsxq.sdk.examples.YourExample"
 
 # 注意：Java SDK 要求 Java 11+，使用 OkHttp、Gson、Lombok
 ```
@@ -188,6 +196,16 @@ ZSXQ_RETRY_COUNT=3          # 重试次数
 - **认证头**: `authorization: <token>`
 - **签名头**: `x-timestamp`, `x-signature`（HMAC-SHA1 签名）
 - 详细规范见 `spec/openapi.yaml`
+
+### API 请求签名
+
+部分 API 请求需要签名验证。各语言 SDK 默认启用签名：
+
+**禁用签名（仅用于测试）**:
+- **Java**: `.disableSignature()`
+- **TypeScript**: `{ disableSignature: true }`
+- **Go**: `SetDisableSignature(true)`
+- **Python**: `disable_signature=True`
 
 ## 工具脚本
 
