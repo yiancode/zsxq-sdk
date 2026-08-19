@@ -35,6 +35,7 @@ from zsxq.model import (
     Checkin,
     CheckinStatistics,
     RankingItem,
+    InvitationRankingItem,
     Comment,
     Hashtag,
 )
@@ -78,6 +79,7 @@ __all__ = [
     "Checkin",
     "CheckinStatistics",
     "RankingItem",
+    "InvitationRankingItem",
     "Comment",
     "Hashtag",
     # Exceptions

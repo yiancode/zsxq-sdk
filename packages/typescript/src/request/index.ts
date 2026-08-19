@@ -7,6 +7,7 @@ import {
   Comment,
   Hashtag,
   RankingItem,
+  InvitationRankingItem,
   CheckinStatistics,
   Menu,
   RoleMembers,
@@ -99,6 +100,16 @@ export interface ListRankingOptions {
   type?: 'continuous' | 'accumulated';
   /** 分页索引 */
   index?: number;
+}
+
+/**
+ * 邀请排行榜查询参数
+ */
+export interface InvitationRankingOptions {
+  /** 开始时间，ISO 8601，如 2026-08-17T00:00:00.000+0800 */
+  begin_time?: string;
+  /** 结束时间，ISO 8601，如 2026-08-23T23:59:00.000+0800 */
+  end_time?: string;
 }
 
 /**
@@ -977,12 +988,19 @@ export class RankingRequest extends BaseRequest {
 
   /**
    * 获取邀请排行榜
+   *
+   * App 实际请求：
+   * GET /v2/groups/{group_id}/invitations/ranking_list?begin_time=...&end_time=...
    */
-  async getInvitationRanking(groupId: number | string): Promise<RankingItem[]> {
-    const data = await this.httpClient.get<{ ranking_list: RankingItem[] }>(
+  async getInvitationRanking(
+    groupId: number | string,
+    options?: InvitationRankingOptions,
+  ): Promise<InvitationRankingItem[]> {
+    const data = await this.httpClient.get<{ ranking_list: InvitationRankingItem[] }>(
       `/v2/groups/${groupId}/invitations/ranking_list`,
+      options as Record<string, unknown> | undefined,
     );
-    return data.ranking_list;
+    return data.ranking_list ?? [];
   }
 
   /**

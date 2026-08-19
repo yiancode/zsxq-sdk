@@ -41,6 +41,7 @@ export {
   Checkin,
   CheckinStatistics,
   RankingItem,
+  InvitationRankingItem,
   Comment,
   Hashtag,
 } from './model';
@@ -56,6 +57,7 @@ export {
   ListCheckinsOptions,
   ListCommentsOptions,
   ListRankingOptions,
+  InvitationRankingOptions,
 } from './request';
 
 // Exceptions

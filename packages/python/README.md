@@ -149,6 +149,16 @@ score_ranking = await client.ranking.get_score_ranking(group_id)
 
 # 获取我的积分统计
 my_stats = await client.ranking.get_my_score_stats(group_id)
+
+# 获取邀请排行榜（App 排行榜，可带时间范围）
+from zsxq.request import InvitationRankingOptions
+invitation_ranking = await client.ranking.get_invitation_ranking(
+    group_id,
+    InvitationRankingOptions(
+        begin_time="2026-08-17T00:00:00.000+0800",
+        end_time="2026-08-23T23:59:00.000+0800",
+    ),
+)
 ```
 
 ## 错误处理

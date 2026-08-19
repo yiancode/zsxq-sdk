@@ -102,7 +102,7 @@
 | P0 | 获取积分排行榜 | `getScoreRanking(groupId)` | `GET /v2/groups/{group_id}/scoreboard/ranking_list` | [x] ✅ |
 | P1 | 获取我的积分统计 | `getMyScoreStats(groupId)` | `GET /v2/groups/{group_id}/scoreboard/my_statistics` | [x] ✅ |
 | P1 | 获取积分榜设置 | `getScoreboardSettings(groupId)` | `GET /v2/groups/{group_id}/scoreboard/settings` | [x] ✅ |
-| P2 | 获取邀请排行榜 | `getInvitationRanking(groupId)` | `GET /v2/groups/{group_id}/invitation_ranking_list` | [x] ✅ |
+| P2 | 获取邀请排行榜 | `getInvitationRanking(groupId, options?)` | `GET /v2/groups/{group_id}/invitations/ranking_list` | [x] ✅ |
 | P2 | 获取贡献排行榜 | `getContributionRanking(groupId)` | `GET /v2/groups/{group_id}/contribution_ranking_list` | [x] ✅ |
 
 **实现步骤**:

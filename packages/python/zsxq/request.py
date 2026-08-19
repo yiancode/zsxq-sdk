@@ -13,6 +13,7 @@ from zsxq.model import (
     Checkin,
     CheckinStatistics,
     RankingItem,
+    InvitationRankingItem,
     Menu,
     RoleMembers,
     Column,
@@ -77,6 +78,13 @@ class ListRankingOptions:
     """排行榜查询参数"""
     type: Optional[str] = None  # continuous/accumulated
     index: Optional[int] = None
+
+
+@dataclass
+class InvitationRankingOptions:
+    """邀请排行榜查询参数（App 实际使用的时间范围）"""
+    begin_time: Optional[str] = None  # ISO 8601，如 2026-08-17T00:00:00.000+0800
+    end_time: Optional[str] = None
 
 
 @dataclass
@@ -768,20 +776,20 @@ class RankingRequest:
         return ScoreboardSettings.model_validate(data)
 
     async def get_invitation_ranking(
-        self, group_id: int, options: Optional[ListRankingOptions] = None
-    ) -> List[RankingItem]:
+        self, group_id: int, options: Optional[InvitationRankingOptions] = None
+    ) -> List[InvitationRankingItem]:
         """获取邀请排行榜"""
         params: Dict[str, Any] = {}
         if options:
-            if options.type:
-                params["type"] = options.type
-            if options.index is not None:
-                params["index"] = options.index
+            if options.begin_time:
+                params["begin_time"] = options.begin_time
+            if options.end_time:
+                params["end_time"] = options.end_time
 
         data = await self._client.get(
             f"/v2/groups/{group_id}/invitations/ranking_list", params or None
         )
-        return [RankingItem.model_validate(r) for r in data.get("ranking_list", [])]
+        return [InvitationRankingItem.model_validate(r) for r in data.get("ranking_list", [])]
 
     async def get_contribution_ranking(
         self, group_id: int, options: Optional[ListRankingOptions] = None

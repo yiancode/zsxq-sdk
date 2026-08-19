@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.zsxq.sdk.http.HttpClient;
+import com.zsxq.sdk.model.InvitationRankingItem;
 import com.zsxq.sdk.model.RankingItem;
 import com.zsxq.sdk.model.RankingStatistics;
 import com.zsxq.sdk.model.ScoreboardSettings;
@@ -227,8 +228,8 @@ public class RankingRequest extends BaseRequest {
      * @param groupId 星球ID
      * @return 排行列表
      */
-    public List<RankingItem> getInvitationRanking(long groupId) {
-        return getInvitationRanking(String.valueOf(groupId));
+    public List<InvitationRankingItem> getInvitationRanking(long groupId) {
+        return getInvitationRanking(String.valueOf(groupId), null);
     }
 
     /**
@@ -237,14 +238,41 @@ public class RankingRequest extends BaseRequest {
      * @param groupId 星球ID
      * @return 排行列表
      */
-    public List<RankingItem> getInvitationRanking(String groupId) {
+    public List<InvitationRankingItem> getInvitationRanking(String groupId) {
+        return getInvitationRanking(groupId, null);
+    }
+
+    /**
+     * 获取邀请排行榜（带时间范围）
+     *
+     * App 实际请求：
+     * GET /v2/groups/{group_id}/invitations/ranking_list?begin_time=...&end_time=...
+     *
+     * @param groupId 星球ID
+     * @param options 查询参数
+     * @return 排行列表
+     */
+    public List<InvitationRankingItem> getInvitationRanking(long groupId, InvitationRankingOptions options) {
+        return getInvitationRanking(String.valueOf(groupId), options);
+    }
+
+    /**
+     * 获取邀请排行榜（带时间范围）
+     *
+     * @param groupId 星球ID
+     * @param options 查询参数
+     * @return 排行列表
+     */
+    public List<InvitationRankingItem> getInvitationRanking(String groupId, InvitationRankingOptions options) {
+        Map<String, Object> params = options != null ? options.toMap() : new HashMap<>();
         Map<String, Object> data = httpClient.get(
                 "/v2/groups/" + groupId + "/invitations/ranking_list",
+                params,
                 new TypeToken<Map<String, Object>>() {}.getType());
         Object rankingObj = data.get("ranking_list");
         if (rankingObj == null) return new ArrayList<>();
         String json = gson.toJson(rankingObj);
-        return gson.fromJson(json, new TypeToken<List<RankingItem>>() {}.getType());
+        return gson.fromJson(json, new TypeToken<List<InvitationRankingItem>>() {}.getType());
     }
 
     /**
@@ -301,6 +329,31 @@ public class RankingRequest extends BaseRequest {
             if (count != null) map.put("count", count);
             if (index != null) map.put("index", index);
             if (type != null) map.put("type", type);
+            return map;
+        }
+    }
+
+    /**
+     * 邀请排行榜查询参数
+     */
+    public static class InvitationRankingOptions {
+        private String beginTime;
+        private String endTime;
+
+        public InvitationRankingOptions beginTime(String beginTime) {
+            this.beginTime = beginTime;
+            return this;
+        }
+
+        public InvitationRankingOptions endTime(String endTime) {
+            this.endTime = endTime;
+            return this;
+        }
+
+        Map<String, Object> toMap() {
+            Map<String, Object> map = new HashMap<>();
+            if (beginTime != null) map.put("begin_time", beginTime);
+            if (endTime != null) map.put("end_time", endTime);
             return map;
         }
     }

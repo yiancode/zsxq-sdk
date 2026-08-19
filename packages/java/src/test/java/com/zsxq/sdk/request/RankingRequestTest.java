@@ -2,6 +2,7 @@ package com.zsxq.sdk.request;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.zsxq.sdk.model.InvitationRankingItem;
 import com.zsxq.sdk.model.RankingItem;
 import com.zsxq.sdk.model.RankingStatistics;
 import com.zsxq.sdk.model.ScoreboardSettings;
@@ -323,7 +324,7 @@ class RankingRequestTest {
     void testGetInvitationRanking() {
         Map<String, Object> respData = new HashMap<>();
         respData.put("ranking_list", List.of(
-            createRankingItemMap(1L, "用户1", 10)
+            createInvitationRankingItemMap(15514225885222L, "华峰（兄）", 120, 1, 8)
         ));
 
         mockServer.enqueue(new MockResponse()
@@ -331,10 +332,14 @@ class RankingRequestTest {
             .setBody(gson.toJson(createSuccessResponse(respData)))
             .setHeader("Content-Type", "application/json"));
 
-        List<RankingItem> ranking = rankingRequest.getInvitationRanking(123L);
+        List<InvitationRankingItem> ranking = rankingRequest.getInvitationRanking(123L);
 
         assertNotNull(ranking);
         assertEquals(1, ranking.size());
+        assertEquals(1, ranking.get(0).getRankings());
+        assertEquals(8, ranking.get(0).getInviteesCount());
+        assertEquals("华峰（兄）", ranking.get(0).getMember().getName());
+        assertEquals(Integer.valueOf(120), ranking.get(0).getMember().getNumber());
     }
 
     @Test
@@ -347,11 +352,34 @@ class RankingRequestTest {
             .setBody(gson.toJson(createSuccessResponse(respData)))
             .setHeader("Content-Type", "application/json"));
 
-        List<RankingItem> ranking = rankingRequest.getInvitationRanking("123");
+        List<InvitationRankingItem> ranking = rankingRequest.getInvitationRanking("123");
 
         assertNotNull(ranking);
         String path = mockServer.takeRequest().getPath();
         assertTrue(path.startsWith("/v2/groups/123/invitations/ranking_list"));
+    }
+
+    @Test
+    void testGetInvitationRankingWithTimeRange() throws InterruptedException {
+        Map<String, Object> respData = new HashMap<>();
+        respData.put("ranking_list", List.of());
+
+        mockServer.enqueue(new MockResponse()
+            .setResponseCode(200)
+            .setBody(gson.toJson(createSuccessResponse(respData)))
+            .setHeader("Content-Type", "application/json"));
+
+        RankingRequest.InvitationRankingOptions options = new RankingRequest.InvitationRankingOptions()
+            .beginTime("2026-08-17T00:00:00.000+0800")
+            .endTime("2026-08-23T23:59:00.000+0800");
+
+        List<InvitationRankingItem> ranking = rankingRequest.getInvitationRanking(15552841255452L, options);
+
+        assertNotNull(ranking);
+        String path = mockServer.takeRequest().getPath();
+        assertTrue(path.contains("/v2/groups/15552841255452/invitations/ranking_list"));
+        assertTrue(path.contains("begin_time=2026-08-17T00:00:00.000%2B0800") || path.contains("begin_time=2026-08-17"));
+        assertTrue(path.contains("end_time="));
     }
 
     @Test
@@ -419,6 +447,20 @@ class RankingRequestTest {
         item.put("user", user);
         item.put("score", score);
         item.put("rank", 1);
+        return item;
+    }
+
+    private Map<String, Object> createInvitationRankingItemMap(
+            Long userId, String name, int number, int rankings, int inviteesCount) {
+        Map<String, Object> member = new HashMap<>();
+        member.put("user_id", userId);
+        member.put("name", name);
+        member.put("avatar_url", "https://images.zsxq.com/a.jpg");
+        member.put("number", number);
+        Map<String, Object> item = new HashMap<>();
+        item.put("member", member);
+        item.put("rankings", rankings);
+        item.put("invitees_count", inviteesCount);
         return item;
     }
 }

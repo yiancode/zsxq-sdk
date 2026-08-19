@@ -15,6 +15,8 @@ export interface User {
   user_sid?: string;
   grade?: string;
   verified?: boolean;
+  /** 星球编号，邀请排行里的 member.number */
+  number?: number;
 }
 
 /**
@@ -170,6 +172,17 @@ export interface RankingItem {
   rank: number;
   count: number;
   continuous_count?: number;
+}
+
+/**
+ * 邀请排行榜项目
+ *
+ * App: GET /v2/groups/{group_id}/invitations/ranking_list
+ */
+export interface InvitationRankingItem {
+  member: User;
+  rankings: number;
+  invitees_count: number;
 }
 
 /**

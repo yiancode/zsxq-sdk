@@ -483,9 +483,20 @@ async def test_ranking_get_scoreboard_settings(ranking_request, mock_http_client
 
 @pytest.mark.asyncio
 async def test_ranking_get_invitation_ranking(ranking_request, mock_http_client):
-    """测试获取邀请排行榜"""
+    """测试获取邀请排行榜（对齐 App 返回的 member/rankings/invitees_count）"""
     mock_http_client.get.return_value = {
-        "ranking_list": [{"rank": 1, "count": 10, "user": {"user_id": 1, "name": "用户1", "avatar_url": "url1"}}]
+        "ranking_list": [
+            {
+                "member": {
+                    "user_id": 15514225885222,
+                    "name": "华峰（兄）",
+                    "avatar_url": "https://images.zsxq.com/a.jpg",
+                    "number": 120,
+                },
+                "rankings": 1,
+                "invitees_count": 8,
+            }
+        ]
     }
 
     ranking = await ranking_request.get_invitation_ranking(123)
@@ -494,6 +505,33 @@ async def test_ranking_get_invitation_ranking(ranking_request, mock_http_client)
         "/v2/groups/123/invitations/ranking_list", None
     )
     assert len(ranking) == 1
+    assert ranking[0].rankings == 1
+    assert ranking[0].invitees_count == 8
+    assert ranking[0].member.user_id == 15514225885222
+    assert ranking[0].member.number == 120
+
+
+@pytest.mark.asyncio
+async def test_ranking_get_invitation_ranking_with_time_range(ranking_request, mock_http_client):
+    """测试邀请排行榜带 begin_time/end_time（App 排行榜实际参数）"""
+    from zsxq.request import InvitationRankingOptions
+
+    mock_http_client.get.return_value = {"ranking_list": []}
+    options = InvitationRankingOptions(
+        begin_time="2026-08-17T00:00:00.000+0800",
+        end_time="2026-08-23T23:59:00.000+0800",
+    )
+
+    ranking = await ranking_request.get_invitation_ranking(15552841255452, options)
+
+    mock_http_client.get.assert_called_once_with(
+        "/v2/groups/15552841255452/invitations/ranking_list",
+        {
+            "begin_time": "2026-08-17T00:00:00.000+0800",
+            "end_time": "2026-08-23T23:59:00.000+0800",
+        },
+    )
+    assert ranking == []
 
 
 @pytest.mark.asyncio

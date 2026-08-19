@@ -27,6 +27,8 @@ tags:
     description: 打卡相关 API
   - name: Dashboard
     description: 数据面板 API
+  - name: Ranking
+    description: 排行榜 API
 
 components:
   securitySchemes:
@@ -76,6 +78,29 @@ components:
         - user_id
         - name
         - avatar_url
+
+    InvitationRankingItem:
+      type: object
+      description: 邀请排行榜条目
+      properties:
+        member:
+          allOf:
+            - $ref: '#/components/schemas/User'
+            - type: object
+              properties:
+                number:
+                  type: integer
+                  description: 星球编号
+        rankings:
+          type: integer
+          description: 名次
+        invitees_count:
+          type: integer
+          description: 邀请人数
+      required:
+        - member
+        - rankings
+        - invitees_count
 
     # 星球模型
     Group:
@@ -541,6 +566,46 @@ paths:
       responses:
         '200':
           description: 成功
+
+  /v2/groups/{group_id}/invitations/ranking_list:
+    get:
+      tags: [Ranking]
+      operationId: getInvitationRanking
+      summary: 获取邀请排行榜
+      description: |
+        对应 App 邀请排行。时间范围为东八区 ISO 8601，
+        例如 begin_time=2026-08-17T00:00:00.000+0800。
+      parameters:
+        - $ref: '#/components/parameters/groupId'
+        - name: begin_time
+          in: query
+          description: 统计开始时间，ISO 8601
+          schema:
+            type: string
+            example: '2026-08-17T00:00:00.000+0800'
+        - name: end_time
+          in: query
+          description: 统计结束时间，ISO 8601
+          schema:
+            type: string
+            example: '2026-08-23T23:59:00.000+0800'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BaseResponse'
+                  - type: object
+                    properties:
+                      resp_data:
+                        type: object
+                        properties:
+                          ranking_list:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/InvitationRankingItem'
 
   # ========== Dashboard ==========
   /v2/dashboard/groups/{group_id}/overview:

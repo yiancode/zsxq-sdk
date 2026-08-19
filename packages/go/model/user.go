@@ -20,6 +20,7 @@ type User struct {
 	UserSID      string `json:"user_sid,omitempty"`
 	Grade        string `json:"grade,omitempty"`
 	Verified     bool   `json:"verified,omitempty"`
+	Number       int    `json:"number,omitempty"`
 }
 
 // UnmarshalJSON 自定义 JSON 反序列化，处理 uid 和 user_id 字段的兼容性

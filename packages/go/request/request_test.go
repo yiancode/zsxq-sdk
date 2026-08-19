@@ -394,3 +394,109 @@ func TestMiscRequest_ParseUrl(t *testing.T) {
 		t.Errorf("Expected title 'Example Domain', got '%s'", detail.Title)
 	}
 }
+
+func TestRankingRequest_GetInvitationRanking(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/v2/groups/123/invitations/ranking_list" {
+			t.Errorf("Expected path /v2/groups/123/invitations/ranking_list, got %s", r.URL.Path)
+		}
+
+		response := map[string]interface{}{
+			"succeeded": true,
+			"resp_data": map[string]interface{}{
+				"ranking_list": []map[string]interface{}{
+					{
+						"member": map[string]interface{}{
+							"user_id":    15514225885222,
+							"name":       "华峰（兄）",
+							"avatar_url": "https://images.zsxq.com/a.jpg",
+							"number":     120,
+						},
+						"rankings":       1,
+						"invitees_count": 8,
+					},
+				},
+			},
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(response)
+	}))
+	defer server.Close()
+
+	client := httpclient.NewClient(httpclient.Config{
+		BaseURL: server.URL,
+		Token:   "test-token",
+		Timeout: 5 * time.Second,
+	})
+
+	rankingReq := request.NewRankingRequest(client)
+	ctx := context.Background()
+	ranking, err := rankingReq.GetInvitationRanking(ctx, 123, nil)
+	if err != nil {
+		t.Fatalf("Expected no error, got %v", err)
+	}
+	if len(ranking) != 1 {
+		t.Fatalf("Expected 1 ranking item, got %d", len(ranking))
+	}
+	if ranking[0].Rankings != 1 {
+		t.Errorf("Expected rankings 1, got %d", ranking[0].Rankings)
+	}
+	if ranking[0].InviteesCount != 8 {
+		t.Errorf("Expected invitees_count 8, got %d", ranking[0].InviteesCount)
+	}
+	if ranking[0].Member == nil {
+		t.Fatalf("Expected member, got nil")
+	}
+	if ranking[0].Member.Name != "华峰（兄）" {
+		t.Errorf("Expected member name 华峰（兄）, got %+v", ranking[0].Member)
+	}
+	if ranking[0].Member.Number != 120 {
+		t.Errorf("Expected member number 120, got %d", ranking[0].Member.Number)
+	}
+}
+
+func TestRankingRequest_GetInvitationRankingWithTimeRange(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/v2/groups/15552841255452/invitations/ranking_list" {
+			t.Errorf("Unexpected path %s", r.URL.Path)
+		}
+		q := r.URL.Query()
+		if q.Get("begin_time") != "2026-08-17T00:00:00.000+0800" {
+			t.Errorf("Unexpected begin_time %q", q.Get("begin_time"))
+		}
+		if q.Get("end_time") != "2026-08-23T23:59:00.000+0800" {
+			t.Errorf("Unexpected end_time %q", q.Get("end_time"))
+		}
+
+		response := map[string]interface{}{
+			"succeeded": true,
+			"resp_data": map[string]interface{}{
+				"ranking_list": []interface{}{},
+			},
+		}
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(response)
+	}))
+	defer server.Close()
+
+	client := httpclient.NewClient(httpclient.Config{
+		BaseURL: server.URL,
+		Token:   "test-token",
+		Timeout: 5 * time.Second,
+	})
+
+	rankingReq := request.NewRankingRequest(client)
+	ctx := context.Background()
+	opts := &request.InvitationRankingOptions{
+		BeginTime: "2026-08-17T00:00:00.000+0800",
+		EndTime:   "2026-08-23T23:59:00.000+0800",
+	}
+	ranking, err := rankingReq.GetInvitationRanking(ctx, 15552841255452, opts)
+	if err != nil {
+		t.Fatalf("Expected no error, got %v", err)
+	}
+	if len(ranking) != 0 {
+		t.Errorf("Expected empty ranking, got %d", len(ranking))
+	}
+}

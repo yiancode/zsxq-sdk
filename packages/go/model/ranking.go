@@ -1,5 +1,14 @@
 package model
 
+// InvitationRankingItem 邀请排行榜项目
+//
+// App: GET /v2/groups/{group_id}/invitations/ranking_list
+type InvitationRankingItem struct {
+	Member        *User `json:"member"`
+	Rankings      int   `json:"rankings"`
+	InviteesCount int   `json:"invitees_count"`
+}
+
 // RankingStatistics 排行统计
 type RankingStatistics struct {
 	TotalUsers     int `json:"total_users"`

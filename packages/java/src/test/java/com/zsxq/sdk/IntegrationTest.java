@@ -337,7 +337,7 @@ public class IntegrationTest {
     @Test
     void testGetInvitationRanking() {
         try {
-            List<RankingItem> ranking = client.ranking().getInvitationRanking(groupId);
+            List<InvitationRankingItem> ranking = client.ranking().getInvitationRanking(groupId);
             assertNotNull(ranking);
             System.out.println("✅ 获取到 " + ranking.size() + " 条邀请排行");
         } catch (NetworkException e) {

@@ -272,7 +272,7 @@ List<RankingItem> scoreRanking = client.ranking().getScoreRanking(groupId);
 Map<String, Object> myScoreStats = client.ranking().getMyScoreStats(groupId);
 
 // 获取邀请排行榜
-List<RankingItem> invitationRanking = client.ranking().getInvitationRanking(groupId);
+List<InvitationRankingItem> invitationRanking = client.ranking().getInvitationRanking(groupId);
 
 // 获取贡献排行榜
 List<RankingItem> contributionRanking = client.ranking().getContributionRanking(groupId);

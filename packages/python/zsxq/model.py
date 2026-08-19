@@ -21,6 +21,7 @@ class User(BaseModel):
     user_sid: Optional[str] = None
     grade: Optional[str] = None
     verified: Optional[bool] = None
+    number: Optional[int] = None  # 星球编号，邀请排行里的 member.number
 
     @model_validator(mode='before')
     @classmethod
@@ -202,6 +203,13 @@ class RankingItem(BaseModel):
     rank: int
     count: int
     continuous_count: Optional[int] = None
+
+
+class InvitationRankingItem(BaseModel):
+    """邀请排行榜项目（App GET /v2/groups/{id}/invitations/ranking_list）"""
+    member: User
+    rankings: int
+    invitees_count: int
 
 
 class Menu(BaseModel):

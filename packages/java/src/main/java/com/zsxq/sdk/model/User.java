@@ -58,6 +58,11 @@ public class User {
     private Boolean verified;
 
     /**
+     * 星球编号（邀请排行里的 member.number）
+     */
+    private Integer number;
+
+    /**
      * 获取用户 ID（字符串格式）
      */
     public String getUid() {

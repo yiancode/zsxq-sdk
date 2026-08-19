@@ -1244,19 +1244,30 @@ func (r *RankingRequest) GetScoreboardSettings(ctx context.Context, groupID int6
 	return &resp, nil
 }
 
+// InvitationRankingOptions 邀请排行榜查询参数
+type InvitationRankingOptions struct {
+	BeginTime string // ISO 8601，如 2026-08-17T00:00:00.000+0800
+	EndTime   string
+}
+
+// invitationRankingResponse 邀请排行榜响应
+type invitationRankingResponse struct {
+	RankingList []model.InvitationRankingItem `json:"ranking_list"`
+}
+
 // GetInvitationRanking 获取邀请排行榜
-func (r *RankingRequest) GetInvitationRanking(ctx context.Context, groupID int64, opts *ListRankingOptions) ([]model.RankingItem, error) {
+func (r *RankingRequest) GetInvitationRanking(ctx context.Context, groupID int64, opts *InvitationRankingOptions) ([]model.InvitationRankingItem, error) {
 	params := url.Values{}
 	if opts != nil {
-		if opts.Type != "" {
-			params.Set("type", opts.Type)
+		if opts.BeginTime != "" {
+			params.Set("begin_time", opts.BeginTime)
 		}
-		if opts.Index > 0 {
-			params.Set("index", strconv.Itoa(opts.Index))
+		if opts.EndTime != "" {
+			params.Set("end_time", opts.EndTime)
 		}
 	}
 
-	var resp rankingResponse
+	var resp invitationRankingResponse
 	path := fmt.Sprintf("/v2/groups/%d/invitations/ranking_list", groupID)
 	if err := r.client.Get(ctx, path, params, &resp); err != nil {
 		return nil, err
