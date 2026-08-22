@@ -512,14 +512,15 @@ async def test_ranking_get_invitation_ranking(ranking_request, mock_http_client)
 
 
 @pytest.mark.asyncio
-async def test_ranking_get_invitation_ranking_with_time_range(ranking_request, mock_http_client):
-    """测试邀请排行榜带 begin_time/end_time（App 排行榜实际参数）"""
+async def test_ranking_get_invitation_ranking_with_app_query(ranking_request, mock_http_client):
+    """测试邀请排行榜对齐 App：begin_time + count + with_extra"""
     from zsxq.request import InvitationRankingOptions
 
     mock_http_client.get.return_value = {"ranking_list": []}
     options = InvitationRankingOptions(
         begin_time="2026-08-17T00:00:00.000+0800",
-        end_time="2026-08-23T23:59:00.000+0800",
+        count=10,
+        with_extra=True,
     )
 
     ranking = await ranking_request.get_invitation_ranking(15552841255452, options)
@@ -528,10 +529,37 @@ async def test_ranking_get_invitation_ranking_with_time_range(ranking_request, m
         "/v2/groups/15552841255452/invitations/ranking_list",
         {
             "begin_time": "2026-08-17T00:00:00.000+0800",
-            "end_time": "2026-08-23T23:59:00.000+0800",
+            "count": 10,
+            "with_extra": True,
         },
     )
     assert ranking == []
+
+
+@pytest.mark.asyncio
+async def test_ranking_get_invitation_ranking_with_end_time(ranking_request, mock_http_client):
+    """自定义区间可额外传 end_time"""
+    from zsxq.request import InvitationRankingOptions
+
+    mock_http_client.get.return_value = {"ranking_list": []}
+    options = InvitationRankingOptions(
+        begin_time="2026-08-22T00:00:00.000+0800",
+        end_time="2026-08-22T23:59:00.000+0800",
+        count=10,
+        with_extra=True,
+    )
+
+    await ranking_request.get_invitation_ranking(15552841255452, options)
+
+    mock_http_client.get.assert_called_once_with(
+        "/v2/groups/15552841255452/invitations/ranking_list",
+        {
+            "begin_time": "2026-08-22T00:00:00.000+0800",
+            "end_time": "2026-08-22T23:59:00.000+0800",
+            "count": 10,
+            "with_extra": True,
+        },
+    )
 
 
 @pytest.mark.asyncio

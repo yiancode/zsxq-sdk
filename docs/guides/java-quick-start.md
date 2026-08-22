@@ -10,14 +10,14 @@
 <dependency>
     <groupId>io.github.yiancode</groupId>
     <artifactId>zsxq-sdk</artifactId>
-    <version>1.0.0</version>
+    <version>1.3.1</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```groovy
-implementation 'io.github.yiancode:zsxq-sdk:1.0.0'
+implementation 'io.github.yiancode:zsxq-sdk:1.3.1'
 ```
 
 ---
@@ -259,6 +259,8 @@ MyCheckinStatistics myStats = client.checkins().getMyStatistics(groupId, checkin
 ### 排行榜
 
 ```java
+import com.zsxq.sdk.request.RankingRequest;
+
 // 获取星球排行榜
 List<RankingItem> ranking = client.ranking().getGroupRanking(groupId);
 
@@ -271,8 +273,14 @@ List<RankingItem> scoreRanking = client.ranking().getScoreRanking(groupId);
 // 获取我的积分统计
 Map<String, Object> myScoreStats = client.ranking().getMyScoreStats(groupId);
 
-// 获取邀请排行榜
-List<InvitationRankingItem> invitationRanking = client.ranking().getInvitationRanking(groupId);
+// 获取邀请排行榜（对齐 App：begin_time + count + with_extra）
+List<InvitationRankingItem> invitationRanking = client.ranking().getInvitationRanking(
+    groupId,
+    new RankingRequest.InvitationRankingOptions()
+        .beginTime("2026-08-17T00:00:00.000+0800")
+        .count(10)
+        .withExtra(true)
+);
 
 // 获取贡献排行榜
 List<RankingItem> contributionRanking = client.ranking().getContributionRanking(groupId);

@@ -465,8 +465,14 @@ func TestRankingRequest_GetInvitationRankingWithTimeRange(t *testing.T) {
 		if q.Get("begin_time") != "2026-08-17T00:00:00.000+0800" {
 			t.Errorf("Unexpected begin_time %q", q.Get("begin_time"))
 		}
-		if q.Get("end_time") != "2026-08-23T23:59:00.000+0800" {
-			t.Errorf("Unexpected end_time %q", q.Get("end_time"))
+		if q.Get("count") != "10" {
+			t.Errorf("Unexpected count %q", q.Get("count"))
+		}
+		if q.Get("with_extra") != "true" {
+			t.Errorf("Unexpected with_extra %q", q.Get("with_extra"))
+		}
+		if q.Has("end_time") {
+			t.Errorf("App 日/周/月榜不应传 end_time, got %q", q.Get("end_time"))
 		}
 
 		response := map[string]interface{}{
@@ -488,9 +494,11 @@ func TestRankingRequest_GetInvitationRankingWithTimeRange(t *testing.T) {
 
 	rankingReq := request.NewRankingRequest(client)
 	ctx := context.Background()
+	withExtra := true
 	opts := &request.InvitationRankingOptions{
 		BeginTime: "2026-08-17T00:00:00.000+0800",
-		EndTime:   "2026-08-23T23:59:00.000+0800",
+		Count:     10,
+		WithExtra: &withExtra,
 	}
 	ranking, err := rankingReq.GetInvitationRanking(ctx, 15552841255452, opts)
 	if err != nil {
@@ -498,5 +506,46 @@ func TestRankingRequest_GetInvitationRankingWithTimeRange(t *testing.T) {
 	}
 	if len(ranking) != 0 {
 		t.Errorf("Expected empty ranking, got %d", len(ranking))
+	}
+}
+
+func TestRankingRequest_GetInvitationRankingWithEndTime(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		q := r.URL.Query()
+		if q.Get("end_time") != "2026-08-22T23:59:00.000+0800" {
+			t.Errorf("Unexpected end_time %q", q.Get("end_time"))
+		}
+		if q.Get("count") != "10" {
+			t.Errorf("Unexpected count %q", q.Get("count"))
+		}
+		if q.Get("with_extra") != "true" {
+			t.Errorf("Unexpected with_extra %q", q.Get("with_extra"))
+		}
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"succeeded": true,
+			"resp_data": map[string]interface{}{"ranking_list": []interface{}{}},
+		})
+	}))
+	defer server.Close()
+
+	client := httpclient.NewClient(httpclient.Config{
+		BaseURL: server.URL,
+		Token:   "test-token",
+		Timeout: 5 * time.Second,
+	})
+	withExtra := true
+	_, err := request.NewRankingRequest(client).GetInvitationRanking(
+		context.Background(),
+		15552841255452,
+		&request.InvitationRankingOptions{
+			BeginTime: "2026-08-22T00:00:00.000+0800",
+			EndTime:   "2026-08-22T23:59:00.000+0800",
+			Count:     10,
+			WithExtra: &withExtra,
+		},
+	)
+	if err != nil {
+		t.Fatalf("Expected no error, got %v", err)
 	}
 }

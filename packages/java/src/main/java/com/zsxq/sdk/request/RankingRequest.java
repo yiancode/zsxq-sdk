@@ -243,10 +243,10 @@ public class RankingRequest extends BaseRequest {
     }
 
     /**
-     * 获取邀请排行榜（带时间范围）
+     * 获取邀请排行榜（带查询参数）
      *
      * App 实际请求：GET /v2/groups/GROUP_ID/invitations/ranking_list，
-     * 查询参数为 begin_time 和 end_time。
+     * 查询参数为 begin_time、count、with_extra；自定义区间可额外传 end_time。
      *
      * @param groupId 星球ID
      * @param options 查询参数
@@ -334,11 +334,14 @@ public class RankingRequest extends BaseRequest {
     }
 
     /**
-     * 邀请排行榜查询参数
+     * 邀请排行榜查询参数。
+     * App 日/周/月榜：begin_time + count=10 + with_extra=true。
      */
     public static class InvitationRankingOptions {
         private String beginTime;
         private String endTime;
+        private Integer count;
+        private Boolean withExtra;
 
         public InvitationRankingOptions beginTime(String beginTime) {
             this.beginTime = beginTime;
@@ -350,10 +353,22 @@ public class RankingRequest extends BaseRequest {
             return this;
         }
 
+        public InvitationRankingOptions count(int count) {
+            this.count = count;
+            return this;
+        }
+
+        public InvitationRankingOptions withExtra(boolean withExtra) {
+            this.withExtra = withExtra;
+            return this;
+        }
+
         Map<String, Object> toMap() {
             Map<String, Object> map = new HashMap<>();
             if (beginTime != null) map.put("begin_time", beginTime);
             if (endTime != null) map.put("end_time", endTime);
+            if (count != null) map.put("count", count);
+            if (withExtra != null) map.put("with_extra", withExtra);
             return map;
         }
     }

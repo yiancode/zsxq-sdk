@@ -139,10 +139,11 @@ const scoreRanking = await client.ranking.getScoreRanking(groupId);
 // 获取我的积分统计
 const myStats = await client.ranking.getMyScoreStats(groupId);
 
-// 获取邀请排行榜（App 排行榜，可带时间范围）
+// 获取邀请排行榜（对齐 App：begin_time + count + with_extra）
 const invitationRanking = await client.ranking.getInvitationRanking(groupId, {
   begin_time: '2026-08-17T00:00:00.000+0800',
-  end_time: '2026-08-23T23:59:00.000+0800',
+  count: 10,
+  with_extra: true,
 });
 ```
 

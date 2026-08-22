@@ -228,7 +228,7 @@ ZSXQ_RETRY_COUNT=3          # 重试次数
 
 | SDK | 版本 | 包管理器 |
 |-----|------|----------|
-| Java | 1.3.0 | Maven Central |
+| Java | 1.3.1 | Maven Central |
 | TypeScript | 1.0.1 | npm |
 | Python | 1.0.1 | PyPI |
 | Go | - | go modules |

@@ -104,12 +104,19 @@ export interface ListRankingOptions {
 
 /**
  * 邀请排行榜查询参数
+ *
+ * App 日/周/月榜：begin_time + count=10 + with_extra=true。
+ * 自定义区间可额外传 end_time。
  */
 export interface InvitationRankingOptions {
   /** 开始时间，ISO 8601，如 2026-08-17T00:00:00.000+0800 */
   begin_time?: string;
-  /** 结束时间，ISO 8601，如 2026-08-23T23:59:00.000+0800 */
+  /** 结束时间，ISO 8601。自定义区间使用，App 日/周/月榜通常不传 */
   end_time?: string;
+  /** 返回条数。App 传 10 */
+  count?: number;
+  /** 是否返回额外信息。App 传 true */
+  with_extra?: boolean;
 }
 
 /**
@@ -990,15 +997,22 @@ export class RankingRequest extends BaseRequest {
    * 获取邀请排行榜
    *
    * App 实际请求：
-   * GET /v2/groups/{group_id}/invitations/ranking_list?begin_time=...&end_time=...
+   * GET /v2/groups/{group_id}/invitations/ranking_list?begin_time=...&count=10&with_extra=true
    */
   async getInvitationRanking(
     groupId: number | string,
     options?: InvitationRankingOptions,
   ): Promise<InvitationRankingItem[]> {
+    const params: Record<string, unknown> = {};
+    if (options) {
+      if (options.begin_time) params.begin_time = options.begin_time;
+      if (options.end_time) params.end_time = options.end_time;
+      if (options.count !== undefined) params.count = options.count;
+      if (options.with_extra !== undefined) params.with_extra = options.with_extra;
+    }
     const data = await this.httpClient.get<{ ranking_list: InvitationRankingItem[] }>(
       `/v2/groups/${groupId}/invitations/ranking_list`,
-      options as Record<string, unknown> | undefined,
+      Object.keys(params).length ? params : undefined,
     );
     return data.ranking_list ?? [];
   }

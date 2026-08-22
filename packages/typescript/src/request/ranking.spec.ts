@@ -42,22 +42,45 @@ describe('RankingRequest', () => {
       expect(result[0].member.number).toBe(120);
     });
 
-    it('传入 begin_time/end_time 作为查询参数', async () => {
+    it('传入 App 实际查询参数 begin_time/count/with_extra', async () => {
       mockHttpClient.get = jest.fn().mockResolvedValue({ ranking_list: [] });
 
       const result = await rankingRequest.getInvitationRanking(15552841255452, {
         begin_time: '2026-08-17T00:00:00.000+0800',
-        end_time: '2026-08-23T23:59:00.000+0800',
+        count: 10,
+        with_extra: true,
       });
 
       expect(mockHttpClient.get).toHaveBeenCalledWith(
         '/v2/groups/15552841255452/invitations/ranking_list',
         {
           begin_time: '2026-08-17T00:00:00.000+0800',
-          end_time: '2026-08-23T23:59:00.000+0800',
+          count: 10,
+          with_extra: true,
         },
       );
       expect(result).toEqual([]);
+    });
+
+    it('自定义区间可额外传 end_time', async () => {
+      mockHttpClient.get = jest.fn().mockResolvedValue({ ranking_list: [] });
+
+      await rankingRequest.getInvitationRanking(15552841255452, {
+        begin_time: '2026-08-22T00:00:00.000+0800',
+        end_time: '2026-08-22T23:59:00.000+0800',
+        count: 10,
+        with_extra: true,
+      });
+
+      expect(mockHttpClient.get).toHaveBeenCalledWith(
+        '/v2/groups/15552841255452/invitations/ranking_list',
+        {
+          begin_time: '2026-08-22T00:00:00.000+0800',
+          end_time: '2026-08-22T23:59:00.000+0800',
+          count: 10,
+          with_extra: true,
+        },
+      );
     });
   });
 });

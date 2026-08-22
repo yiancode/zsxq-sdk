@@ -82,9 +82,15 @@ class ListRankingOptions:
 
 @dataclass
 class InvitationRankingOptions:
-    """邀请排行榜查询参数（App 实际使用的时间范围）"""
+    """邀请排行榜查询参数。
+
+    App 日/周/月榜：begin_time + count=10 + with_extra=true。
+    自定义区间可额外传 end_time。
+    """
     begin_time: Optional[str] = None  # ISO 8601，如 2026-08-17T00:00:00.000+0800
     end_time: Optional[str] = None
+    count: Optional[int] = None
+    with_extra: Optional[bool] = None
 
 
 @dataclass
@@ -785,6 +791,10 @@ class RankingRequest:
                 params["begin_time"] = options.begin_time
             if options.end_time:
                 params["end_time"] = options.end_time
+            if options.count is not None:
+                params["count"] = options.count
+            if options.with_extra is not None:
+                params["with_extra"] = options.with_extra
 
         data = await self._client.get(
             f"/v2/groups/{group_id}/invitations/ranking_list", params or None

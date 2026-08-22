@@ -1244,10 +1244,13 @@ func (r *RankingRequest) GetScoreboardSettings(ctx context.Context, groupID int6
 	return &resp, nil
 }
 
-// InvitationRankingOptions 邀请排行榜查询参数
+// InvitationRankingOptions 邀请排行榜查询参数。
+// App 日/周/月榜：BeginTime + Count=10 + WithExtra=true。
 type InvitationRankingOptions struct {
 	BeginTime string // ISO 8601，如 2026-08-17T00:00:00.000+0800
 	EndTime   string
+	Count     int
+	WithExtra *bool
 }
 
 // invitationRankingResponse 邀请排行榜响应
@@ -1264,6 +1267,12 @@ func (r *RankingRequest) GetInvitationRanking(ctx context.Context, groupID int64
 		}
 		if opts.EndTime != "" {
 			params.Set("end_time", opts.EndTime)
+		}
+		if opts.Count > 0 {
+			params.Set("count", strconv.Itoa(opts.Count))
+		}
+		if opts.WithExtra != nil {
+			params.Set("with_extra", strconv.FormatBool(*opts.WithExtra))
 		}
 	}
 

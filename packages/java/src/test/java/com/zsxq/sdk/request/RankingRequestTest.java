@@ -371,7 +371,8 @@ class RankingRequestTest {
 
         RankingRequest.InvitationRankingOptions options = new RankingRequest.InvitationRankingOptions()
             .beginTime("2026-08-17T00:00:00.000+0800")
-            .endTime("2026-08-23T23:59:00.000+0800");
+            .count(10)
+            .withExtra(true);
 
         List<InvitationRankingItem> ranking = rankingRequest.getInvitationRanking(15552841255452L, options);
 
@@ -379,7 +380,32 @@ class RankingRequestTest {
         String path = mockServer.takeRequest().getPath();
         assertTrue(path.contains("/v2/groups/15552841255452/invitations/ranking_list"));
         assertTrue(path.contains("begin_time=2026-08-17T00:00:00.000%2B0800") || path.contains("begin_time=2026-08-17"));
+        assertTrue(path.contains("count=10"));
+        assertTrue(path.contains("with_extra=true"));
+    }
+
+    @Test
+    void testGetInvitationRankingWithEndTime() throws InterruptedException {
+        Map<String, Object> respData = new HashMap<>();
+        respData.put("ranking_list", List.of());
+
+        mockServer.enqueue(new MockResponse()
+            .setResponseCode(200)
+            .setBody(gson.toJson(createSuccessResponse(respData)))
+            .setHeader("Content-Type", "application/json"));
+
+        RankingRequest.InvitationRankingOptions options = new RankingRequest.InvitationRankingOptions()
+            .beginTime("2026-08-22T00:00:00.000+0800")
+            .endTime("2026-08-22T23:59:00.000+0800")
+            .count(10)
+            .withExtra(true);
+
+        rankingRequest.getInvitationRanking(15552841255452L, options);
+
+        String path = mockServer.takeRequest().getPath();
         assertTrue(path.contains("end_time="));
+        assertTrue(path.contains("count=10"));
+        assertTrue(path.contains("with_extra=true"));
     }
 
     @Test

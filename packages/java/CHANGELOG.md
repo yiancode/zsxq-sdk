@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] - 2026-08-22
+
+### Changed
+- `getInvitationRanking()` 对齐 App 查询参数：`begin_time` + `count` + `with_extra`；自定义区间仍可传 `end_time`
+
 ## [1.3.0] - 2026-08-22
 
 ### Added

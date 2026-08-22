@@ -573,7 +573,9 @@ paths:
       operationId: getInvitationRanking
       summary: 获取邀请排行榜
       description: |
-        对应 App 邀请排行。时间范围为东八区 ISO 8601，
+        对应 App 邀请排行（日榜/周榜/月榜/自定义共用此接口）。
+        App 实际查询参数为 begin_time、count、with_extra。
+        自定义区间可额外传 end_time。时间值为东八区 ISO 8601，
         例如 begin_time=2026-08-17T00:00:00.000+0800。
       parameters:
         - $ref: '#/components/parameters/groupId'
@@ -585,10 +587,22 @@ paths:
             example: '2026-08-17T00:00:00.000+0800'
         - name: end_time
           in: query
-          description: 统计结束时间，ISO 8601
+          description: 统计结束时间，ISO 8601。自定义区间使用，App 日/周/月榜通常不传
           schema:
             type: string
             example: '2026-08-23T23:59:00.000+0800'
+        - name: count
+          in: query
+          description: 返回条数。App 传 10
+          schema:
+            type: integer
+            example: 10
+        - name: with_extra
+          in: query
+          description: 是否返回额外信息。App 传 true
+          schema:
+            type: boolean
+            example: true
       responses:
         '200':
           description: 成功
