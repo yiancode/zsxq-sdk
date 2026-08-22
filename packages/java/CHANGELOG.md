@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-08-22
+
+### Added
+- `InvitationRankingItem` 模型（`member` / `rankings` / `inviteesCount`），不再复用积分排行 `RankingItem`
+- `getInvitationRanking()` 支持 `begin_time` / `end_time` 时间范围
+- `RankingRequest.InvitationRankingOptions` 查询参数
+
+### Changed
+- `getInvitationRanking()` 返回类型从 `List<RankingItem>` 改为 `List<InvitationRankingItem>`
+- 邀请排行接口对齐 App：`GET /v2/groups/{group_id}/invitations/ranking_list`
+
 ## [1.2.4] - 2025-12-28
 
 ### Fixed

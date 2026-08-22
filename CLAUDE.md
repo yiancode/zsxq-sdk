@@ -90,7 +90,8 @@ ZsxqClient (门面)
 ├── users       → 用户管理 (/v3/users/*)
 ├── checkins    → 打卡管理 (/v2/groups/*/checkins/*)
 ├── dashboard   → 数据面板 (/v2/dashboard/*)
-└── ranking     → 排行榜系统 (/v2/groups/*/ranking/*)
+├── ranking     → 排行榜系统 (/v2/groups/*/ranking/*)
+└── misc        → 杂项功能 (PK对战、URL解析等)
 ```
 
 ### 核心组件
@@ -221,7 +222,16 @@ ZSXQ_RETRY_COUNT=3          # 重试次数
 
 ## API 测试状态
 
-查看 `docs/TESTING_STATUS.md` 了解各接口的测试覆盖情况。当前有效覆盖率 **85.5%**（59/69 接口已测试，7 个 API 已废弃不计入）。
+查看 `docs/TESTING_STATUS.md` 了解各接口的测试覆盖情况。当前有效覆盖率约 **85%+**（59+ 接口已测试，7 个 API 已废弃不计入）。
+
+### 当前 SDK 版本
+
+| SDK | 版本 | 包管理器 |
+|-----|------|----------|
+| Java | 1.3.0 | Maven Central |
+| TypeScript | 1.0.1 | npm |
+| Python | 1.0.1 | PyPI |
+| Go | - | go modules |
 
 ## 跨语言开发注意事项
 

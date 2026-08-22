@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 邀请排行榜项目
  *
- * App: GET /v2/groups/{group_id}/invitations/ranking_list
+ * App: GET /v2/groups/GROUP_ID/invitations/ranking_list
  */
 @Data
 public class InvitationRankingItem {

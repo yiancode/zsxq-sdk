@@ -245,8 +245,8 @@ public class RankingRequest extends BaseRequest {
     /**
      * 获取邀请排行榜（带时间范围）
      *
-     * App 实际请求：
-     * GET /v2/groups/{group_id}/invitations/ranking_list?begin_time=...&end_time=...
+     * App 实际请求：GET /v2/groups/GROUP_ID/invitations/ranking_list，
+     * 查询参数为 begin_time 和 end_time。
      *
      * @param groupId 星球ID
      * @param options 查询参数
