@@ -10,14 +10,14 @@
 <dependency>
     <groupId>io.github.yiancode</groupId>
     <artifactId>zsxq-sdk</artifactId>
-    <version>1.3.1</version>
+    <version>1.3.2</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```groovy
-implementation 'io.github.yiancode:zsxq-sdk:1.3.1'
+implementation 'io.github.yiancode:zsxq-sdk:1.3.2'
 ```
 
 ---

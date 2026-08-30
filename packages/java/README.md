@@ -21,14 +21,14 @@
 <dependency>
     <groupId>io.github.yiancode</groupId>
     <artifactId>zsxq-sdk</artifactId>
-    <version>1.3.1</version>
+    <version>1.3.2</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```groovy
-implementation 'io.github.yiancode:zsxq-sdk:1.3.1'
+implementation 'io.github.yiancode:zsxq-sdk:1.3.2'
 ```
 
 ## 快速开始
@@ -100,6 +100,7 @@ CheckinsRequest.CreateCheckinParams params = new CheckinsRequest.CreateCheckinPa
     .checkinDays(7)                // 打卡天数
     .type("accumulated")           // 打卡类型: accumulated(累计) / continuous(连续)
     .showTopicsOnTimeline(false)   // 是否在时间线展示
+    .minWordsCount(0)              // 最低字数，0 表示无限制
     .expirationTime("2025-12-31T23:59:59.000+0800");  // 截止时间
 
 Checkin checkin = client.checkins().create(groupId, params);

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.2] - 2026-08-31
+
+### Added
+- `CreateCheckinParams.minWordsCount()` / `Checkin.minWordsCount`：对齐 App 创建打卡字段 `min_words_count`（0 表示无限制）
+
 ## [1.3.1] - 2026-08-22
 
 ### Changed
