@@ -512,6 +512,7 @@ public class CheckinsRequest extends BaseRequest {
      *     "checkin_days": 7,
      *     "type": "accumulated",
      *     "show_topics_on_timeline": false,
+     *     "min_words_count": 0,
      *     "validity": {
      *       "long_period": false,
      *       "expiration_time": "2025-12-24T23:59:59.798+0800"
@@ -525,6 +526,7 @@ public class CheckinsRequest extends BaseRequest {
         private Integer checkinDays;
         private String type;  // "accumulated" (累计打卡) | "continuous" (连续打卡)
         private Boolean showTopicsOnTimeline;
+        private Integer minWordsCount;
         private Validity validity;
 
         /**
@@ -569,6 +571,14 @@ public class CheckinsRequest extends BaseRequest {
         }
 
         /**
+         * 设置最低字数，0 表示无限制
+         */
+        public CreateCheckinParams minWordsCount(int minWordsCount) {
+            this.minWordsCount = minWordsCount;
+            return this;
+        }
+
+        /**
          * 设置有效期
          */
         public CreateCheckinParams validity(Validity validity) {
@@ -603,6 +613,7 @@ public class CheckinsRequest extends BaseRequest {
             if (checkinDays != null) map.put("checkin_days", checkinDays);
             if (type != null) map.put("type", type);
             if (showTopicsOnTimeline != null) map.put("show_topics_on_timeline", showTopicsOnTimeline);
+            if (minWordsCount != null) map.put("min_words_count", minWordsCount);
             if (validity != null) map.put("validity", validity.toMap());
             return map;
         }
@@ -652,6 +663,7 @@ public class CheckinsRequest extends BaseRequest {
         private String endTime;
         private String rules;
         private String status;
+        private Integer minWordsCount;
 
         public UpdateCheckinParams name(String name) {
             this.name = name;
@@ -678,6 +690,11 @@ public class CheckinsRequest extends BaseRequest {
             return this;
         }
 
+        public UpdateCheckinParams minWordsCount(int minWordsCount) {
+            this.minWordsCount = minWordsCount;
+            return this;
+        }
+
         Map<String, Object> toMap() {
             Map<String, Object> map = new HashMap<>();
             if (name != null) map.put("name", name);
@@ -685,6 +702,7 @@ public class CheckinsRequest extends BaseRequest {
             if (endTime != null) map.put("end_time", endTime);
             if (rules != null) map.put("rules", rules);
             if (status != null) map.put("status", status);
+            if (minWordsCount != null) map.put("min_words_count", minWordsCount);
             return map;
         }
     }

@@ -28,6 +28,7 @@ class HttpConfig:
     retry_delay: float = 1.0
     device_id: str = ""
     app_version: str = "2.83.0"
+    disable_signature: bool = False
 
     def __post_init__(self):
         if not self.device_id:
@@ -85,15 +86,16 @@ class HttpClient:
         """构建请求头"""
         timestamp = str(int(time.time()))
         request_id = str(uuid.uuid4())
-        signature = self._generate_signature(timestamp, method, path, body)
-
         headers = {
             "authorization": self.config.token,
             "x-timestamp": timestamp,
-            "x-signature": signature,
             "x-request-id": request_id,
             "x-aduid": self.config.device_id,
         }
+        if not self.config.disable_signature:
+            headers["x-signature"] = self._generate_signature(
+                timestamp, method, path, body
+            )
 
         return headers, request_id
 

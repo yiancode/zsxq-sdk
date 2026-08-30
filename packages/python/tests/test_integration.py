@@ -12,6 +12,12 @@ import pytest
 from typing import Optional
 
 from zsxq import ZsxqClientBuilder, ZsxqClient
+from zsxq.request import (
+    CreateCheckinParams,
+    UpdateCheckinParams,
+    CheckinValidity,
+    ListCheckinsOptions,
+)
 
 # 跳过条件：没有设置环境变量
 ZSXQ_TOKEN = os.environ.get("ZSXQ_TOKEN")
@@ -637,3 +643,63 @@ class TestAdvancedGroupFeatures:
                 print(f"   - 风险预警: {warning}")
             else:
                 print("   - 无风险预警")
+
+
+# ========== 打卡创建端到端（写操作）==========
+
+ZSXQ_TEST_CREATE = os.environ.get("ZSXQ_TEST_CREATE") == "true"
+
+
+@pytest.mark.asyncio
+class TestCreateCheckinE2E:
+    """创建打卡挑战端到端：创建 → 详情/列表核对 → 关闭。"""
+
+    @pytest.mark.skipif(not ZSXQ_TEST_CREATE, reason="需要 ZSXQ_TEST_CREATE=true")
+    async def test_create_get_list_close_min_words_count(
+        self, client: ZsxqClient, group_id: int
+    ):
+        title = "SDK-E2E-最低字数"
+        min_words = 50
+        created = await client.checkins.create(
+            group_id,
+            CreateCheckinParams(
+                title=title,
+                text="端到端测试：最低字数 50，累计 21 天，长期有效，仅展示到打卡挑战内。",
+                checkin_days=21,
+                type="accumulated",
+                show_topics_on_timeline=False,
+                min_words_count=min_words,
+                validity=CheckinValidity(long_period=True),
+            ),
+        )
+        assert created is not None
+        assert created.checkin_id
+        assert created.name == title or created.title == title
+        print(f"✅ 创建打卡 ID={created.checkin_id} title={created.title or created.name}")
+
+        checkin_id = created.checkin_id
+        try:
+            detail = await client.checkins.get(group_id, checkin_id)
+            assert detail.min_words_count == min_words
+            assert detail.type == "accumulated"
+            assert detail.checkin_days == 21
+            assert detail.show_topics_on_timeline is False
+            print(
+                f"✅ 详情核对 min_words_count={detail.min_words_count} "
+                f"type={detail.type} days={detail.checkin_days}"
+            )
+
+            listed = await client.checkins.list(
+                group_id, ListCheckinsOptions(scope="ongoing", count=20)
+            )
+            match = next((c for c in listed if c.checkin_id == checkin_id), None)
+            assert match is not None, "进行中列表未找到刚创建的打卡"
+            assert match.min_words_count == min_words
+            print(f"✅ 列表核对 min_words_count={match.min_words_count}")
+        finally:
+            closed = await client.checkins.update(
+                group_id, checkin_id, UpdateCheckinParams(status="closed")
+            )
+            assert closed is not None
+            print(f"✅ 已关闭打卡 status={closed.status}")
+

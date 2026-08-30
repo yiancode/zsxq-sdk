@@ -13,6 +13,9 @@ from zsxq.request import (
     ListCheckinsOptions,
     ListRankingOptions,
     ListActivitiesOptions,
+    CreateCheckinParams,
+    UpdateCheckinParams,
+    CheckinValidity,
 )
 from zsxq.http import HttpClient
 
@@ -669,3 +672,28 @@ async def test_misc_parse_url(misc_request, mock_http_client):
     mock_http_client.get.assert_called_once_with("/v2/url_details", {"url": "https://example.com"})
     assert detail.url == "https://example.com"
     assert detail.title == "Example Domain"
+
+
+def test_create_checkin_params_min_words_count():
+    """创建打卡请求应带上最低字数 min_words_count（0 表示无限制）"""
+    params = CreateCheckinParams(
+        title="测试打卡",
+        text="规则说明",
+        checkin_days=21,
+        type="accumulated",
+        show_topics_on_timeline=False,
+        min_words_count=0,
+        validity=CheckinValidity(long_period=True),
+    )
+    body = params.to_dict()
+    assert body["title"] == "测试打卡"
+    assert body["checkin_days"] == 21
+    assert body["type"] == "accumulated"
+    assert body["show_topics_on_timeline"] is False
+    assert body["min_words_count"] == 0
+    assert body["validity"]["long_period"] is True
+
+
+def test_update_checkin_params_min_words_count():
+    params = UpdateCheckinParams(min_words_count=100)
+    assert params.to_dict() == {"min_words_count": 100}

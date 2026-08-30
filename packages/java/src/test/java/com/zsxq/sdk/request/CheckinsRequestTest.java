@@ -317,6 +317,7 @@ class CheckinsRequestTest {
         assertEquals(7, map.get("checkin_days"));
         assertEquals("accumulated", map.get("type"));
         assertEquals(false, map.get("show_topics_on_timeline"));
+        assertNull(map.get("min_words_count"));
 
         @SuppressWarnings("unchecked")
         Map<String, Object> validity = (Map<String, Object>) map.get("validity");
@@ -367,6 +368,24 @@ class CheckinsRequestTest {
         assertNotNull(validity);
         assertEquals(false, validity.get("long_period"));
         assertEquals("2026-01-01T00:00:00.000+0800", validity.get("expiration_time"));
+    }
+
+    @Test
+    void testCreateCheckinParamsMinWordsCount() {
+        CheckinsRequest.CreateCheckinParams params = new CheckinsRequest.CreateCheckinParams()
+                .title("测试打卡")
+                .text("规则说明")
+                .checkinDays(21)
+                .type("accumulated")
+                .showTopicsOnTimeline(false)
+                .minWordsCount(0)
+                .longPeriod();
+
+        Map<String, Object> map = params.toMap();
+        assertEquals("测试打卡", map.get("title"));
+        assertEquals(21, map.get("checkin_days"));
+        assertEquals(0, map.get("min_words_count"));
+        assertEquals(false, map.get("show_topics_on_timeline"));
     }
 
     @Test

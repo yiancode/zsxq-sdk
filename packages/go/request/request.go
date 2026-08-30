@@ -971,6 +971,7 @@ type CheckinValidity struct {
 //	    "checkin_days": 7,
 //	    "type": "accumulated",
 //	    "show_topics_on_timeline": false,
+//	    "min_words_count": 0,
 //	    "validity": {
 //	      "long_period": false,
 //	      "expiration_time": "2025-12-24T23:59:59.798+0800"
@@ -988,6 +989,8 @@ type CreateCheckinParams struct {
 	Type string `json:"type"`
 	// ShowTopicsOnTimeline 是否在时间线展示
 	ShowTopicsOnTimeline bool `json:"show_topics_on_timeline,omitempty"`
+	// MinWordsCount 最低字数，0 表示无限制
+	MinWordsCount *int `json:"min_words_count,omitempty"`
 	// Validity 有效期配置
 	Validity *CheckinValidity `json:"validity,omitempty"`
 }
@@ -1043,6 +1046,8 @@ type UpdateCheckinParams struct {
 	Type string `json:"type,omitempty"`
 	// ShowTopicsOnTimeline 是否在时间线展示
 	ShowTopicsOnTimeline *bool `json:"show_topics_on_timeline,omitempty"`
+	// MinWordsCount 最低字数，0 表示无限制
+	MinWordsCount *int `json:"min_words_count,omitempty"`
 	// Validity 有效期配置
 	Validity *CheckinValidity `json:"validity,omitempty"`
 	// Status 打卡状态

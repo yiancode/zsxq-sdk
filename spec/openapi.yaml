@@ -221,6 +221,25 @@ components:
         end_time:
           type: string
           format: date-time
+        title:
+          type: string
+          description: 打卡挑战标题
+        text:
+          type: string
+          description: 规则说明
+        type:
+          type: string
+          enum: [accumulated, continuous]
+          description: 累计打卡 / 连续打卡
+        checkin_days:
+          type: integer
+          description: 累计或连续打卡天数
+        show_topics_on_timeline:
+          type: boolean
+          description: 是否展示到星球时间线
+        min_words_count:
+          type: integer
+          description: 最低字数，0 表示无限制
       required:
         - checkin_id
         - name
@@ -518,6 +537,54 @@ paths:
           schema:
             type: string
             enum: [ongoing, closed, over]
+      responses:
+        '200':
+          description: 成功
+    post:
+      tags: [Checkins]
+      operationId: createCheckin
+      summary: 创建打卡挑战
+      parameters:
+        - $ref: '#/components/parameters/groupId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                req_data:
+                  type: object
+                  required: [title, checkin_days, type]
+                  properties:
+                    title:
+                      type: string
+                      description: 打卡挑战标题
+                    text:
+                      type: string
+                      description: 规则说明
+                    checkin_days:
+                      type: integer
+                      description: 累计或连续打卡天数
+                    type:
+                      type: string
+                      enum: [accumulated, continuous]
+                      description: accumulated 累计打卡 / continuous 连续打卡
+                    show_topics_on_timeline:
+                      type: boolean
+                      description: 是否展示到星球时间线；false 表示仅展示到打卡挑战内
+                    min_words_count:
+                      type: integer
+                      description: 最低字数，0 表示无限制
+                    validity:
+                      type: object
+                      properties:
+                        long_period:
+                          type: boolean
+                          description: 是否长期有效
+                        expiration_time:
+                          type: string
+                          description: 截止时间，ISO 8601，如 2026-08-31T23:59:59.000+0800
       responses:
         '200':
           description: 成功

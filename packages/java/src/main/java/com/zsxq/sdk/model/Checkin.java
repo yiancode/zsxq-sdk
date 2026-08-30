@@ -39,4 +39,11 @@ public class Checkin {
 
     @SerializedName("end_time")
     private String endTime;
+
+    /**
+     * 最低字数，0 表示无限制
+     * API 字段名: min_words_count
+     */
+    @SerializedName("min_words_count")
+    private Integer minWordsCount;
 }

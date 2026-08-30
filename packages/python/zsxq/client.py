@@ -26,6 +26,7 @@ class ZsxqConfig:
     retry_delay: float = 1.0
     device_id: str = field(default_factory=lambda: str(uuid.uuid4()))
     app_version: str = "2.83.0"
+    disable_signature: bool = False
 
 
 class ZsxqClient:
@@ -52,6 +53,7 @@ class ZsxqClient:
             retry_delay=config.retry_delay,
             device_id=config.device_id,
             app_version=config.app_version,
+            disable_signature=config.disable_signature,
         )
         self._http_client = HttpClient(http_config)
 
@@ -94,6 +96,7 @@ class ZsxqClientBuilder:
         self._retry_delay: float = 1.0
         self._device_id: str = str(uuid.uuid4())
         self._app_version: str = "2.83.0"
+        self._disable_signature: bool = False
 
     def set_token(self, token: str) -> "ZsxqClientBuilder":
         """设置认证 Token（必需）"""
@@ -137,6 +140,11 @@ class ZsxqClientBuilder:
         self._app_version = version
         return self
 
+    def set_disable_signature(self, disable: bool = True) -> "ZsxqClientBuilder":
+        """禁用请求签名（仅用于测试）"""
+        self._disable_signature = disable
+        return self
+
     def build(self) -> ZsxqClient:
         """构建 ZsxqClient 实例"""
         if not self._token:
@@ -150,6 +158,7 @@ class ZsxqClientBuilder:
             retry_delay=self._retry_delay,
             device_id=self._device_id,
             app_version=self._app_version,
+            disable_signature=self._disable_signature,
         )
 
         return ZsxqClient(config)

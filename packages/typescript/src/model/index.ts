@@ -153,6 +153,13 @@ export interface Checkin {
   create_time: string;
   begin_time: string;
   end_time: string;
+  title?: string;
+  text?: string;
+  type?: 'accumulated' | 'continuous';
+  checkin_days?: number;
+  show_topics_on_timeline?: boolean;
+  /** 最低字数，0 表示无限制 */
+  min_words_count?: number;
 }
 
 /**

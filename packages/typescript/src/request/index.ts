@@ -160,6 +160,7 @@ export interface CheckinValidity {
  *     "checkin_days": 7,
  *     "type": "accumulated",
  *     "show_topics_on_timeline": false,
+ *     "min_words_count": 0,
  *     "validity": {
  *       "long_period": false,
  *       "expiration_time": "2025-12-24T23:59:59.798+0800"
@@ -178,6 +179,8 @@ export interface CreateCheckinParams {
   type: 'accumulated' | 'continuous';
   /** 是否在时间线展示 */
   show_topics_on_timeline?: boolean;
+  /** 最低字数，0 表示无限制 */
+  min_words_count?: number;
   /** 有效期配置 */
   validity?: CheckinValidity;
 }
@@ -196,6 +199,8 @@ export interface UpdateCheckinParams {
   type?: 'accumulated' | 'continuous';
   /** 是否在时间线展示 */
   show_topics_on_timeline?: boolean;
+  /** 最低字数，0 表示无限制 */
+  min_words_count?: number;
   /** 有效期配置 */
   validity?: CheckinValidity;
   /** 打卡状态 */

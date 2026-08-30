@@ -53,7 +53,7 @@ class Group(BaseModel):
     name: str
     description: str = ""
     background_url: str = ""
-    type: GroupType
+    type: Optional[GroupType] = None
     member_count: Optional[int] = None
     owner: Optional[User] = None
     create_time: str = ""
@@ -188,6 +188,25 @@ class Checkin(BaseModel):
     create_time: str = ""
     begin_time: str = ""
     end_time: str = ""
+    title: Optional[str] = None
+    text: Optional[str] = None
+    type: Optional[str] = None
+    checkin_days: Optional[int] = None
+    show_topics_on_timeline: Optional[bool] = None
+    min_words_count: Optional[int] = None  # 最低字数，0 表示无限制
+
+    @model_validator(mode="before")
+    @classmethod
+    def handle_title_text(cls, data):
+        """兼容 API 的 title/text 与历史 name/description 字段"""
+        if isinstance(data, dict):
+            if "title" in data and "name" not in data:
+                data["name"] = data["title"]
+            if "text" in data and not data.get("description"):
+                data["description"] = data["text"]
+            if "name" in data and "title" not in data:
+                data["title"] = data["name"]
+        return data
 
 
 class CheckinStatistics(BaseModel):

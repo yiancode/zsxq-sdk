@@ -112,6 +112,7 @@ class CreateCheckinParams:
         "checkin_days": 7,
         "type": "accumulated",
         "show_topics_on_timeline": false,
+        "min_words_count": 0,
         "validity": {
           "long_period": false,
           "expiration_time": "2025-12-24T23:59:59.798+0800"
@@ -124,6 +125,7 @@ class CreateCheckinParams:
     type: str  # 打卡类型: accumulated(累计打卡) / continuous(连续打卡)
     text: Optional[str] = None  # 训练营描述
     show_topics_on_timeline: Optional[bool] = None  # 是否在时间线展示
+    min_words_count: Optional[int] = None  # 最低字数，0 表示无限制
     validity: Optional[CheckinValidity] = None  # 有效期配置
 
     def to_dict(self) -> Dict[str, Any]:
@@ -137,6 +139,8 @@ class CreateCheckinParams:
             result["text"] = self.text
         if self.show_topics_on_timeline is not None:
             result["show_topics_on_timeline"] = self.show_topics_on_timeline
+        if self.min_words_count is not None:
+            result["min_words_count"] = self.min_words_count
         if self.validity is not None:
             validity_dict: Dict[str, Any] = {}
             if self.validity.long_period is not None:
@@ -155,6 +159,7 @@ class UpdateCheckinParams:
     checkin_days: Optional[int] = None
     type: Optional[str] = None
     show_topics_on_timeline: Optional[bool] = None
+    min_words_count: Optional[int] = None  # 最低字数，0 表示无限制
     validity: Optional[CheckinValidity] = None
     status: Optional[str] = None
 
@@ -171,6 +176,8 @@ class UpdateCheckinParams:
             result["type"] = self.type
         if self.show_topics_on_timeline is not None:
             result["show_topics_on_timeline"] = self.show_topics_on_timeline
+        if self.min_words_count is not None:
+            result["min_words_count"] = self.min_words_count
         if self.validity is not None:
             validity_dict: Dict[str, Any] = {}
             if self.validity.long_period is not None:
@@ -654,6 +661,7 @@ class CheckinsRequest:
                 text="持续学习，每天进步",
                 checkin_days=21,
                 type="accumulated",
+                min_words_count=0,
                 validity=CheckinValidity(long_period=True)
             )
             checkin = await client.checkins.create(group_id, params)
